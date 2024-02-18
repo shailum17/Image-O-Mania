@@ -1,0 +1,113 @@
+body {
+    background-image: url(https://th.bing.com/th/id/R.c797da676cdd2132dcfd47152c094d95?rik=7v7tOWLfrjFX4g&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f2%2f6%2f4%2f287504.jpg&ehk=1zrC0i38EoA71gdt0mBRO8qg8eBYb31jTZmjE4jKqnM%3d&risl=&pid=ImgRaw&r=0);
+    background-size: 100%;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+form {
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    text-align: center;
+    height: 50px;
+    margin: auto;
+    background: rgb(248, 174, 174);
+    border-radius: 30px;
+
+    
+}
+
+form input {
+    flex: 1;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    color :black;
+    padding: 0 30px;
+    font-size: 15px;
+    border-radius: 30px;
+    background: transparent;
+    
+}
+form button{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0 40px;
+    height: 100%;
+    width: auto;
+    cursor: pointer;
+    background: rgb(229, 164, 164);
+    color: rgb(0, 0, 0);
+    outline: 10%;
+    font-size: 15px;
+    border: 0;
+    outline:0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-radius: 30px;
+    text-align: center;
+    
+    
+}
+form button:hover {
+    background: rgb(255, 0, 0); 
+    color: rgb(255, 255, 255); 
+}
+/* adding shining effect with cursor */ 
+
+
+/* shining effect close */ 
+::placeholder{
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#show-more-btn{
+    background: rgb(229, 164, 164);
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border:0;
+    outline: 0;
+    border-radius: 30px;
+    padding: 10px 20px;
+    text-align: center;
+    margin: 10px auto 100px;
+    cursor: pointer;
+    display: none;
+}
+#show-more-btn:hover{
+    background: rgb(255, 0, 0); 
+    color: rgb(255, 255, 255);
+}
+#search-result{
+    width: 90%;
+    margin: 100px auto 50px;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-gap: 100px;
+    display: grid;
+
+}
+#search-result img{
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+footer{
+    background: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 371px;
+    
+    
+}
