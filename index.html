@@ -1,28 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Adding name to the website -->
-    <title>Image Search Engine</title>
-    <!-- Adding style sheet -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Adding Favicon for the website -->
-    <link rel="icon" type="image/png" href="Favicon.jpeg">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ImageOmania – AI Image Search Engine</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/footer-style.css">
 </head>
 <body>
-    <header>
-        <h1>Image Generate Engine</h1> <!-- Adding the heading -->
-    </header>
-    
-    <form id="search-form">
-        <input type="text" id="search-box" placeholder="Search your image">
-        <button>Search</button>
-    </form>
-    <div id="search-result"></div>
-    <button id="show-more-btn">Show More</button>
-    <script src="script.js"></script>
-    <footer> All the images are rendering from the unsplash.com</footer>
+
+  <!-- Header (Loaded via JS) -->
+  <div id="header"></div>
+
+  <!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content container">
+    <div class="text-content">
+      <h1>Navigating the digital landscape for success</h1>
+      <p>
+        Our image search engine helps creators, designers, and developers find the perfect visuals instantly using AI-powered search from Unsplash API.
+      </p>
+      <a href="Search.html">
+        <button>Start Searching</button>
+      </a>
+    </div>
+    <div class="image-content">
+      <img src="../Assets/Landingpage.svg" alt="Digital megaphone illustration">
+    </div>
+  </div>
+</section>
+
+
+    <!-- Feature Section: Find What You Need -->
+  <section class="feature-section container">
+    <div class="feature-content">
+      <div class="feature-image">
+        <img src="../Assets/find.svg" alt="Find Illustration" />
+      </div>
+      <div class="feature-text">
+        <span class="tag">Why ImageOmania?</span>
+        <h2>Find the Right Images Faster & Smarter</h2>
+        <p>
+          ImageOmania lets you search through a vast library of high-quality visuals using smart AI filters and contextual relevance.
+        </p>
+        <ul>
+          <li><span>✔</span> Smart tags and category sorting</li>
+          <li><span>✔</span> Fast loading and HD downloads</li>
+          <li><span>✔</span> Free for commercial & personal use</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <!-- <footer>
+    <p>&copy; 2025 imageOmania. All rights reserved.</p>
+    <p>Made with ❤️ for creative minds searching the perfect image</p>
+  </footer> -->
+  <div id="footer"></div>
+  <script src="script.js"></script>
 </body>
 </html>
