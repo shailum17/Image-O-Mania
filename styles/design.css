@@ -1,0 +1,90 @@
+/* Reset & Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Section */
+.design-section {
+  max-width: 1400px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+/* Title */
+.design-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* Gallery */
+.design-gallery {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .design-gallery {
+    column-count: 2;
+  }
+}
+@media (min-width: 900px) {
+  .design-gallery {
+    column-count: 3;
+  }
+}
+@media (min-width: 1200px) {
+  .design-gallery {
+    column-count: 4;
+  }
+}
+
+/* Images */
+.design-gallery img {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  break-inside: avoid;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.design-gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+
+
+/* Category Buttons */
+.category-buttons {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.category-buttons button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background-color: #eee;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.category-buttons button:hover,
+.category-buttons button.active {
+  background-color: #333;
+  color: white;
+}

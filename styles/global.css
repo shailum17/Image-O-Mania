@@ -1,0 +1,5 @@
+html {
+  -webkit-text-size-adjust: 100%; /* Safari and older iOS */
+  -ms-text-size-adjust: 100%;     /* Old IE/Edge (optional) */
+  text-size-adjust: 100%;         /* Modern spec-compliant browsers */
+}
