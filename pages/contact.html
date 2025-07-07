@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Me - imageOmania</title>
+  <link rel="stylesheet" href="../styles/contact.css" />
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+  <div id="header"></div>
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-left">
+        <h1>Let's talk about everything!</h1>
+        <p>Contact about Queries and Contributions</p>
+        <p>If form doesn't work mail to "shailendramourya17@gmail.com"</p>
+        <img src="../Assets/contact/contact-image.png" alt="Contact Illustration" />
+      </div>
+      <div class="contact-right">
+        <form action="https://formspree.io/f/movwzzey" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Your name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="subject" placeholder="Subject" />
+  <textarea name="message" placeholder="Write your message" rows="6" required></textarea>
+
+  <!-- Optional image upload -->
+  <label style="margin: 8px 0; display: block;">Optional Image Upload:</label>
+  <input type="file" name="image" accept="image/*" />
+
+  <button type="submit">Send Message</button>
+</form>
+
+      </div>
+    </div>
+  </section>
+  <div id="footer"></div>
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #89f594;
+}
+
+.contact-section {
+  padding: 60px 40px;
+}
+
+.contact-container {
+  display: flex;
+  max-width: 900px;
+  padding: 40px;
+  margin: auto;
+  gap: 80px;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-left {
+  flex: 1 1 50%;
+}
+
+.contact-left h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+    color: #73e55c;
+}
+
+.contact-left p {
+  color: #090909;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.contact-left img {
+  width: 300px;       /* You can change this value */
+  height: auto;
+  margin-top: 20px;
+}
+
+
+.contact-right {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-right input,
+.contact-right textarea {
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  background: #f3f3f3;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.contact-right button {
+  padding: 12px 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-right button:hover {
+  background: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-right {
+    width: 100%;
+  }
+}
