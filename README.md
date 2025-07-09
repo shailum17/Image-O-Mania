@@ -11,12 +11,12 @@ You can also contribute your design to my website for increasing the design gala
 imageOmania/
 ├── Assets/
 │   ├── contact/
-│   └── my_Designs/
-│       ├── Background.jpg
-│       ├── find.svg
-│       ├── foo.jpg
-│       ├── footer-forest.jpg
-│       └── Landingpage.svg
+│   ├── my_Designs/
+│   ├── contact.html
+│   ├── find.svg
+│   ├── foo.jpg
+│   ├── footer-forest.jpg
+│   └── Landingpage.svg
 │
 ├── pages/
 │   ├── about.html
@@ -38,9 +38,9 @@ imageOmania/
 │   ├── search-style.css
 │   └── style.css
 │
-├── animation.js
 ├── index.html
-└── script.js
+├── README.md
+
 ```
 
 ---
