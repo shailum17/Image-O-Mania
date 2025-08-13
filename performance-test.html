@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Test - ImageOmania</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        .metric { background: #e8f5e8; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #7FFF00; }
+        .metric h3 { margin: 0 0 10px 0; color: #333; }
+        .metric .value { font-size: 24px; font-weight: bold; color: #7FFF00; }
+        .metric .description { color: #666; font-size: 14px; }
+        .test-buttons { text-align: center; margin: 20px 0; }
+        .btn { background: #7FFF00; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; font-weight: bold; }
+        .btn:hover { background: #5ED400; }
+        .results { margin-top: 20px; }
+        .loading { display: none; text-align: center; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ImageOmania Performance Test Suite</h1>
+        <p>Test the loading performance and optimization results of the website.</p>
+        
+        <div class="test-buttons">
+            <button class="btn" onclick="runPerformanceTest()">🔍 Run Performance Test</button>
+            <button class="btn" onclick="testPageLoad('index.html')">🏠 Test Home Page</button>
+            <button class="btn" onclick="testPageLoad('pages/my_designs.html')">🎨 Test Designs Page</button>
+            <button class="btn" onclick="testServiceWorker()">⚙️ Test Service Worker</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <p>🔄 Running tests...</p>
+        </div>
+
+        <div class="results" id="results">
+            <!-- Performance metrics will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Performance Testing Suite
+        const PerformanceTest = {
+            // Test Core Web Vitals and loading metrics
+            async runBasicMetrics() {
+                const results = {};
+                
+                // DOM Content Loaded
+                results.domContentLoaded = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+                
+                // Full page load
+                results.pageLoad = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                
+                // First Paint
+                const paintMetrics = performance.getEntriesByType('paint');
+                results.firstPaint = paintMetrics.find(m => m.name === 'first-paint')?.startTime || 'N/A';
+                results.firstContentfulPaint = paintMetrics.find(m => m.name === 'first-contentful-paint')?.startTime || 'N/A';
+                
+                // Resource count and sizes
+                const resources = performance.getEntriesByType('resource');
+                results.resourceCount = resources.length;
+                results.totalSize = resources.reduce((total, resource) => total + (resource.transferSize || 0), 0);
+                
+                // CSS and JS resources
+                results.cssFiles = resources.filter(r => r.name.includes('.css')).length;
+                results.jsFiles = resources.filter(r => r.name.includes('.js')).length;
+                results.imageFiles = resources.filter(r => r.name.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i)).length;
+                
+                return results;
+            },
+
+            // Test loading of specific page
+            async testPageLoad(url) {
+                const startTime = performance.now();
+                
+                try {
+                    const response = await fetch(url);
+                    const endTime = performance.now();
+                    
+                    return {
+                        url: url,
+                        loadTime: Math.round(endTime - startTime),
+                        status: response.status,
+                        size: response.headers.get('content-length') || 'Unknown',
+                        cached: response.headers.get('cache-control') ? 'Yes' : 'No'
+                    };
+                } catch (error) {
+                    return {
+                        url: url,
+                        error: error.message
+                    };
+                }
+            },
+
+            // Test Service Worker functionality
+            async testServiceWorker() {
+                const results = {
+                    supported: 'serviceWorker' in navigator,
+                    registered: false,
+                    active: false,
+                    cacheStatus: 'Unknown'
+                };
+
+                if (results.supported) {
+                    try {
+                        const registration = await navigator.serviceWorker.getRegistration();
+                        results.registered = !!registration;
+                        results.active = !!(registration && registration.active);
+                        
+                        // Test cache
+                        if ('caches' in window) {
+                            const cacheNames = await caches.keys();
+                            results.cacheStatus = cacheNames.length > 0 ? `${cacheNames.length} cache(s) found` : 'No caches';
+                            results.cacheNames = cacheNames;
+                        }
+                    } catch (error) {
+                        results.error = error.message;
+                    }
+                }
+
+                return results;
+            },
+
+            // Display results in HTML
+            displayResults(title, data) {
+                const resultsDiv = document.getElementById('results');
+                const section = document.createElement('div');
+                section.innerHTML = `
+                    <h2>${title}</h2>
+                    ${Object.entries(data).map(([key, value]) => `
+                        <div class="metric">
+                            <h3>${this.formatKey(key)}</h3>
+                            <div class="value">${this.formatValue(key, value)}</div>
+                            <div class="description">${this.getDescription(key)}</div>
+                        </div>
+                    `).join('')}
+                `;
+                resultsDiv.appendChild(section);
+            },
+
+            formatKey(key) {
+                return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+            },
+
+            formatValue(key, value) {
+                if (key.includes('Time') || key.includes('Load') || key.includes('Paint')) {
+                    return typeof value === 'number' ? `${Math.round(value)}ms` : value;
+                }
+                if (key === 'totalSize') {
+                    return `${Math.round(value / 1024)}KB`;
+                }
+                return value;
+            },
+
+            getDescription(key) {
+                const descriptions = {
+                    domContentLoaded: 'Time until DOM is fully loaded and parsed',
+                    pageLoad: 'Total time until page completely loads',
+                    firstPaint: 'Time to first pixel painted',
+                    firstContentfulPaint: 'Time to first meaningful content',
+                    resourceCount: 'Total number of resources loaded',
+                    totalSize: 'Total download size of all resources',
+                    cssFiles: 'Number of CSS files loaded',
+                    jsFiles: 'Number of JavaScript files loaded',
+                    imageFiles: 'Number of image files loaded'
+                };
+                return descriptions[key] || '';
+            }
+        };
+
+        // Test runner functions
+        async function runPerformanceTest() {
+            showLoading();
+            try {
+                const metrics = await PerformanceTest.runBasicMetrics();
+                PerformanceTest.displayResults('📊 Performance Metrics', metrics);
+                
+                // Score the performance
+                const score = calculatePerformanceScore(metrics);
+                PerformanceTest.displayResults('🏆 Performance Score', { 
+                    overall: `${score}/100`,
+                    rating: getPerformanceRating(score)
+                });
+            } catch (error) {
+                PerformanceTest.displayResults('❌ Error', { error: error.message });
+            }
+            hideLoading();
+        }
+
+        async function testPageLoad(url) {
+            showLoading();
+            try {
+                const result = await PerformanceTest.testPageLoad(url);
+                PerformanceTest.displayResults(`🔗 Page Load Test: ${url}`, result);
+            } catch (error) {
+                PerformanceTest.displayResults('❌ Error', { error: error.message });
+            }
+            hideLoading();
+        }
+
+        async function testServiceWorker() {
+            showLoading();
+            try {
+                const result = await PerformanceTest.testServiceWorker();
+                PerformanceTest.displayResults('⚙️ Service Worker Status', result);
+            } catch (error) {
+                PerformanceTest.displayResults('❌ Error', { error: error.message });
+            }
+            hideLoading();
+        }
+
+        function calculatePerformanceScore(metrics) {
+            let score = 100;
+            
+            // Deduct points for slow loading
+            if (metrics.domContentLoaded > 2000) score -= 20;
+            else if (metrics.domContentLoaded > 1000) score -= 10;
+            
+            if (metrics.pageLoad > 4000) score -= 20;
+            else if (metrics.pageLoad > 2000) score -= 10;
+            
+            // Deduct points for too many resources
+            if (metrics.resourceCount > 50) score -= 15;
+            else if (metrics.resourceCount > 30) score -= 8;
+            
+            // Deduct points for large total size
+            if (metrics.totalSize > 2000000) score -= 15; // 2MB
+            else if (metrics.totalSize > 1000000) score -= 8; // 1MB
+            
+            return Math.max(0, score);
+        }
+
+        function getPerformanceRating(score) {
+            if (score >= 90) return '🟢 Excellent';
+            if (score >= 75) return '🟡 Good';
+            if (score >= 60) return '🟠 Needs Improvement';
+            return '🔴 Poor';
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Auto-run basic test on page load
+        window.addEventListener('load', () => {
+            setTimeout(runPerformanceTest, 1000);
+        });
+    </script>
+</body>
+</html>
