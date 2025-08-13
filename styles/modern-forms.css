@@ -2,7 +2,12 @@
 
 /* Contact Form for Landing Page */
 .contact-form-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: 
+    linear-gradient(135deg, rgba(79, 172, 254, 0.9) 0%, rgba(0, 242, 254, 0.8) 100%),
+    url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -20,9 +25,9 @@
   width: 200%;
   height: 200%;
   background-image: 
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.4) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(79, 172, 254, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(0, 242, 254, 0.2) 0%, transparent 50%);
   animation: float 20s ease-in-out infinite;
 }
 
@@ -106,7 +111,12 @@
 
 /* Collaboration Form for Collaboration Page */
 .collaboration-form-section {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: 
+    linear-gradient(135deg, rgba(79, 172, 254, 0.9) 0%, rgba(0, 242, 254, 0.8) 100%),
+    url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -126,7 +136,7 @@
   background-image: 
     radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(79, 172, 254, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+    radial-gradient(circle at 90% 20%, rgba(0, 242, 254, 0.2) 0%, transparent 50%);
   animation: float 25s ease-in-out infinite;
 }
 
@@ -239,9 +249,9 @@
 .modern-form textarea:focus,
 .modern-form select:focus {
   outline: none;
-  border-color: #4facfe;
+  border-color: #7FFF00;
   background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.1);
+  box-shadow: 0 0 0 4px rgba(127, 255, 0, 0.1);
 }
 
 .modern-form textarea {
@@ -274,8 +284,8 @@
 
 .modern-form .submit-btn {
   width: 100%;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
+  background: linear-gradient(135deg, #7FFF00 0%, #5ED400 100%);
+  color: #000;
   border: none;
   padding: 18px 30px;
   border-radius: 12px;
@@ -289,7 +299,7 @@
 
 .modern-form .submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+  box-shadow: 0 10px 25px rgba(127, 255, 0, 0.3);
 }
 
 .modern-form .submit-btn:active {
@@ -327,10 +337,10 @@
 }
 
 .social-btn:hover {
-  border-color: #4facfe;
-  color: #4facfe;
+  border-color: #7FFF00;
+  color: #7FFF00;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
+  box-shadow: 0 5px 15px rgba(127, 255, 0, 0.2);
 }
 
 .divider {

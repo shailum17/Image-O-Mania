@@ -1,6 +1,124 @@
-/* Collaboration Page - ImageOmania Brand Color Matching */
+/* Brand Colors - ImageOmania Website-wide Styling */
 
-/* Hero Section */
+/* Global Brand Variables */
+:root {
+  --brand-primary: #7FFF00;
+  --brand-primary-dark: #5ED400;
+  --brand-primary-darker: #4CBF00;
+  --brand-text: #000;
+  --brand-text-light: #333;
+}
+
+/* Landing Page Specific */
+.primary-cta:hover {
+  background: linear-gradient(135deg, #5ED400, #4CBF00) !important;
+  box-shadow: 0 15px 30px rgba(127, 255, 0, 0.4) !important;
+}
+
+.hero-badges span {
+  background: rgba(127, 255, 0, 0.1);
+  border: 1px solid rgba(127, 255, 0, 0.3);
+}
+
+/* Search Page Specific */
+.search-btn {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark)) !important;
+  color: var(--brand-text) !important;
+}
+
+.search-btn:hover {
+  background: linear-gradient(135deg, var(--brand-primary-dark), var(--brand-primary-darker)) !important;
+}
+
+/* My Designs Page Specific */
+.design-title {
+  color: var(--brand-text-light);
+}
+
+.design-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin: 10px auto;
+  border-radius: 2px;
+}
+
+/* Contact Page Specific */
+.contact-left h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin: 15px 0;
+  border-radius: 2px;
+}
+
+/* About Page Specific */
+.about-content h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin: 15px 0;
+  border-radius: 2px;
+}
+
+/* Global Button Enhancements */
+button:focus,
+.btn:focus,
+input[type="submit"]:focus {
+  outline: 3px solid rgba(127, 255, 0, 0.3);
+  outline-offset: 2px;
+}
+
+/* Link Hover States */
+a:hover:not(.btn):not(.social-btn):not(.logo) {
+  color: var(--brand-primary) !important;
+  transition: color 0.3s ease;
+}
+
+/* Form Elements Global */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 0 0 3px rgba(127, 255, 0, 0.1) !important;
+}
+
+/* Icon Accent Colors */
+.fa:not(.social-btn .fa) {
+  color: inherit;
+}
+
+.fa-bolt,
+.fa-shield,
+.fa-wand-magic-sparkles {
+  color: var(--brand-primary) !important;
+}
+
+/* Loading Spinners */
+.spinner,
+.loading {
+  border-top-color: var(--brand-primary) !important;
+}
+
+/* Tag Elements */
+.tag:hover {
+  background: var(--brand-primary) !important;
+  color: var(--brand-text) !important;
+}
+
+/* Step Numbers Global */
+.step-num {
+  background: var(--brand-primary) !important;
+  color: var(--brand-text) !important;
+}
+
+/* Collaboration Page */
 .collab-hero .hl {
   color: #7FFF00;
   font-weight: 700;
@@ -186,6 +304,12 @@
 .service-card .more:hover {
   color: #5ED400;
   text-decoration: underline;
+}
+
+/* Global Accessibility Enhancements */
+*:focus-visible {
+  outline: 3px solid rgba(127, 255, 0, 0.6);
+  outline-offset: 2px;
 }
 
 /* Responsive adjustments */
