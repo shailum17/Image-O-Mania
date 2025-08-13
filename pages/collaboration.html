@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collaboration - imageOmania</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+  <link rel="stylesheet" href="../styles/collab.css" />
+  <link rel="stylesheet" href="../styles/footer-style.css" />
+  <link rel="stylesheet" href="../styles/modern-forms.css" />
+  <link rel="stylesheet" href="../styles/brand-colors.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Assets/favicon.png" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+</head>
+<body>
+  <div id="header"></div>
+
+  <main id="main" role="main">
+    <!-- Hero -->
+    <section class="collab-hero section-anim" data-aos="fade-up">
+      <div class="container collab-hero__inner">
+        <div class="hero-left">
+          <h1 class="display"><span>Collaborate with graphic designers, &</span> <span class="hl">achieve</span> standout visuals.</h1>
+          <p class="sub">We're inviting graphic designers to showcase <strong>new, high quality graphics</strong> logos, posters, illustrations, and brand assets. Get featured, credited, and help grow the community.</p>
+          <div class="hero-ctas">
+            <a class="btn-solid" href="#submit"><i class="fa fa-paper-plane me-1" aria-hidden="true"></i> Submit Portfolio</a>
+            <a class="btn-ghost" href="#showcase">See Showcase <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="hero-right" aria-hidden="true">
+          <figure class="hero-figure">
+            <!-- Inline open-source (MIT) SVG illustration created for this site -->
+            <svg id="hero-illustration" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Collaboration illustration">
+              <defs>
+                <linearGradient id="hl" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#eaffb8"/>
+                  <stop offset="100%" stop-color="#7FFF00"/>
+                </linearGradient>
+                <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.08"/>
+                </filter>
+              </defs>
+              <!-- Desk line -->
+              <rect x="40" y="360" width="560" height="6" rx="3" fill="#111" opacity=".2"/>
+              <!-- Monitor -->
+              <g filter="url(#soft)">
+                <rect x="120" y="80" width="340" height="210" rx="12" fill="#fff" stroke="#0b0b0b" stroke-width="4"/>
+                <rect x="120" y="80" width="340" height="44" rx="12" fill="#f7f7f7" stroke="#0b0b0b" stroke-width="4"/>
+                <circle cx="148" cy="102" r="6" fill="#ff6b6b"/>
+                <circle cx="168" cy="102" r="6" fill="#ffd166"/>
+                <circle cx="188" cy="102" r="6" fill="#06d6a0"/>
+                <!-- Avatars grid -->
+                <g transform="translate(140 140)">
+                  <rect width="280" height="120" rx="8" fill="#fff"/>
+                  <g>
+                    <circle cx="40" cy="30" r="22" fill="#ffb4a2"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(90 0)">
+                    <circle cx="40" cy="30" r="22" fill="#bde0fe"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(180 0)">
+                    <circle cx="40" cy="30" r="22" fill="#caffbf"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(0 70)">
+                    <circle cx="40" cy="30" r="22" fill="#ffd6a5"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(90 70)">
+                    <circle cx="40" cy="30" r="22" fill="#bdb2ff"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(180 70)">
+                    <circle cx="40" cy="30" r="22" fill="#a0c4ff"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                </g>
+                <!-- Stand -->
+                <rect x="270" y="292" width="40" height="28" rx="4" fill="#111" opacity=".9"/>
+                <rect x="230" y="320" width="120" height="10" rx="5" fill="#111" opacity=".9"/>
+              </g>
+              <!-- Mug -->
+              <g filter="url(#soft)">
+                <rect x="490" y="260" width="52" height="44" rx="8" fill="#ffecd1" stroke="#0b0b0b" stroke-width="3"/>
+                <rect x="540" y="270" width="18" height="20" rx="9" fill="#ffecd1" stroke="#0b0b0b" stroke-width="3"/>
+                <path d="M505 255 C508 245, 520 245, 523 255" stroke="#111" stroke-width="3" fill="none"/>
+              </g>
+              <!-- Decorative squiggles and stars -->
+              <path d="M560 140 q10 -20 20 0" stroke="#111" stroke-width="3" fill="none"/>
+              <circle cx="585" cy="170" r="6" fill="#ffd166"/>
+              <path d="M90 120 q-12 -10 -22 6" stroke="#111" stroke-width="3" fill="none"/>
+              <path d="M70 210 l8 0 l-4 10 z" fill="url(#hl)"/>
+            </svg>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+  <section class="services section-anim" data-aos="fade-up">
+      <div class="container">
+    <h2 class="services-title">Designer <strong class="ink">Focus</strong> Areas.</h2>
+        <div class="services-grid">
+          <article class="service-card" data-aos="zoom-in">
+      <div class="icon"><i class="fa fa-pen-nib" aria-hidden="true"></i></div>
+      <h3>Branding & Identity</h3>
+      <p>Logotypes, color systems, and brand assets that stand out.</p>
+            <a class="more" href="#">Learn More</a>
+          </article>
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="100">
+      <div class="icon green"><i class="fa fa-signature" aria-hidden="true"></i></div>
+      <h3>Logo Design</h3>
+      <p>Memorable marks in SVG/PNG with clean geometry and kerning.</p>
+            <a class="more" href="#">Learn More</a>
+          </article>
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="150">
+      <div class="icon"><i class="fa fa-paintbrush" aria-hidden="true"></i></div>
+      <h3>Illustration</h3>
+      <p>Editorial and brand illustrations with consistent style.</p>
+            <a class="more" href="#">Learn More</a>
+          </article>
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="200">
+      <div class="icon"><i class="fa fa-file-image" aria-hidden="true"></i></div>
+      <h3>Poster & Print</h3>
+      <p>High quality posters, covers, and print ready exports.</p>
+            <a class="more" href="#">Learn More</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="how section-anim" data-aos="fade-up">
+      <div class="container">
+        <h2>How it works</h2>
+        <div class="how-grid">
+          <div class="how-card">
+            <div class="step">1</div>
+            <h3>Share portfolio</h3>
+            <p>Send your Behance/Dribbble or site link with a short intro.</p>
+          </div>
+          <div class="how-card">
+            <div class="step">2</div>
+            <h3>Submit graphics</h3>
+            <p>Upload 5 10 best works (SVG/PNG, 96px+), with titles/tags.</p>
+          </div>
+          <div class="how-card">
+            <div class="step">3</div>
+            <h3>Get featured</h3>
+            <p>We credit your work, link to your profile, and promote it.</p>
+          </div>
+        </div>
+
+        <div class="contact-strip">
+          <div><i class="fa fa-envelope" aria-hidden="true"></i> <a href="#submit">Submit Application</a></div>
+          <div><i class="fa fa-share-nodes" aria-hidden="true"></i> <a href="https://in.pinterest.com/shailum17/" target="_blank" rel="noopener">Pinterest</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Designer Showcase (sample grid from local assets) -->
+    <section id="showcase" class="showcase section-anim" data-aos="fade-up">
+      <div class="container">
+        <h2>Designer Showcase</h2>
+        <p class="sub">A rotating selection of logos, posters, and illustrations from our community. Credits: <strong>shailendra mourya</strong>.</p>
+        <div class="showcase-grid">
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design1.jpg" alt="design1"><figcaption><b>A couple posing for a picture, with the girl making a peace sign.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design2.jpg" alt="design2"><figcaption><b>A couple holding hands while walking.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design3.jpg" alt="design3"><figcaption><b>A playful and cute scene with a couple, a basketball, and a peace sign.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design4.jpg" alt="design4"><figcaption><b>An affectionate couple cuddling on a ledge, with small hearts.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design5.jpg" alt="design5"><figcaption><b>An intimate moment with a couple sitting and looking at each other.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design6.jpg" alt="design6"><figcaption><b>A sweet scene where one person is laughing while the other shyly covers their face.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design8.svg" alt="design8"><figcaption><b>A playful couple posing, with the girl's shirt spelling "LOVE".</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design9.svg" alt="design9"><figcaption><b>An affectionate couple sitting together on a small bench.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design10.svg" alt="design10"><figcaption><b>A couple sharing a heartfelt hug, with the boy lifting the girl.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design11.svg" alt="design11"><figcaption><b>A couple dressed for summer, holding hands.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design12.svg" alt="design12"><figcaption><b>A joyful, dynamic hug with the girl being lifted in the air.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+          <figure class="design-card"><img loading="lazy" src="../Assets/my_Designs/design13.svg" alt="design13"><figcaption><b>A couple posing for a picture, with the girl making peace signs.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+        </div>
+        <div class="hero-ctas" style="margin-top:1rem;">
+          <a class="btn-solid" href="#submit">Submit your work</a>
+          <a class="btn-ghost" href="../pages/my_designs.html">See more designs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collaboration Form Section -->
+    <section class="collaboration-form-section" id="submit">
+      <div class="collaboration-form-container">
+        <div class="collaboration-welcome-card" data-aos="fade-right">
+          <h2>Welcome Back!</h2>
+          <p>Enter personal details to your designer account and join our creative community. Share your portfolio and get featured!</p>
+          <a href="#" class="join-btn">Join Community</a>
+        </div>
+        
+        <div class="collaboration-form-card" data-aos="fade-left">
+          <h3>Submit Work</h3>
+          
+          <div class="social-login">
+            <a href="#" class="social-btn" title="Continue with Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-btn" title="Continue with Google">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="social-btn" title="Continue with LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+          
+          <div class="divider">
+            <span>or use your email account</span>
+          </div>
+          
+          <form id="submitForm" class="modern-form">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your.email@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label for="portfolio">Portfolio URL</label>
+              <input type="text" id="portfolio" name="portfolio" placeholder="https://behance.net/yourprofile" required>
+            </div>
+            <div class="form-group">
+              <label for="description">About Your Work</label>
+              <textarea id="description" name="description" placeholder="Tell us about your design style, experience, and what makes your work unique..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="category">Design Category</label>
+              <select id="category" name="category" required>
+                <option value="">Select your specialty</option>
+                <option value="illustration">Illustration</option>
+                <option value="logo">Logo Design</option>
+                <option value="poster">Poster Design</option>
+                <option value="motivation">Motivational Design</option>
+                <option value="branding">Branding & Identity</option>
+              </select>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms">I agree to the terms and conditions and allow my work to be featured in the showcase with proper attribution.</label>
+            </div>
+            <button type="submit" class="submit-btn">
+              <span>Submit Application</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="../scripts/script.js"></script>
+  <script src="../scripts/submit-form.js"></script>
+</body>
+</html>

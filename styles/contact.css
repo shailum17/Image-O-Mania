@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: #fff;
-  color: #89f594;
+  color: #111;
 }
 
 .contact-section {
@@ -28,7 +28,7 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 20px;
-    color: #73e55c;
+  color: #111;
 }
 
 .contact-left p {

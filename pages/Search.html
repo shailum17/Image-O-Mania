@@ -6,8 +6,12 @@
   <title>Image Search - ImageOmania</title>
   <link rel="stylesheet" href="../styles/search-style.css" />
   <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/footer-style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="icon" type="image/png" href="../Assets/favicon.png" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js" defer></script>
 
 </head>
 <body>
@@ -16,27 +20,103 @@
   <div id="header"></div>
 
   <!-- Search Hero Section -->
-  <div id="header"></div>
-
-<section class="hero-search" data-animate>
-  <div class="hero-search-container">
-    <form id="search-form">
-      <input type="text" id="search-box" placeholder="Search for images..." />
-      <button type="submit">Search</button>
-    </form>
+<main id="main" role="main">
+<section class="hero-search section-anim" data-animate>
+  <div id="hero-anim-bg" aria-hidden="true"></div>
+  <div class="hero-search-inner">
+    <h1 class="hero-title" data-aos="fade-up">Find stunning visuals instantly</h1>
+    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Search high-quality photos and AI illustrations with smart filters.</p>
+    <div class="search-card" data-aos="zoom-in" data-aos-delay="150">
+      <form id="search-form">
+        <i class="fa fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input type="text" id="search-box" placeholder="Try “mountains at sunset”" />
+        <select id="search-type" aria-label="Type" class="inline-select">
+          <option value="photo">Photos</option>
+          <option value="illustration">Illustrations (AI)</option>
+        </select>
+        <button type="submit" class="primary">Search</button>
+      </form>
+      <details class="advanced" aria-label="Advanced filters">
+        <summary>Advanced filters</summary>
+        <div class="filters-row">
+          <select id="filter-orientation" aria-label="Orientation">
+            <option value="">Any orientation</option>
+            <option value="landscape">Landscape</option>
+            <option value="portrait">Portrait</option>
+            <option value="squarish">Square</option>
+          </select>
+          <select id="filter-color" aria-label="Color">
+            <option value="">Any color</option>
+            <option value="black_and_white">Black & White</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="yellow">Yellow</option>
+            <option value="orange">Orange</option>
+            <option value="red">Red</option>
+            <option value="purple">Purple</option>
+            <option value="magenta">Magenta</option>
+            <option value="green">Green</option>
+            <option value="teal">Teal</option>
+            <option value="blue">Blue</option>
+          </select>
+          <select id="filter-order" aria-label="Sort by">
+            <option value="relevant">Most relevant</option>
+            <option value="latest">Latest</option>
+          </select>
+          <label class="safe-label"><input type="checkbox" id="filter-safe" /> Safe search</label>
+        </div>
+      </details>
+      <div class="popular-tags" aria-label="Popular tags">
+        <span>Popular:</span>
+        <a href="#" class="pill" data-q="nature">Nature</a>
+        <a href="#" class="pill" data-q="technology">Technology</a>
+        <a href="#" class="pill" data-q="minimal">Minimal</a>
+        <a href="#" class="pill" data-q="abstract">Abstract</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<div id="search-result" data-animate></div>
-<div id="loader" class="spinner-container">
+<!-- Featured collections -->
+<section class="collections section-anim" data-animate>
+  <div class="collections-head container" data-aos="fade-up">
+    <h2>Featured collections</h2>
+    <p>Jump into hand-picked themes.</p>
+  </div>
+  <div class="collections-grid container">
+    <a class="collection-card" href="#" data-q="forest" data-aos="zoom-in">
+      <div class="thumb" style="background-image:url('../Assets/forest.jpg')"></div>
+      <div class="meta"><h3>Forest</h3><span>Photos</span></div>
+    </a>
+    <a class="collection-card" href="#" data-q="city skyline" data-aos="zoom-in" data-aos-delay="100">
+      <div class="thumb" style="background-image:url('../Assets/cityscapes.jpg')"></div>
+      <div class="meta"><h3>Cityscapes</h3><span>Photos</span></div>
+    </a>
+    <a class="collection-card" href="#" data-q="geometric shapes" data-aos="zoom-in" data-aos-delay="200">
+      <div class="thumb" style="background-image:url('../Assets/geometric.jpg')"></div>
+      <div class="meta"><h3>Geometric</h3><span>Illustrations</span></div>
+    </a>
+  </div>
+</section>
+
+<div id="search-result" class="section-anim" data-animate></div>
+<div id="empty-state" class="empty-state" hidden>
+  <p>No results found. Try different keywords or filters.</p>
+  <div class="tag-grid">
+    <a class="tag" href="#" data-q="nature">#nature</a>
+    <a class="tag" href="#" data-q="technology">#technology</a>
+    <a class="tag" href="#" data-q="abstract">#abstract</a>
+  </div>
+  </div>
+<div id="loader" class="spinner-container" aria-busy="false" aria-live="polite">
   <div class="spinner"></div>
 </div>
 
 
 <div id="footer" data-animate></div>
+</main>
 
 
   <script src="../scripts/script.js"></script>
-  <script src="../scripts/animation.js"></script>
 </body>
 </html>

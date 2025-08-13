@@ -1,0 +1,204 @@
+/* Collaboration Page - ImageOmania Brand Color Matching */
+
+/* Hero Section */
+.collab-hero .hl {
+  color: #7FFF00;
+  font-weight: 700;
+  position: relative;
+}
+
+/* Services Section */
+.services .ink {
+  color: #7FFF00;
+  font-weight: 700;
+}
+
+.services .icon.green {
+  background: rgba(127, 255, 0, 0.1);
+  color: #7FFF00;
+}
+
+.services .icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+/* Buttons */
+.btn-solid {
+  background: linear-gradient(135deg, #7FFF00 0%, #5ED400 100%);
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.btn-solid:hover {
+  background: linear-gradient(135deg, #5ED400 0%, #4CBF00 100%);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(127, 255, 0, 0.3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #333;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: 2px solid #7FFF00;
+}
+
+.btn-ghost:hover {
+  background: #7FFF00;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(127, 255, 0, 0.2);
+}
+
+/* How it works section */
+.how .step {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7FFF00 0%, #5ED400 100%);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Contact strip links */
+.contact-strip a {
+  color: #7FFF00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.contact-strip a:hover {
+  color: #5ED400;
+  text-decoration: underline;
+}
+
+/* Form section submit button accent */
+.modern-form .submit-btn {
+  background: linear-gradient(135deg, #7FFF00 0%, #5ED400 100%);
+  color: #000;
+}
+
+.modern-form .submit-btn:hover {
+  background: linear-gradient(135deg, #5ED400 0%, #4CBF00 100%);
+  box-shadow: 0 10px 25px rgba(127, 255, 0, 0.3);
+}
+
+/* Social buttons accent color */
+.social-btn:hover {
+  border-color: #7FFF00;
+  color: #7FFF00;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(127, 255, 0, 0.2);
+}
+
+/* Focus states for form inputs */
+.modern-form input:focus,
+.modern-form textarea:focus,
+.modern-form select:focus {
+  outline: none;
+  border-color: #7FFF00;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 4px rgba(127, 255, 0, 0.1);
+}
+
+/* Join button in collaboration form */
+.collaboration-welcome-card .join-btn {
+  background: linear-gradient(135deg, #7FFF00 0%, #5ED400 100%);
+  border: 2px solid #7FFF00;
+  color: #000;
+  font-weight: 700;
+}
+
+.collaboration-welcome-card .join-btn:hover {
+  background: linear-gradient(135deg, #5ED400 0%, #4CBF00 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(127, 255, 0, 0.3);
+}
+
+/* SVG gradient update to match brand */
+#hl stop:nth-child(1) {
+  stop-color: #eaffb8;
+}
+
+#hl stop:nth-child(2) {
+  stop-color: #7FFF00;
+}
+
+/* Hero CTA styling */
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.hero-ctas .btn-solid i,
+.hero-ctas .btn-ghost i {
+  font-size: 0.9rem;
+}
+
+/* Services card hover effects */
+.service-card:hover .icon {
+  background: rgba(127, 255, 0, 0.1);
+  color: #7FFF00;
+  transform: translateY(-2px);
+}
+
+.service-card .more {
+  color: #7FFF00;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.service-card .more:hover {
+  color: #5ED400;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-solid,
+  .btn-ghost {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
