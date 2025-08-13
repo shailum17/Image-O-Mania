@@ -84,9 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       isLoading = true;
-      const loader = document.getElementById("loader");
-      if (loader) loader.style.display = "block";
-
       const response = await fetch(url);
       if (!response.ok) throw new Error(`API Error: ${response.status}`);
       const data = await response.json();
@@ -130,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (emptyState) emptyState.hidden = appended !== 0;
 
       isLoading = false;
-      if (loader) loader.style.display = "none";
     } catch (err) {
       console.error("Image fetch error:", err);
       isLoading = false;

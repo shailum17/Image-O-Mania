@@ -100,11 +100,7 @@ select:focus {
   color: var(--brand-primary) !important;
 }
 
-/* Loading Spinners */
-.spinner,
-.loading {
-  border-top-color: var(--brand-primary) !important;
-}
+
 
 /* Tag Elements */
 .tag:hover {
