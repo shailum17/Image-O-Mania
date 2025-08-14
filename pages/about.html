@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var loader = document.getElementById('page-loader');
+      if(loader) {
+        setTimeout(function() {
+          loader.classList.add('hide');
+        }, 600);
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="../styles/page-loader.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About - imageOmania</title>
@@ -13,6 +24,22 @@
 
 </head>
 <body>
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-wrapper">
+      <span class="loader-letter">G</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">t</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">g</span>
+      <div class="loader"></div>
+    </div>
+  </div>
   <div id="header"></div>
 
   <main id="main" role="main">
