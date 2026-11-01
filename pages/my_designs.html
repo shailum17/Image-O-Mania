@@ -57,7 +57,7 @@
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design1.jpg" alt="Design 1"><figcaption><b>Couple posing for a picture, with the girl making a peace sign.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design2.jpg" alt="Design 2"><figcaption><b>Couple holding hands while walking.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design3.jpg" alt="Design 3"><figcaption><b>Playful and cute scene with a couple, a basketball, and a peace sign.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
-  <figure class="design-card" data-category="illustrationoading="lazy" src="../Assets/my_Designs/design4.jpg" alt="Design 4"><figcaption><b>Affectionate couple cuddling on a ledge, with small hearts.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
+  <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design4.jpg" alt="Design 4"><figcaption><b>Affectionate couple cuddling on a ledge, with small hearts.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design5.jpg" alt="Design 5"><figcaption><b>Intimate moment with a couple sitting and looking at each other.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design6.jpg" alt="Design 6"><figcaption><b>Sweet scene where one person is laughing while the other shyly covers their face.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
   <figure class="design-card" data-category="illustration"><img loading="lazy" src="../Assets/my_Designs/design7.jpg" alt="Design 7"><figcaption><b>Poster featuring motivational quote and illustration.</b><br><small>Credit: shailendra mourya</small></figcaption></figure>
@@ -82,5 +82,66 @@
     <div id="footer"></div>
   <script src="../scripts/script.js"></script>
   <script src="../scripts/creative_design.js"></script>
+
+  <!-- Supabase dynamic image loader — fill in real values to enable -->
+  <script type="module">
+    // TODO: Replace placeholder values with your real Supabase project credentials.
+    // See SUPABASE_SETUP.md for instructions.
+    window.SUPABASE_CONFIG = {
+      url: 'YOUR_SUPABASE_URL',       // e.g. https://xyzxyz.supabase.co
+      anonKey: 'YOUR_SUPABASE_ANON_KEY' // e.g. eyJhbGci...
+    };
+
+    import { fetchDesignImages, renderDesignGallery } from '../scripts/supabase-images.js';
+
+    // Re-initialise category filter buttons against a fresh card NodeList.
+    // Mirrors the logic in creative_design.js so dynamic cards are included.
+    function initFilters() {
+      const buttons = document.querySelectorAll('.category-buttons button');
+      const cards = document.querySelectorAll('.design-gallery .design-card');
+      buttons.forEach(btn => {
+        // Remove any previously attached listener by cloning the node
+        const fresh = btn.cloneNode(true);
+        btn.parentNode.replaceChild(fresh, btn);
+      });
+      document.querySelectorAll('.category-buttons button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.category-buttons button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const category = btn.getAttribute('data-category');
+          document.querySelectorAll('.design-gallery .design-card').forEach(card => {
+            const match = category === 'all' || card.getAttribute('data-category') === category;
+            card.style.display = match ? 'inline-block' : 'none';
+          });
+        });
+      });
+    }
+
+    async function loadSupabaseImages() {
+      try {
+        const config = window.SUPABASE_CONFIG;
+        // Skip gracefully if config is still placeholder or missing
+        if (!config?.url || config.url === 'YOUR_SUPABASE_URL') return;
+
+        const images = await fetchDesignImages('designs', '');
+        if (!images || images.length === 0) return; // keep static fallback cards
+
+        const rendered = renderDesignGallery(images);
+        if (rendered) {
+          // Re-init filters so the newly injected cards respond to filter buttons
+          initFilters();
+        }
+      } catch (err) {
+        // Silent fallback — static cards remain visible
+        console.warn('Supabase image load skipped:', err?.message);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadSupabaseImages);
+    } else {
+      loadSupabaseImages();
+    }
+  </script>
 </body>
 </html>
