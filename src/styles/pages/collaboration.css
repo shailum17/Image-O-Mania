@@ -1,0 +1,366 @@
+/* ============================================================
+   collaboration.css — Collaboration page styles
+   NO body{} — see base.css
+   ============================================================ */
+
+/* --------------------------------------------------------
+   Collab hero
+   -------------------------------------------------------- */
+.collab-hero {
+  padding: 5rem 0;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.collab-hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.collab-hero__text {
+  flex: 1;
+}
+
+.collab-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.collab-hero__heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.collab-hero__heading .accent {
+  color: var(--color-accent);
+}
+
+.collab-hero__desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 44ch;
+  margin-bottom: 2rem;
+}
+
+.collab-hero__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Preserve SVG illustration on the right */
+.collab-hero__visual {
+  flex: 0 0 420px;
+  max-width: 420px;
+}
+
+.collab-hero__visual svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  .collab-hero__inner {
+    flex-direction: column;
+  }
+
+  .collab-hero__visual {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------
+   Services grid
+   -------------------------------------------------------- */
+.services {
+  padding: 5rem 0;
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.service-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.service-card__icon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-accent-dim);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.service-card__title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.6rem;
+}
+
+.service-card__desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+@media (max-width: 600px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------
+   How it works — 3 horizontal steps
+   -------------------------------------------------------- */
+.collab-process {
+  padding: 5rem 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.collab-process__steps {
+  display: flex;
+  gap: 2rem;
+  counter-reset: collab-step;
+  position: relative;
+}
+
+.collab-process__steps::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: var(--color-border-subtle);
+  z-index: 0;
+}
+
+.collab-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.collab-step__num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #0c0c0c;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.collab-step__title {
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.collab-step__desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .collab-process__steps {
+    flex-direction: column;
+  }
+
+  .collab-process__steps::before {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------
+   Showcase (masonry — same pattern as designs page)
+   -------------------------------------------------------- */
+.collab-showcase {
+  padding: 5rem 0;
+}
+
+.collab-showcase__gallery {
+  column-count: 3;
+  column-gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .collab-showcase__gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .collab-showcase__gallery {
+    column-count: 1;
+  }
+}
+
+.collab-showcase__item {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  transition: border-color var(--transition);
+}
+
+.collab-showcase__item:hover {
+  border-color: var(--color-border);
+}
+
+.collab-showcase__item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------------------------------------
+   Collaboration form section
+   Dark surface — dark gradient bg, NO background-attachment, NO blue gradient
+   -------------------------------------------------------- */
+.collab-form-section {
+  padding: 5rem 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 50%, var(--color-surface) 0%, var(--color-bg) 100%);
+}
+
+.collab-form-section__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Left: welcome card */
+.collab-welcome {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+}
+
+.collab-welcome__title {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.collab-welcome__title .accent {
+  color: var(--color-accent);
+}
+
+.collab-welcome__desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.collab-welcome__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.collab-welcome__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.collab-welcome__list li::before {
+  content: '✓';
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Right: form card */
+.collab-form-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+}
+
+.collab-form-card__title {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.collab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.collab-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .collab-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .collab-form-section__inner {
+    grid-template-columns: 1fr;
+  }
+}

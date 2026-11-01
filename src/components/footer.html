@@ -1,0 +1,86 @@
+<!-- ============================================================
+     footer.html — shared footer partial
+     Copy-paste verbatim into each page's <body> (do NOT fetch via JS).
+     ============================================================ -->
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+
+      <!-- Column 1: Brand -->
+      <div class="footer__col footer__brand">
+        <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+          imageO<span class="accent">mania</span>
+        </a>
+        <p class="footer__tagline">
+          A creative image search and design portfolio — discover stunning visuals
+          and original illustrations.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="designs.html">My Designs</a></li>
+          <li><a href="collaboration.html">Collaborate</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div class="footer__col">
+        <h4>Resources</h4>
+        <ul role="list">
+          <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash Photos</a></li>
+          <li><a href="https://lexica.art" target="_blank" rel="noopener noreferrer">Lexica AI Art</a></li>
+          <li><a href="#" aria-label="License information (coming soon)">Licensing Info</a></li>
+          <li><a href="#" aria-label="Attribution guide (coming soon)">Attribution Guide</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Connect -->
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <ul role="list" class="footer__social">
+          <li>
+            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+              <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
+              Pinterest
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div><!-- /.footer__grid -->
+
+    <div class="footer__bottom">
+      <span>&copy; <span id="footer-year">2024</span> imageOmania. All rights reserved.</span>
+      <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
+        <a href="privacy.html" style="color:var(--color-text-muted); font-size:0.82rem; text-decoration:none;">Privacy Policy</a>
+        <span>Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var el = document.getElementById('footer-year');
+    if (el) el.textContent = new Date().getFullYear().toString();
+  })();
+</script>

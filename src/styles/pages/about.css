@@ -1,0 +1,369 @@
+/* ============================================================
+   about.css — About / profile page styles
+   NO body{} — see base.css
+   ============================================================ */
+
+/* --------------------------------------------------------
+   About hero / intro
+   -------------------------------------------------------- */
+.about-hero {
+  padding: 6rem 0 4rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.about-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.about-hero__heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+  line-height: 1.08;
+  margin-bottom: 1.25rem;
+}
+
+.about-hero__heading .accent {
+  color: var(--color-accent);
+}
+
+.about-hero__desc {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------
+   Bio section
+   -------------------------------------------------------- */
+.about-bio {
+  padding: 5rem 0;
+}
+
+.about-bio__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-bio__content h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: 1.25rem;
+}
+
+.about-bio__content p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.about-bio__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Stats / visual panel on right */
+.about-bio__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color var(--transition);
+}
+
+.stat-card:hover {
+  border-color: var(--color-border);
+}
+
+.stat-card__num {
+  font-family: var(--font-head);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-card__label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .about-bio__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------
+   Values / philosophy cards
+   -------------------------------------------------------- */
+.about-values {
+  padding: 5rem 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.value-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-accent);
+}
+
+.value-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.value-card__title {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.6rem;
+}
+
+.value-card__desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+@media (max-width: 768px) {
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------
+   Process / timeline
+   -------------------------------------------------------- */
+.about-process {
+  padding: 5rem 0;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 11px;
+  width: 2px;
+  background: var(--color-border-subtle);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 0.5rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg);
+}
+
+.timeline-item__year {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-item__title {
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item__desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------
+   CTA banner (chartreuse background, dark text)
+   -------------------------------------------------------- */
+.about-cta {
+  padding: 5rem 0;
+}
+
+.about-cta__banner {
+  background: var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle noise texture overlay */
+.about-cta__banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0,0,0,0.03) 0px,
+    rgba(0,0,0,0.03) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+.about-cta__title {
+  font-family: var(--font-head);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #0c0c0c;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.about-cta__desc {
+  font-size: 1rem;
+  color: rgba(12, 12, 12, 0.75);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.about-cta__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* Override btn colours for chartreuse background */
+.about-cta__banner .btn-primary {
+  background: #0c0c0c;
+  color: var(--color-accent);
+}
+
+.about-cta__banner .btn-primary:hover {
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.about-cta__banner .btn-outline {
+  color: #0c0c0c;
+  border-color: #0c0c0c;
+}
+
+.about-cta__banner .btn-outline:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+@media (max-width: 600px) {
+  .about-cta__banner {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+/* --------------------------------------------------------
+   Tools / tech stack section
+   -------------------------------------------------------- */
+.about-tools {
+  padding: 4rem 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.tool-chip {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.tool-chip:hover {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.tool-chip__icon {
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}

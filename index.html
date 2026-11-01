@@ -1,246 +1,587 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="home">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="p:domain_verify" content="82bea6b8dc831dd37e600b3258322012"/>
-  <title>ImageOmania</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css">
-  <link rel="stylesheet" href="styles/footer-style.css">
-  <link rel="stylesheet" href="styles/modern-forms.css">
-  <link rel="stylesheet" href="styles/brand-colors.css">
-  <link rel="stylesheet" href="styles/page-loader.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A creative image search and design portfolio — discover stunning visuals and original illustrations by Shailendra Mourya." />
+  <title>imageOmania — Search &amp; Portfolio</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Assets/favicon.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      var loader = document.getElementById('page-loader');
-      if(loader) {
-        setTimeout(function() {
-          loader.classList.add('hide');
-        }, 600); // Delay for smoothness
-      }
-    });
-  </script>
-  <link rel="icon" type="image/png" href="./Assets/favicon.png" />
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/components.css" />
+  <link rel="stylesheet" href="src/styles/page-loader.css" />
+  <link rel="stylesheet" href="src/styles/pages/home.css" />
 </head>
 <body>
+
   <!-- Page Loader -->
-  <div class="page-loader" id="page-loader">
+  <div class="page-loader" id="page-loader" aria-hidden="true">
     <div class="loader-wrapper">
-      <span class="loader-letter">G</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">t</span>
       <span class="loader-letter">i</span>
-      <span class="loader-letter">n</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
       <span class="loader-letter">g</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">i</span>
       <div class="loader"></div>
     </div>
   </div>
 
-  <!-- Header (Loaded via JS) -->
-  <div id="header"></div>
+  <!-- ============================================================
+       HEADER (copy-pasted from src/components/header.html)
+       ============================================================ -->
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Hero Section -->
-<main id="main" role="main">
-<section class="hero hero-modern section-anim" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-content container">
-    <div class="text-content" data-aos="fade-up">
-      <h1>Discover the perfect image faster</h1>
-      <p>
-        Search high‑quality photos and AI illustrations with smart filters and instant previews.
-      </p>
-      <a href="pages/Search.html">
-        <button class="primary-cta">Start Searching</button>
-      </a>
-      <div class="hero-badges">
-        <span><i class="fa fa-bolt"></i> Fast results</span>
-        <span><i class="fa fa-shield"></i> Free to use</span>
-        <span><i class="fa fa-wand-magic-sparkles"></i> AI illustrations</span>
-      </div>
-    </div>
-    <div class="image-content" data-aos="zoom-in" data-aos-delay="100">
-      <img src="Assets/Landingpage.svg" alt="Search illustration">
-    </div>
-  </div>
-</section>
-
-
-    <!-- Feature Section: Find What You Need (Redesigned) -->
-  <section class="feature-section container section-anim feature-modern" data-aos="fade-up">
-    <div class="feature-head">
-      <span class="tag">Why imageOmania?</span>
-      <h2>Built for speed, crafted for creators</h2>
-      <p>Find exactly what you need with blazing performance and thoughtful tools.</p>
-    </div>
-    <div class="feature-tiles">
-      <article class="feature-tile">
-        <div class="icon"><i class="fa fa-bolt"></i></div>
-        <h3>Lightning-fast search</h3>
-        <p>Instant, relevant results powered by AI and smart ranking.</p>
-      </article>
-      <article class="feature-tile">
-        <div class="icon"><i class="fa fa-sliders"></i></div>
-        <h3>Powerful filters</h3>
-        <p>Filter by orientation, color, and freshness to refine in seconds.</p>
-      </article>
-      <article class="feature-tile">
-        <div class="icon"><i class="fa fa-cloud-arrow-down"></i></div>
-        <h3>One‑click downloads</h3>
-        <p>HD assets with clear licensing and easy attribution.</p>
-      </article>
-    </div>
-  </section>
-  </main>
-  <!-- Feature Section: Showcase Your Work -->
-  
-  <!-- How it works -->
-  <section class="how-it-works container section-anim" data-animate data-aos="fade-up">
-    <h2>How it works</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Search</h3>
-        <p>Enter a keyword to find photos or AI illustrations.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Filter</h3>
-        <p>Refine by orientation, color, and sort to narrow results.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>View details</h3>
-        <p>Open any image to see size, color, author, and license info.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Download or Save</h3>
-        <p>Download in HD or save to your favorites collection.</p>
-      </div>
-    </div>
-  </section>
-  <!-- FAQ -->
-  <section class="faq container section-anim" data-aos="fade-up">
-    <h2>Frequently asked questions</h2>
-    <div class="faq-list">
-      <details>
-        <summary>Can I use images commercially?</summary>
-        <p>Most Unsplash images are free for commercial use. Always review the source license and attribution guidelines.</p>
-      </details>
-      <details>
-        <summary>Do you support AI illustrations?</summary>
-        <p>Yes. Toggle the type to Illustrations to search Lexica’s AI images.</p>
-      </details>
-      <details>
-        <summary>How do favorites work?</summary>
-        <p>We’re adding local favorites soon so you can save and organize images.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about section-anim py-5 bg-light" data-aos="fade-up">
+  <header class="site-header">
     <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-6">
-          <span class="tag">About</span>
-          <h2 class="mb-3">A better way to find visuals</h2>
-          <p class="lead">imageOmania brings together powerful search, AI illustrations, and curated collections to help you create faster.</p>
-          <ul class="list-unstyled mt-3">
-            <li class="d-flex align-items-center mb-2"><i class="fa fa-check text-success me-2"></i> Smart filters and relevance ranking</li>
-            <li class="d-flex align-items-center mb-2"><i class="fa fa-check text-success me-2"></i> Curated collections for inspiration</li>
-            <li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i> Simple licensing and attributions</li>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+          imageO<span class="accent">mania</span>
+        </a>
+
+        <ul class="nav__links" id="nav-links" role="list">
+          <li><a href="index.html" data-page-link="home">Home</a></li>
+          <li><a href="search.html" data-page-link="search">Search</a></li>
+          <li><a href="designs.html" data-page-link="designs">My Designs</a></li>
+          <li><a href="collaboration.html" data-page-link="collaboration">Collaborate</a></li>
+          <li><a href="about.html" data-page-link="about">About</a></li>
+        </ul>
+
+        <button
+          class="nav__toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+          type="button"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
+      </nav>
+
+      <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile navigation">
+        <a href="index.html" data-page-link="home">Home</a>
+        <a href="search.html" data-page-link="search">Search</a>
+        <a href="designs.html" data-page-link="designs">My Designs</a>
+        <a href="collaboration.html" data-page-link="collaboration">Collaborate</a>
+        <a href="about.html" data-page-link="about">About</a>
+      </nav>
+    </div>
+  </header>
+  <!-- ============================================================
+       END HEADER
+       ============================================================ -->
+
+  <main id="main">
+
+    <!-- ========================================================
+         1. HERO
+         ======================================================== -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero__inner">
+
+          <div class="hero__text">
+            <span class="hero__eyebrow">
+              <i class="fa-solid fa-circle-dot" aria-hidden="true"></i>
+              Image Search &amp; Portfolio
+            </span>
+
+            <h1 class="hero__heading">
+              Two tools in one: search any image,
+              <em class="accent">showcase your art.</em>
+            </h1>
+
+            <p class="hero__desc">
+              Explore millions of free photos from Unsplash, browse AI-generated
+              illustrations from Lexica, and discover original artwork — all in one place.
+            </p>
+
+            <div class="hero__actions">
+              <a href="search.html" class="btn-primary">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                Start Searching
+              </a>
+              <a href="designs.html" class="btn-outline">
+                View My Designs
+              </a>
+            </div>
+
+            <div class="hero__badges">
+              <span class="hero__badge">
+                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                Fast results
+              </span>
+              <span class="hero__badge">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                Free to use
+              </span>
+              <span class="hero__badge">
+                <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                AI illustrations
+              </span>
+            </div>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <img
+              src="Assets/Landingpage.svg"
+              alt="Illustration of image search interface"
+              width="520"
+              height="420"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         2. FEATURES
+         ======================================================== -->
+    <section class="features" data-aos="fade-up">
+      <div class="container">
+        <p class="section-label">Why imageOmania?</p>
+        <h2 class="section-title">Built for speed, crafted for creators</h2>
+
+        <div class="features__grid">
+
+          <article class="feature-tile">
+            <div class="feature-tile__icon" aria-hidden="true">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3 class="feature-tile__title">Lightning-fast search</h3>
+            <p class="feature-tile__desc">
+              Instant, relevant results powered by Unsplash's API and smart
+              ranking — get what you need without the wait.
+            </p>
+          </article>
+
+          <article class="feature-tile">
+            <div class="feature-tile__icon" aria-hidden="true">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <h3 class="feature-tile__title">Powerful filters</h3>
+            <p class="feature-tile__desc">
+              Refine by orientation, color, and sort order. Switch between
+              real photos and AI illustrations in one click.
+            </p>
+          </article>
+
+          <article class="feature-tile">
+            <div class="feature-tile__icon" aria-hidden="true">
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+            </div>
+            <h3 class="feature-tile__title">One-click downloads</h3>
+            <p class="feature-tile__desc">
+              HD assets with clear licensing and easy attribution — ready to
+              drop into your next project.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         3. HOW IT WORKS
+         ======================================================== -->
+    <section class="how-it-works" data-aos="fade-up">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center; margin-bottom:2.5rem;">How it works</h2>
+
+        <div class="steps-grid">
+
+          <div class="step-card">
+            <div class="step-num" aria-hidden="true">1</div>
+            <h3 class="step-card__title">Search</h3>
+            <p class="step-card__desc">
+              Enter any keyword — landscapes, portraits, technology — and get
+              curated results instantly.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num" aria-hidden="true">2</div>
+            <h3 class="step-card__title">Filter</h3>
+            <p class="step-card__desc">
+              Narrow results by orientation, dominant color, or freshness to
+              find exactly the right image.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num" aria-hidden="true">3</div>
+            <h3 class="step-card__title">View</h3>
+            <p class="step-card__desc">
+              Open any photo for a full-size preview, author details, and
+              license information before you commit.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num" aria-hidden="true">4</div>
+            <h3 class="step-card__title">Download</h3>
+            <p class="step-card__desc">
+              Save HD images for your projects — totally free, with
+              simple attribution when required.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         4. FEATURED DESIGNS PREVIEW
+         ======================================================== -->
+    <section class="featured-designs" data-aos="fade-up">
+      <div class="container">
+        <p class="section-label">Original artwork</p>
+        <h2 class="section-title">From the Studio</h2>
+        <p style="color:var(--color-text-muted); margin-bottom:2rem; max-width:55ch;">
+          Hand-crafted illustrations and AI-enhanced designs — a growing collection
+          of unique visuals you won't find anywhere else.
+        </p>
+
+        <div class="featured-designs__grid">
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design1.jpg"
+              alt="Couple posing for a picture, with the girl making a peace sign"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 01</span>
+            </div>
+          </a>
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design2.jpg"
+              alt="Couple holding hands while walking"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 02</span>
+            </div>
+          </a>
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design3.jpg"
+              alt="Playful and cute scene with a couple, a basketball, and a peace sign"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 03</span>
+            </div>
+          </a>
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design4.jpg"
+              alt="Affectionate couple cuddling on a ledge, with small hearts"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 04</span>
+            </div>
+          </a>
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design5.jpg"
+              alt="Intimate moment with a couple sitting and looking at each other"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 05</span>
+            </div>
+          </a>
+
+          <a href="designs.html" class="featured-design-card">
+            <img
+              src="Assets/my_Designs/design6.jpg"
+              alt="Sweet scene where one person is laughing while the other shyly covers their face"
+              loading="lazy"
+            />
+            <div class="featured-design-card__overlay">
+              <span class="featured-design-card__title">Design 06</span>
+            </div>
+          </a>
+
+        </div>
+
+        <p style="text-align:center; margin-top:2rem;">
+          <a href="designs.html" class="btn-outline">
+            See all 21 designs →
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5. FAQ
+         ======================================================== -->
+    <section class="faq" data-aos="fade-up">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center; margin-bottom:2rem;">Frequently asked questions</h2>
+
+        <div class="faq__list">
+
+          <details class="faq-item">
+            <summary>Can I use images commercially?</summary>
+            <div class="faq-item__body">
+              Most photos from Unsplash are available under the Unsplash License, which allows
+              free commercial use without attribution (though attribution is always appreciated).
+              Always review the individual image license before using it in a paid project.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you support AI illustrations?</summary>
+            <div class="faq-item__body">
+              Yes! Toggle the search type to <strong>Illustrations (AI)</strong> to search
+              Lexica's database of AI-generated images. These are especially useful for unique,
+              creative visuals that are hard to find with traditional photography.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do favorites work?</summary>
+            <div class="faq-item__body">
+              Local favorites are coming soon — you'll be able to save and organise images
+              directly in your browser without creating an account. Stay tuned for updates.
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         6. CONTACT
+         ======================================================== -->
+    <section class="home-contact" id="contact" data-aos="fade-up">
+      <div class="container">
+        <div class="home-contact__inner">
+
+          <!-- Left: info -->
+          <div class="home-contact__info">
+            <h2>Get in Touch</h2>
+            <p>
+              Have feedback, a collaboration idea, or just want to say hello?
+              Fill in the form and I'll get back to you promptly.
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:0.85rem;">
+              <div style="display:flex; align-items:center; gap:0.65rem; color:var(--color-text-muted); font-size:0.9rem;">
+                <i class="fa-solid fa-envelope" aria-hidden="true" style="color:var(--color-accent);"></i>
+                <a href="mailto:shailendramourya17@gmail.com" style="color:var(--color-text-muted);">
+                  shailendramourya17@gmail.com
+                </a>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.65rem; color:var(--color-text-muted); font-size:0.9rem;">
+                <i class="fa-solid fa-clock" aria-hidden="true" style="color:var(--color-accent);"></i>
+                Response within 24 hours
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div>
+            <h3 style="font-family:var(--font-head); font-size:1.1rem; font-weight:700; color:var(--color-text); margin-bottom:1.25rem;">
+              Send a message
+            </h3>
+
+            <form
+              action="https://formspree.io/f/movwzzey"
+              method="POST"
+              class="home-contact__form contact-form"
+              novalidate
+            >
+              <div class="form-group">
+                <label for="contact-name">Full Name</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email">Email Address</label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <input
+                  type="text"
+                  id="contact-subject"
+                  name="subject"
+                  placeholder="What is this about?"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  placeholder="Tell me more about your inquiry…"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group" style="flex-direction:row; align-items:center; gap:0.6rem;">
+                <input
+                  type="checkbox"
+                  id="contact-newsletter"
+                  name="newsletter"
+                  style="width:auto; accent-color:var(--color-accent);"
+                />
+                <label for="contact-newsletter" style="font-size:0.85rem; margin:0;">
+                  Subscribe to updates and new design releases
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                Send Message
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (copy-pasted from src/components/footer.html)
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__col footer__brand">
+          <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+            imageO<span class="accent">mania</span>
+          </a>
+          <p class="footer__tagline">
+            A creative image search and design portfolio — discover stunning visuals
+            and original illustrations.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="designs.html">My Designs</a></li>
+            <li><a href="collaboration.html">Collaborate</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
         </div>
-        <div class="col-lg-6">
-          <div class="ratio ratio-16x9 rounded-3 shadow-sm overflow-hidden">
-            <img src="Assets/footer-forest.jpg" alt="About visual" class="w-100 h-100 object-fit-cover">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact Section -->
-  <section class="contact-form-section" id="contact">
-    <div class="contact-form-container">
-      <div class="contact-welcome-card" data-aos="fade-right">
-        <h2>Get in Touch</h2>
-        <p>Have feedback, requests, or want to collaborate? We'd love to hear from you and will get back to you as soon as possible.</p>
-        <div class="contact-info">
-          <div>
-            <i class="fa fa-envelope"></i>
-            <span>shailendramourya17@gmail.com</span>
-          </div>
-          <div>
-            <i class="fa fa-clock"></i>
-            <span>Response within 24 hours</span>
-          </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <ul role="list">
+            <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash Photos</a></li>
+            <li><a href="https://lexica.art" target="_blank" rel="noopener noreferrer">Lexica AI Art</a></li>
+            <li><a href="#">Licensing Info</a></li>
+            <li><a href="#">Attribution Guide</a></li>
+          </ul>
         </div>
+
+        <div class="footer__col">
+          <h4>Connect</h4>
+          <ul role="list" class="footer__social">
+            <li>
+              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
+                Pinterest
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
       </div>
-      
-      <div class="contact-form-card" data-aos="fade-left">
-        <h3>Send us a message</h3>
-        
-        <div class="social-login">
-          <a href="#" class="social-btn" title="Continue with Facebook">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-btn" title="Continue with Google">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="#" class="social-btn" title="Continue with LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
+
+      <div class="footer__bottom">
+        <span>&copy; <span id="footer-year">2024</span> imageOmania. All rights reserved.</span>
+        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
+          <a href="privacy.html" style="color:var(--color-text-muted); font-size:0.82rem; text-decoration:none;">Privacy Policy</a>
+          <span>Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
         </div>
-        
-        <div class="divider">
-          <span>or use your email account</span>
-        </div>
-        
-        <form action="https://formspree.io/f/movwzzey" method="POST" class="modern-form">
-          <div class="form-group">
-            <label for="contact-name">Full Name</label>
-            <input type="text" id="contact-name" name="name" placeholder="Enter your full name" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="contact-email">Email Address</label>
-            <input type="email" id="contact-email" name="email" placeholder="your.email@domain.com" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="contact-subject">Subject</label>
-            <input type="text" id="contact-subject" name="subject" placeholder="What is this about?" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" placeholder="Tell us more about your inquiry..." required></textarea>
-          </div>
-          
-          <div class="checkbox-group">
-            <input type="checkbox" id="contact-newsletter" name="newsletter">
-            <label for="contact-newsletter">I would like to receive updates and news about new features and designs.</label>
-          </div>
-          
-          <button type="submit" class="submit-btn">
-            <span>Send Message</span>
-          </button>
-        </form>
       </div>
     </div>
-  </section>
-  <div id="footer"></div>
-  <script src="scripts/script.js"></script>
+  </footer>
+  <!-- ============================================================
+       END FOOTER
+       ============================================================ -->
+
+  <script>
+    (function () {
+      var el = document.getElementById('footer-year');
+      if (el) el.textContent = new Date().getFullYear().toString();
+    })();
+  </script>
+
+  <!-- Page script -->
+  <script type="module" src="src/ts/home.ts"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+
 </body>
 </html>

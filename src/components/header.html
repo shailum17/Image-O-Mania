@@ -1,0 +1,45 @@
+<!-- ============================================================
+     header.html — shared nav partial
+     Copy-paste verbatim into each page's <body> (do NOT fetch via JS).
+     ============================================================ -->
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+        imageO<span class="accent">mania</span>
+      </a>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="index.html" data-page-link="home">Home</a></li>
+        <li><a href="search.html" data-page-link="search">Search</a></li>
+        <li><a href="designs.html" data-page-link="designs">My Designs</a></li>
+        <li><a href="collaboration.html" data-page-link="collaboration">Collaborate</a></li>
+        <li><a href="about.html" data-page-link="about">About</a></li>
+      </ul>
+
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        type="button"
+      >
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </nav>
+
+    <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile navigation">
+      <a href="index.html" data-page-link="home">Home</a>
+      <a href="search.html" data-page-link="search">Search</a>
+      <a href="designs.html" data-page-link="designs">My Designs</a>
+      <a href="collaboration.html" data-page-link="collaboration">Collaborate</a>
+      <a href="about.html" data-page-link="about">About</a>
+    </nav>
+  </div>
+</header>

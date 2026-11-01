@@ -1,0 +1,43 @@
+/* ============================================================
+   tokens.css — Brand design tokens
+   All CSS custom properties for Image-O-Mania.
+   Import this first in every page's <link> chain.
+   ============================================================ */
+
+:root {
+  /* --- Colours --- */
+  --color-bg: #0c0c0c;
+  --color-surface: #141414;
+  --color-card: #1a1a1a;
+
+  /* Chartreuse accent — only use on dark backgrounds */
+  --color-accent: #7fff00;
+  --color-accent-dim: rgba(127, 255, 0, 0.15);
+  --color-accent-glow: rgba(127, 255, 0, 0.25);
+
+  --color-text: #f0f0f0;
+  --color-text-muted: #888888;
+
+  --color-border: rgba(127, 255, 0, 0.15);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+  /* --- Typography --- */
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* --- Border radius --- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-accent: 0 0 24px rgba(127, 255, 0, 0.2);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+  /* --- Motion --- */
+  --transition: 0.2s ease;
+
+  /* --- Layout --- */
+  --max-width: 1200px;
+}

@@ -1,0 +1,217 @@
+/* ============================================================
+   privacy.css — Privacy Policy page styles
+   ============================================================ */
+
+/* --------------------------------------------------------
+   Hero
+   -------------------------------------------------------- */
+.privacy-hero {
+  padding: 6rem 0 4rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.privacy-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.privacy-hero__heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.privacy-hero__meta {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------
+   Content layout
+   -------------------------------------------------------- */
+.privacy-body {
+  padding: 4rem 0 6rem;
+}
+
+.privacy-body__inner {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* --------------------------------------------------------
+   Sticky sidebar TOC
+   -------------------------------------------------------- */
+.privacy-toc {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.privacy-toc__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.privacy-toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.privacy-toc__list a {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 0.35rem 0.65rem;
+  border-left: 2px solid var(--color-border-subtle);
+  transition: color var(--transition), border-color var(--transition);
+  line-height: 1.4;
+}
+
+.privacy-toc__list a:hover,
+.privacy-toc__list a:focus {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+/* --------------------------------------------------------
+   Main prose content
+   -------------------------------------------------------- */
+.privacy-content {
+  min-width: 0;
+}
+
+.privacy-section {
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.privacy-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.privacy-section__title {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.privacy-section__title .section-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-dim);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.privacy-section p {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  margin-bottom: 0.85rem;
+}
+
+.privacy-section p:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.privacy-section ul li {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.privacy-section ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.privacy-section a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.privacy-section a:hover {
+  opacity: 0.85;
+}
+
+/* Contact card inside privacy */
+.privacy-contact-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 1rem;
+}
+
+.privacy-contact-card p {
+  margin-bottom: 0.5rem !important;
+}
+
+/* --------------------------------------------------------
+   Responsive
+   -------------------------------------------------------- */
+@media (max-width: 840px) {
+  .privacy-body__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .privacy-toc {
+    position: static;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+}

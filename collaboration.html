@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" data-page="collaboration">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join the imageOmania creative community. Submit your illustrations, posters, and brand assets to be featured alongside other designers." />
+  <title>Collaborate — imageOmania</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Assets/favicon.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/components.css" />
+  <link rel="stylesheet" href="src/styles/page-loader.css" />
+  <link rel="stylesheet" href="src/styles/pages/collaboration.css" />
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader" aria-hidden="true">
+    <div class="loader-wrapper">
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">g</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">i</span>
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER (copy-pasted from src/components/header.html)
+       ============================================================ -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+          imageO<span class="accent">mania</span>
+        </a>
+
+        <ul class="nav__links" id="nav-links" role="list">
+          <li><a href="index.html" data-page-link="home">Home</a></li>
+          <li><a href="search.html" data-page-link="search">Search</a></li>
+          <li><a href="designs.html" data-page-link="designs">My Designs</a></li>
+          <li><a href="collaboration.html" data-page-link="collaboration">Collaborate</a></li>
+          <li><a href="about.html" data-page-link="about">About</a></li>
+        </ul>
+
+        <button
+          class="nav__toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+          type="button"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
+      </nav>
+
+      <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile navigation">
+        <a href="index.html" data-page-link="home">Home</a>
+        <a href="search.html" data-page-link="search">Search</a>
+        <a href="designs.html" data-page-link="designs">My Designs</a>
+        <a href="collaboration.html" data-page-link="collaboration">Collaborate</a>
+        <a href="about.html" data-page-link="about">About</a>
+      </nav>
+    </div>
+  </header>
+  <!-- ============================================================
+       END HEADER
+       ============================================================ -->
+
+  <main id="main">
+
+    <!-- ============================================================
+         1. HERO
+         ============================================================ -->
+    <section class="collab-hero" data-aos="fade-up">
+      <div class="container collab-hero__inner">
+
+        <div class="collab-hero__text">
+          <span class="collab-hero__eyebrow">
+            <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+            Creative Collaboration
+          </span>
+          <h1 class="collab-hero__heading">
+            Collaborate with graphic designers, &amp;
+            <em class="accent">achieve</em> standout visuals.
+          </h1>
+          <p class="collab-hero__desc">
+            We're inviting graphic designers to showcase new, high quality graphics —
+            logos, posters, illustrations, and brand assets. Get featured, credited,
+            and help grow the community.
+          </p>
+          <div class="collab-hero__actions">
+            <a class="btn-primary" href="#submit">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              Submit Portfolio
+            </a>
+            <a class="btn-outline" href="#showcase">
+              See Showcase
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Preserved inline SVG hero illustration (original artwork) -->
+        <div class="collab-hero__visual" aria-hidden="true">
+          <figure>
+            <svg id="hero-illustration" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Collaboration illustration">
+              <defs>
+                <linearGradient id="hl" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#eaffb8"/>
+                  <stop offset="100%" stop-color="#7FFF00"/>
+                </linearGradient>
+                <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.08"/>
+                </filter>
+              </defs>
+              <!-- Desk line -->
+              <rect x="40" y="360" width="560" height="6" rx="3" fill="#111" opacity=".2"/>
+              <!-- Monitor -->
+              <g filter="url(#soft)">
+                <rect x="120" y="80" width="340" height="210" rx="12" fill="#fff" stroke="#0b0b0b" stroke-width="4"/>
+                <rect x="120" y="80" width="340" height="44" rx="12" fill="#f7f7f7" stroke="#0b0b0b" stroke-width="4"/>
+                <circle cx="148" cy="102" r="6" fill="#ff6b6b"/>
+                <circle cx="168" cy="102" r="6" fill="#ffd166"/>
+                <circle cx="188" cy="102" r="6" fill="#06d6a0"/>
+                <!-- Avatars grid -->
+                <g transform="translate(140 140)">
+                  <rect width="280" height="120" rx="8" fill="#fff"/>
+                  <g>
+                    <circle cx="40" cy="30" r="22" fill="#ffb4a2"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(90 0)">
+                    <circle cx="40" cy="30" r="22" fill="#bde0fe"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(180 0)">
+                    <circle cx="40" cy="30" r="22" fill="#caffbf"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(0 70)">
+                    <circle cx="40" cy="30" r="22" fill="#ffd6a5"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(90 70)">
+                    <circle cx="40" cy="30" r="22" fill="#bdb2ff"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                  <g transform="translate(180 70)">
+                    <circle cx="40" cy="30" r="22" fill="#a0c4ff"/>
+                    <rect x="20" y="52" width="40" height="10" rx="5" fill="#222" opacity=".12"/>
+                  </g>
+                </g>
+                <!-- Stand -->
+                <rect x="270" y="292" width="40" height="28" rx="4" fill="#111" opacity=".9"/>
+                <rect x="230" y="320" width="120" height="10" rx="5" fill="#111" opacity=".9"/>
+              </g>
+              <!-- Mug -->
+              <g filter="url(#soft)">
+                <rect x="490" y="260" width="52" height="44" rx="8" fill="#ffecd1" stroke="#0b0b0b" stroke-width="3"/>
+                <rect x="540" y="270" width="18" height="20" rx="9" fill="#ffecd1" stroke="#0b0b0b" stroke-width="3"/>
+                <path d="M505 255 C508 245, 520 245, 523 255" stroke="#111" stroke-width="3" fill="none"/>
+              </g>
+              <!-- Decorative squiggles and stars -->
+              <path d="M560 140 q10 -20 20 0" stroke="#111" stroke-width="3" fill="none"/>
+              <circle cx="585" cy="170" r="6" fill="#ffd166"/>
+              <path d="M90 120 q-12 -10 -22 6" stroke="#111" stroke-width="3" fill="none"/>
+              <path d="M70 210 l8 0 l-4 10 z" fill="url(#hl)"/>
+            </svg>
+          </figure>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2. SERVICES
+         ============================================================ -->
+    <section class="services" data-aos="fade-up">
+      <div class="container">
+        <p class="section-label">What we're looking for</p>
+        <h2 class="section-title">Designer Focus Areas</h2>
+
+        <div class="services__grid">
+
+          <article class="service-card" data-aos="zoom-in">
+            <div class="service-card__icon">
+              <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+            </div>
+            <h3 class="service-card__title">Branding &amp; Identity</h3>
+            <p class="service-card__desc">Logotypes, color systems, and brand assets that stand out.</p>
+            <a class="btn-outline" href="#" style="font-size:0.8rem; padding:0.3rem 0.8rem; margin-top:1rem; display:inline-flex;">Learn More</a>
+          </article>
+
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="service-card__icon">
+              <i class="fa-solid fa-signature" aria-hidden="true"></i>
+            </div>
+            <h3 class="service-card__title">Logo Design</h3>
+            <p class="service-card__desc">Memorable marks in SVG/PNG with clean geometry and kerning.</p>
+            <a class="btn-outline" href="#" style="font-size:0.8rem; padding:0.3rem 0.8rem; margin-top:1rem; display:inline-flex;">Learn More</a>
+          </article>
+
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="150">
+            <div class="service-card__icon">
+              <i class="fa-solid fa-paintbrush" aria-hidden="true"></i>
+            </div>
+            <h3 class="service-card__title">Illustration</h3>
+            <p class="service-card__desc">Editorial and brand illustrations with consistent style.</p>
+            <a class="btn-outline" href="#" style="font-size:0.8rem; padding:0.3rem 0.8rem; margin-top:1rem; display:inline-flex;">Learn More</a>
+          </article>
+
+          <article class="service-card" data-aos="zoom-in" data-aos-delay="200">
+            <div class="service-card__icon">
+              <i class="fa-solid fa-file-image" aria-hidden="true"></i>
+            </div>
+            <h3 class="service-card__title">Poster &amp; Print</h3>
+            <p class="service-card__desc">High quality posters, covers, and print ready exports.</p>
+            <a class="btn-outline" href="#" style="font-size:0.8rem; padding:0.3rem 0.8rem; margin-top:1rem; display:inline-flex;">Learn More</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. HOW IT WORKS
+         ============================================================ -->
+    <section id="how" class="collab-process" data-aos="fade-up">
+      <div class="container">
+        <p class="section-label">The process</p>
+        <h2 class="section-title">How it works</h2>
+
+        <div class="collab-process__steps">
+
+          <div class="collab-step">
+            <div class="collab-step__num">1</div>
+            <h3 class="collab-step__title">Share portfolio</h3>
+            <p class="collab-step__desc">Send your Behance, Dribbble, or personal site link with a short intro.</p>
+          </div>
+
+          <div class="collab-step">
+            <div class="collab-step__num">2</div>
+            <h3 class="collab-step__title">Submit graphics</h3>
+            <p class="collab-step__desc">Upload your 5–10 best works (SVG/PNG, 96px+) with titles and tags.</p>
+          </div>
+
+          <div class="collab-step">
+            <div class="collab-step__num">3</div>
+            <h3 class="collab-step__title">Get featured</h3>
+            <p class="collab-step__desc">We credit your work, link to your profile, and promote it.</p>
+          </div>
+
+        </div>
+
+        <div style="display:flex; gap:2rem; margin-top:2rem; flex-wrap:wrap; justify-content:center;">
+          <div style="display:flex; align-items:center; gap:0.6rem; color:var(--color-text-muted); font-size:0.9rem;">
+            <i class="fa-solid fa-envelope" aria-hidden="true" style="color:var(--color-accent);"></i>
+            <a href="#submit" style="color:var(--color-text-muted);">Submit Application</a>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.6rem; color:var(--color-text-muted); font-size:0.9rem;">
+            <i class="fa-brands fa-pinterest" aria-hidden="true" style="color:var(--color-accent);"></i>
+            <a href="https://in.pinterest.com/shailum17/" target="_blank" rel="noopener noreferrer" style="color:var(--color-text-muted);">Pinterest</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. DESIGNER SHOWCASE
+         ============================================================ -->
+    <section id="showcase" class="collab-showcase" data-aos="fade-up">
+      <div class="container">
+        <p class="section-label">Original artwork</p>
+        <h2 class="section-title">Designer Showcase</h2>
+        <p style="color:var(--color-text-muted); margin-bottom:2rem; max-width:55ch;">
+          A selection of illustrations and posters from the community.
+          Credits: <strong>shailendra mourya</strong>.
+        </p>
+
+        <div class="collab-showcase__gallery">
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design1.jpg" alt="Couple posing for a picture, with the girl making a peace sign" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Couple posing for a picture, with the girl making a peace sign.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design2.jpg" alt="Couple holding hands while walking" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Couple holding hands while walking.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design3.jpg" alt="Playful and cute scene with a couple, a basketball, and a peace sign" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Playful and cute scene with a couple, a basketball, and a peace sign.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design4.jpg" alt="Affectionate couple cuddling on a ledge, with small hearts" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Affectionate couple cuddling on a ledge, with small hearts.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design5.jpg" alt="Intimate moment with a couple sitting and looking at each other" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Intimate moment with a couple sitting and looking at each other.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design6.jpg" alt="Sweet scene where one person is laughing while the other shyly covers their face" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Sweet scene where one person is laughing while the other shyly covers their face.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design8.svg" alt="Playful couple posing, with the girl shirt spelling LOVE" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Playful couple posing, with the girl shirt spelling LOVE.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design9.svg" alt="Affectionate couple sitting together on a small bench" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Affectionate couple sitting together on a small bench.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design10.svg" alt="Couple sharing a heartfelt hug, with the boy lifting the girl" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Couple sharing a heartfelt hug, with the boy lifting the girl.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design11.svg" alt="Couple dressed for summer, holding hands" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Couple dressed for summer, holding hands.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design12.svg" alt="Joyful dynamic hug with the girl being lifted in the air" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Joyful dynamic hug with the girl being lifted in the air.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+          <figure class="collab-showcase__item">
+            <img loading="lazy" src="Assets/my_Designs/design13.svg" alt="Couple posing for a picture, with the girl making peace signs" />
+            <figcaption style="padding:0.6rem 0.75rem; font-size:0.8rem; color:var(--color-text-muted);">
+              <b>Couple posing for a picture, with the girl making peace signs.</b><br>
+              <small>Credit: shailendra mourya</small>
+            </figcaption>
+          </figure>
+
+        </div><!-- /.collab-showcase__gallery -->
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:2rem;">
+          <a class="btn-primary" href="#submit">Submit your work</a>
+          <a class="btn-outline" href="designs.html">See all designs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5. COLLABORATION FORM
+         ============================================================ -->
+    <section class="collab-form-section" id="submit" data-aos="fade-up">
+      <div class="container">
+        <div class="collab-form-section__inner">
+
+          <!-- Left: welcome card -->
+          <div class="collab-welcome" data-aos="fade-right">
+            <h2 class="collab-welcome__title">
+              Join the <em class="accent">Community</em>
+            </h2>
+            <p class="collab-welcome__desc">
+              Share your portfolio and get featured alongside other talented designers.
+              We credit all work and link to your profile.
+            </p>
+            <ul class="collab-welcome__list">
+              <li>Full credit and profile link</li>
+              <li>Showcase to a growing audience</li>
+              <li>Community support and feedback</li>
+            </ul>
+            <a class="btn-outline" href="#showcase" style="margin-top:1.5rem; display:inline-flex;">
+              View Showcase
+            </a>
+          </div>
+
+          <!-- Right: form card -->
+          <div class="collab-form-card" data-aos="fade-left">
+            <h3 class="collab-form-card__title">Submit Your Work</h3>
+
+            <!--
+              Standard HTML form — posts to Formspree via action attribute.
+              NO JavaScript fetch override, NO scriptURL.
+            -->
+            <form
+              id="collab-form"
+              class="collab-form"
+              action="https://formspree.io/f/movwzzey"
+              method="POST"
+            >
+              <div class="collab-form__row">
+                <div class="form-group">
+                  <label for="collab-name">Your Name</label>
+                  <input
+                    type="text"
+                    id="collab-name"
+                    name="name"
+                    placeholder="Full name"
+                    required
+                    autocomplete="name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="collab-email">Email Address</label>
+                  <input
+                    type="email"
+                    id="collab-email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                    autocomplete="email"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="collab-portfolio">Portfolio URL</label>
+                <input
+                  type="url"
+                  id="collab-portfolio"
+                  name="portfolio"
+                  placeholder="https://behance.net/yourprofile"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="collab-desc">About Your Work</label>
+                <textarea
+                  id="collab-desc"
+                  name="description"
+                  rows="4"
+                  placeholder="Tell us about your design style, experience, and what makes your work unique…"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="collab-category">Design Category</label>
+                <select id="collab-category" name="category" required>
+                  <option value="">Select your specialty</option>
+                  <option value="illustration">Illustration</option>
+                  <option value="logo">Logo Design</option>
+                  <option value="poster">Poster Design</option>
+                  <option value="branding">Branding &amp; Identity</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="flex-direction:row; align-items:flex-start; gap:0.6rem;">
+                <input
+                  type="checkbox"
+                  id="collab-terms"
+                  name="terms"
+                  required
+                  style="width:auto; margin-top:0.15rem; accent-color:var(--color-accent);"
+                />
+                <label for="collab-terms" style="font-size:0.85rem; margin:0; line-height:1.5;">
+                  I agree to the terms and conditions and allow my work to be featured in
+                  the showcase with proper attribution.
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                Submit Application
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (copy-pasted from src/components/footer.html)
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__col footer__brand">
+          <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+            imageO<span class="accent">mania</span>
+          </a>
+          <p class="footer__tagline">
+            A creative image search and design portfolio — discover stunning visuals
+            and original illustrations.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="designs.html">My Designs</a></li>
+            <li><a href="collaboration.html">Collaborate</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <ul role="list">
+            <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash Photos</a></li>
+            <li><a href="https://lexica.art" target="_blank" rel="noopener noreferrer">Lexica AI Art</a></li>
+            <li><a href="#" aria-label="License information (coming soon)">Licensing Info</a></li>
+            <li><a href="#" aria-label="Attribution guide (coming soon)">Attribution Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Connect</h4>
+          <ul role="list" class="footer__social">
+            <li>
+              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
+                Pinterest
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; <span id="footer-year">2024</span> imageOmania. All rights reserved.</span>
+        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
+          <a href="privacy.html" style="color:var(--color-text-muted); font-size:0.82rem; text-decoration:none;">Privacy Policy</a>
+          <span>Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var el = document.getElementById('footer-year');
+      if (el) el.textContent = new Date().getFullYear().toString();
+    })();
+  </script>
+  <!-- ============================================================
+       END FOOTER
+       ============================================================ -->
+
+  <!-- Page script -->
+  <script type="module" src="src/ts/collaboration.ts"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+
+</body>
+</html>

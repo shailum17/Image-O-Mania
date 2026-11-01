@@ -1,0 +1,283 @@
+/* ============================================================
+   designs.css — My Designs gallery page styles
+   NO body{} — see base.css
+   ============================================================ */
+
+/* --------------------------------------------------------
+   Page hero
+   -------------------------------------------------------- */
+.designs-hero {
+  padding: 5rem 0 3rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.designs-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.designs-hero__heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.designs-hero__desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 50ch;
+}
+
+/* --------------------------------------------------------
+   Category filter bar
+   -------------------------------------------------------- */
+.category-filters {
+  padding: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.filter-btn {
+  background: var(--color-card);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-border);
+  outline: none;
+}
+
+.filter-btn.is-active {
+  background: var(--color-accent);
+  color: #0c0c0c;
+  border-color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------
+   Design gallery — CSS columns masonry
+   -------------------------------------------------------- */
+.designs-gallery {
+  column-count: 3;
+  column-gap: 1.25rem;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+  .designs-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .designs-gallery {
+    column-count: 1;
+  }
+}
+
+/* --------------------------------------------------------
+   Design card
+   -------------------------------------------------------- */
+.design-card {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-card);
+  border: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.design-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.design-card figure {
+  position: relative;
+  margin: 0;
+}
+
+.design-card__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.design-card:hover .design-card__img {
+  transform: scale(1.04);
+}
+
+.design-card figcaption {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.design-card:hover figcaption,
+.design-card:focus-within figcaption {
+  opacity: 1;
+}
+
+.design-card__title {
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.design-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* --------------------------------------------------------
+   Lightbox overlay
+   -------------------------------------------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox__inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.8);
+  object-fit: contain;
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color var(--transition), border-color var(--transition);
+  z-index: 1;
+}
+
+.lightbox__close:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.lightbox__close:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.lightbox__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-card);
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background var(--transition), box-shadow var(--transition);
+  z-index: 1;
+}
+
+.lightbox__nav:hover {
+  background: var(--color-accent-dim);
+  box-shadow: var(--shadow-accent);
+}
+
+.lightbox__nav:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.lightbox__prev {
+  left: 1.25rem;
+}
+
+.lightbox__next {
+  right: 1.25rem;
+}
+
+.lightbox__caption {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  background: rgba(12, 12, 12, 0.75);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}

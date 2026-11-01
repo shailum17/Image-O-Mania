@@ -1,82 +1,96 @@
-## 🖼️ imageOmania - Creative Design Gallery
+# 🖼️ imageOmania — Creative Design Gallery
 
-A visually stunning web project showcasing creative designs in a Pinterest-style layout. Includes dynamic animations, search functionality, and modular pages like About and Contact.
-You can also contribute your design to my website for increasing the design galary with the contributor name.
+A visually stunning design gallery rebuilt with a modern TypeScript + Vite stack. Features a Pinterest-style masonry layout, smooth animations, image search, collaboration tools, and fully responsive pages.
 
 ---
 
-### 📁 Folder Structure
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | TypeScript |
+| Bundler | Vite 5 |
+| Styling | CSS (design tokens, component styles, per-page sheets) |
+| Animation | AOS (Animate On Scroll) |
+| Runtime | Vanilla TS — no frameworks |
+
+---
+
+## 📁 Project Structure
 
 ```
 imageOmania/
-├── Assets/
-│   ├── contact/
-│   ├── my_Designs/
-│   ├── contact.html
-│   ├── find.svg
-│   ├── foo.jpg
-│   ├── footer-forest.jpg
-│   └── Landingpage.svg
+├── src/
+│   ├── ts/                  # TypeScript modules (one per page)
+│   │   ├── home.ts
+│   │   ├── about.ts
+│   │   ├── search.ts
+│   │   ├── designs.ts
+│   │   └── collaboration.ts
+│   ├── styles/              # CSS — tokens, components, per-page
+│   │   ├── tokens.css
+│   │   ├── base.css
+│   │   ├── components.css
+│   │   ├── page-loader.css
+│   │   └── pages/
+│   └── components/          # Shared HTML partials (header, footer)
 │
-├── pages/
-│   ├── about.html
-│   ├── contact.html
-│   ├── footer.html
-│   ├── header.html
-│   ├── my_designs.html
-│   └── Search.html
-│
-├── scripts/
-│   └── creative_design.js
-│
-├── styles/
-│   ├── about.css
-│   ├── contact.css
-│   ├── design.css
-│   ├── footer-style.css
-│   ├── global.css
-│   ├── search-style.css
-│   └── style.css
-│
-├── index.html
-├── README.md
-
+├── Assets/                  # Images, SVGs, icons
+├── index.html               # Home page
+├── about.html
+├── search.html
+├── designs.html
+├── collaboration.html
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
 ---
 
-### 🛠️ Tech Stack
+## 🚀 Getting Started
 
-* HTML5, CSS3
-* JavaScript 
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run development server
+
+```bash
+npm run dev
+```
+
+The site is served at `http://localhost:5173` with hot-module replacement.
+
+### Build for production
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`. Preview the production build with:
+
+```bash
+npm run preview
+```
 
 ---
 
-### 📌 Description
+## ✨ Features
 
-imageOmania is a modern creative design showcase where users can:
-
-* Browse designs in a Pinterest-like masonry grid
-* Search free images
-* Contribute their designs 
-* Hover to reveal project details
-* View About and Contact pages
-* Submit queries via Contact form with optional image
+- Pinterest-style masonry design gallery
+- Scroll-triggered animations via AOS
+- Free image search (Unsplash API integration)
+- Collaboration / contribution submission flow
+- Fully responsive layout (mobile → desktop)
+- Page loader with smooth transitions
+- CSS design tokens for consistent theming
 
 ---
 
-### 📬 Contributions
+## 📬 Contributions
 
-For adding your creative designs or to contribute, contact:
+To add your designs or contribute, reach out:
 📩 **[shailendramourya17@gmail.com](mailto:shailendramourya17@gmail.com)**
-
----
-
-### ✅ Features
-
-* Dynamic header and footer inclusion
-* Scroll animations
-* Responsive grid layout
-* Contact form with optional image upload
-
----

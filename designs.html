@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" data-page="designs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse 21 original illustrations and poster designs by Shailendra Mourya. Filter by Illustration or Poster." />
+  <title>My Designs — imageOmania</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Assets/favicon.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="src/styles/tokens.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/components.css" />
+  <link rel="stylesheet" href="src/styles/page-loader.css" />
+  <link rel="stylesheet" href="src/styles/pages/designs.css" />
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader" aria-hidden="true">
+    <div class="loader-wrapper">
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">g</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">m</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">i</span>
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER (copy-pasted from src/components/header.html)
+       ============================================================ -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+          imageO<span class="accent">mania</span>
+        </a>
+
+        <ul class="nav__links" id="nav-links" role="list">
+          <li><a href="index.html" data-page-link="home">Home</a></li>
+          <li><a href="search.html" data-page-link="search">Search</a></li>
+          <li><a href="designs.html" data-page-link="designs">My Designs</a></li>
+          <li><a href="collaboration.html" data-page-link="collaboration">Collaborate</a></li>
+          <li><a href="about.html" data-page-link="about">About</a></li>
+        </ul>
+
+        <button
+          class="nav__toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+          type="button"
+        >
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+          <span class="nav__toggle-bar"></span>
+        </button>
+      </nav>
+
+      <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile navigation">
+        <a href="index.html" data-page-link="home">Home</a>
+        <a href="search.html" data-page-link="search">Search</a>
+        <a href="designs.html" data-page-link="designs">My Designs</a>
+        <a href="collaboration.html" data-page-link="collaboration">Collaborate</a>
+        <a href="about.html" data-page-link="about">About</a>
+      </nav>
+    </div>
+  </header>
+  <!-- ============================================================
+       END HEADER
+       ============================================================ -->
+
+  <main id="main">
+
+    <!-- Page Hero -->
+    <section class="designs-hero" data-aos="fade-up">
+      <div class="container">
+        <span class="designs-hero__eyebrow">
+          <i class="fa-solid fa-palette" aria-hidden="true"></i>
+          Portfolio
+        </span>
+        <h1 class="designs-hero__heading">
+          My Creative <em class="accent">Designs</em>
+        </h1>
+        <p class="designs-hero__desc">
+          21 original illustrations and posters. Click any image to view full-size.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter Bar + Gallery -->
+    <section class="container">
+
+      <!-- Filter Bar: exactly 3 buttons — All, Illustration, Poster. NO Logo. -->
+      <div class="category-filters" role="group" aria-label="Filter by category">
+        <button class="filter-btn is-active" data-category="all" type="button">All</button>
+        <button class="filter-btn" data-category="illustration" type="button">Illustration</button>
+        <button class="filter-btn" data-category="poster" type="button">Poster</button>
+      </div>
+
+      <!-- Gallery — 21 cards. Designs 1–20 = illustration. Design 21 = poster. -->
+      <div class="designs-gallery" id="design-gallery">
+
+        <!-- Design 1 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design1.jpg" alt="Couple posing for a picture, with the girl making a peace sign" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple posing for a picture, with the girl making a peace sign.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 2 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design2.jpg" alt="Couple holding hands while walking" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple holding hands while walking.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 3 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design3.jpg" alt="Playful and cute scene with a couple, a basketball, and a peace sign" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Playful and cute scene with a couple, a basketball, and a peace sign.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 4 — FIXED (original had broken HTML 'data-category=illustrationoading=') -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design4.jpg" alt="Affectionate couple cuddling on a ledge, with small hearts" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Affectionate couple cuddling on a ledge, with small hearts.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 5 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design5.jpg" alt="Intimate moment with a couple sitting and looking at each other" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Intimate moment with a couple sitting and looking at each other.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 6 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design6.jpg" alt="Sweet scene where one person is laughing while the other shyly covers their face" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Sweet scene where one person is laughing while the other shyly covers their face.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 7 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design7.jpg" alt="Poster featuring motivational quote and illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Poster featuring motivational quote and illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 8 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design8.svg" alt="Playful couple posing, with the girl shirt spelling LOVE" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Playful couple posing, with the girl shirt spelling LOVE.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 9 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design9.svg" alt="Affectionate couple sitting together on a small bench" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Affectionate couple sitting together on a small bench.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 10 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design10.svg" alt="Couple sharing a heartfelt hug, with the boy lifting the girl" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple sharing a heartfelt hug, with the boy lifting the girl.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 11 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design11.svg" alt="Couple dressed for summer, holding hands" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple dressed for summer, holding hands.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 12 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design12.svg" alt="Joyful dynamic hug with the girl being lifted in the air" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Joyful dynamic hug with the girl being lifted in the air.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 13 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design13.svg" alt="Couple posing for a picture, with the girl making peace signs" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple posing for a picture, with the girl making peace signs.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 14 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design14.svg" alt="Creative abstract shapes and illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Creative abstract shapes and illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 15 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design15.svg" alt="Playful character art illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Playful character art illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 16 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design16.svg" alt="Modern vector scene illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Modern vector scene illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 17 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design17.svg" alt="Couple in a dynamic pose illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Couple in a dynamic pose illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 18 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design18.svg" alt="Creative use of color and form in illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Creative use of color and form in illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 19 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design19.svg" alt="Stylized portrait art illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Stylized portrait art illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 20 -->
+        <figure class="design-card" data-category="illustration">
+          <img loading="lazy" src="Assets/my_Designs/design20.svg" alt="Geometric composition illustration" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Geometric composition illustration.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+        <!-- Design 21 — Poster category -->
+        <figure class="design-card" data-category="poster">
+          <img loading="lazy" src="Assets/my_Designs/design21.svg" alt="Creative vector poster artwork" class="design-card__img" />
+          <figcaption>
+            <span class="design-card__title">Creative vector poster artwork.</span>
+            <span class="design-card__tags"><small>Credit: shailendra mourya</small></span>
+          </figcaption>
+        </figure>
+
+      </div><!-- /#design-gallery -->
+
+    </section>
+
+    <!-- Lightbox Dialog -->
+    <div
+      id="lightbox"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Design lightbox"
+      hidden
+    >
+      <div class="lightbox__inner">
+        <button class="lightbox__close" id="lb-close" aria-label="Close lightbox" type="button">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <button class="lightbox__nav lightbox__prev" id="lb-prev" aria-label="Previous image" type="button">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <img id="lb-img" class="lightbox__img" src="" alt="" />
+        <button class="lightbox__nav lightbox__next" id="lb-next" aria-label="Next image" type="button">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+        <p id="lb-caption" class="lightbox__caption"></p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER (copy-pasted from src/components/footer.html)
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__col footer__brand">
+          <a href="index.html" class="nav__logo" aria-label="imageOmania home">
+            imageO<span class="accent">mania</span>
+          </a>
+          <p class="footer__tagline">
+            A creative image search and design portfolio — discover stunning visuals
+            and original illustrations.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="designs.html">My Designs</a></li>
+            <li><a href="collaboration.html">Collaborate</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <ul role="list">
+            <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash Photos</a></li>
+            <li><a href="https://lexica.art" target="_blank" rel="noopener noreferrer">Lexica AI Art</a></li>
+            <li><a href="#" aria-label="License information (coming soon)">Licensing Info</a></li>
+            <li><a href="#" aria-label="Attribution guide (coming soon)">Attribution Guide</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Connect</h4>
+          <ul role="list" class="footer__social">
+            <li>
+              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
+                Pinterest
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; <span id="footer-year">2024</span> imageOmania. All rights reserved.</span>
+        <div style="display:flex; gap:1.25rem; flex-wrap:wrap; align-items:center;">
+          <a href="privacy.html" style="color:var(--color-text-muted); font-size:0.82rem; text-decoration:none;">Privacy Policy</a>
+          <span>Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var el = document.getElementById('footer-year');
+      if (el) el.textContent = new Date().getFullYear().toString();
+    })();
+  </script>
+  <!-- ============================================================
+       END FOOTER
+       ============================================================ -->
+
+  <!-- Page script -->
+  <script type="module" src="src/ts/designs.ts"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+
+</body>
+</html>

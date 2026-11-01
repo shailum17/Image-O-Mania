@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+
+# Kiro IDE
+.kiro/
+
+# Agent task files
+.agents/
+
