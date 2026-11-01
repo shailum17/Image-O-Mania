@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Privacy Policy for imageOmania — how we handle your data, cookies, and third-party services." />
+  <meta name="description" content="Privacy Policy for imageOmania — how we handle your data, API usage, and third-party services." />
   <title>Privacy Policy — imageOmania</title>
 
   <!-- Favicon -->
@@ -17,15 +17,243 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- AOS CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-
   <!-- Site CSS -->
   <link rel="stylesheet" href="src/styles/tokens.css" />
   <link rel="stylesheet" href="src/styles/base.css" />
   <link rel="stylesheet" href="src/styles/components.css" />
   <link rel="stylesheet" href="src/styles/page-loader.css" />
-  <link rel="stylesheet" href="src/styles/pages/privacy.css" />
+
+  <style>
+    /* ---- Privacy page styles ---- */
+    .privacy-hero {
+      padding: 6rem 0 3.5rem;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .privacy-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .privacy-hero__heading {
+      font-family: var(--font-head);
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-hero__meta {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    .privacy-body {
+      padding: 4rem 0 6rem;
+    }
+
+    .privacy-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* Sticky table of contents */
+    .privacy-toc {
+      position: sticky;
+      top: 5rem;
+    }
+
+    .privacy-toc__title {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .privacy-toc__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      border-left: 2px solid var(--color-border-subtle);
+      padding-left: 1rem;
+    }
+
+    .privacy-toc__list a {
+      font-size: 0.83rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+      line-height: 1.4;
+    }
+
+    .privacy-toc__list a:hover {
+      color: var(--color-accent);
+    }
+
+    /* Article content */
+    .privacy-content {
+      min-width: 0;
+    }
+
+    .privacy-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .privacy-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .privacy-section__num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .privacy-section h2 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.015em;
+    }
+
+    .privacy-section p {
+      font-size: 0.93rem;
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+
+    .privacy-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .privacy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .privacy-section ul li {
+      font-size: 0.93rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .privacy-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    .privacy-section a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .privacy-section a:hover {
+      opacity: 0.8;
+    }
+
+    .privacy-highlight {
+      background: var(--color-card);
+      border: 1px solid var(--color-border-subtle);
+      border-left: 3px solid var(--color-accent);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .privacy-contact-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .privacy-contact-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--color-accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .privacy-contact-card__title {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.3rem;
+    }
+
+    .privacy-contact-card__detail {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .privacy-layout {
+        grid-template-columns: 1fr;
+      }
+      .privacy-toc {
+        position: static;
+        background: var(--color-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: 1.25rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,11 +274,10 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       HEADER
-       ============================================================ -->
+  <!-- Skip link -->
   <a class="skip-link" href="#main">Skip to main content</a>
 
+  <!-- HEADER -->
   <header class="site-header">
     <div class="container">
       <nav class="nav" aria-label="Main navigation">
@@ -89,250 +316,282 @@
       </nav>
     </div>
   </header>
-  <!-- END HEADER -->
 
   <main id="main">
 
-    <!-- ============================================================
-         HERO
-         ============================================================ -->
-    <section class="privacy-hero" data-aos="fade-up">
+    <!-- Hero -->
+    <section class="privacy-hero">
       <div class="container">
-        <span class="privacy-hero__eyebrow">
+        <p class="privacy-hero__eyebrow">
           <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
           Legal
-        </span>
+        </p>
         <h1 class="privacy-hero__heading">Privacy Policy</h1>
         <p class="privacy-hero__meta">
           Last updated: <time datetime="2026-11-01">November 1, 2026</time>
+          &nbsp;·&nbsp; Applies to imageOmania and all its pages
         </p>
       </div>
     </section>
 
-    <!-- ============================================================
-         BODY — TOC + CONTENT
-         ============================================================ -->
+    <!-- Body -->
     <section class="privacy-body">
       <div class="container">
-        <div class="privacy-body__inner">
+        <div class="privacy-layout">
 
-          <!-- Sidebar TOC -->
-          <nav class="privacy-toc" aria-label="Privacy policy sections">
-            <p class="privacy-toc__label">On this page</p>
-            <ul class="privacy-toc__list">
+          <!-- Table of contents -->
+          <aside class="privacy-toc" aria-label="Table of contents">
+            <p class="privacy-toc__title">On this page</p>
+            <ul class="privacy-toc__list" role="list">
               <li><a href="#overview">Overview</a></li>
-              <li><a href="#information-we-collect">Information We Collect</a></li>
-              <li><a href="#how-we-use">How We Use Your Data</a></li>
-              <li><a href="#third-party">Third-Party Services</a></li>
+              <li><a href="#data-collected">Data we collect</a></li>
+              <li><a href="#how-used">How we use it</a></li>
+              <li><a href="#third-parties">Third-party services</a></li>
+              <li><a href="#pinterest">Pinterest integration</a></li>
               <li><a href="#cookies">Cookies</a></li>
-              <li><a href="#data-storage">Data Storage &amp; Security</a></li>
-              <li><a href="#your-rights">Your Rights</a></li>
-              <li><a href="#children">Children's Privacy</a></li>
-              <li><a href="#changes">Changes to This Policy</a></li>
+              <li><a href="#your-rights">Your rights</a></li>
+              <li><a href="#data-retention">Data retention</a></li>
+              <li><a href="#children">Children's privacy</a></li>
+              <li><a href="#changes">Changes to this policy</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
-          </nav>
+          </aside>
 
-          <!-- Main content -->
-          <div class="privacy-content" data-aos="fade-up">
+          <!-- Content -->
+          <article class="privacy-content">
 
-            <!-- 1. Overview -->
-            <section class="privacy-section" id="overview">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span>
-                Overview
-              </h2>
+            <div class="privacy-section" id="overview">
+              <p class="privacy-section__num">01</p>
+              <h2>Overview</h2>
               <p>
-                imageOmania ("we", "us", or "our") is a creative platform that provides image search and an original design portfolio. This Privacy Policy explains what information we collect when you use
-                <a href="https://github.com/shailum17/Image-O-Mania" target="_blank" rel="noopener noreferrer">imageOmania</a>,
-                how we use it, and the choices you have.
+                imageOmania ("we", "us", "our") is a personal creative portfolio and image
+                search platform operated by Shailendra Mourya. This Privacy Policy explains
+                what information we collect when you visit <strong>imageOmania</strong>,
+                how we use it, and what choices you have.
               </p>
               <p>
-                By using the site you agree to the practices described here. If you do not agree, please discontinue use of the site.
+                We are committed to handling your data responsibly. This site is primarily
+                a read-only experience — you can search for images and browse designs without
+                creating an account or providing any personal information.
               </p>
-            </section>
-
-            <!-- 2. Information we collect -->
-            <section class="privacy-section" id="information-we-collect">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-database"></i></span>
-                Information We Collect
-              </h2>
-              <p>We collect information in two ways:</p>
-              <p><strong style="color:var(--color-text);">Information you provide directly</strong></p>
-              <ul>
-                <li>Name and email address submitted through the contact form</li>
-                <li>Message content and subject line you send us</li>
-                <li>Portfolio links or files submitted via the Collaborate page</li>
-                <li>Newsletter subscription preference (opt-in only)</li>
-              </ul>
-              <p><strong style="color:var(--color-text);">Information collected automatically</strong></p>
-              <ul>
-                <li>Browser type, operating system, and device type</li>
-                <li>Pages visited and time spent on each page</li>
-                <li>Referring URLs and search queries used to find the site</li>
-                <li>IP address (used only for security and analytics, never sold)</li>
-              </ul>
-            </section>
-
-            <!-- 3. How we use your data -->
-            <section class="privacy-section" id="how-we-use">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
-                How We Use Your Data
-              </h2>
-              <p>We use the information we collect only to:</p>
-              <ul>
-                <li>Respond to your contact form messages and collaboration requests</li>
-                <li>Send occasional updates about new designs or features (if you opted in)</li>
-                <li>Understand how the site is used so we can improve it</li>
-                <li>Detect and prevent abuse or security issues</li>
-              </ul>
-              <p>
-                We do <strong style="color:var(--color-text);">not</strong> sell, rent, or trade your personal information to any third party for marketing purposes.
-              </p>
-            </section>
-
-            <!-- 4. Third-party services -->
-            <section class="privacy-section" id="third-party">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-puzzle-piece"></i></span>
-                Third-Party Services
-              </h2>
-              <p>imageOmania integrates with the following external services. Each has its own privacy policy:</p>
-              <ul>
-                <li>
-                  <strong style="color:var(--color-text);">Unsplash API</strong> — powers the free photo search.
-                  Search queries are sent to Unsplash's servers.
-                  See <a href="https://unsplash.com/privacy" target="_blank" rel="noopener noreferrer">Unsplash's Privacy Policy</a>.
-                </li>
-                <li>
-                  <strong style="color:var(--color-text);">Lexica</strong> — powers the AI illustration search.
-                  See <a href="https://lexica.art/privacy" target="_blank" rel="noopener noreferrer">Lexica's Privacy Policy</a>.
-                </li>
-                <li>
-                  <strong style="color:var(--color-text);">Formspree</strong> — processes contact form submissions.
-                  Your name, email, and message are sent securely to Formspree.
-                  See <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Formspree's Privacy Policy</a>.
-                </li>
-                <li>
-                  <strong style="color:var(--color-text);">Google Fonts</strong> — loads typefaces from Google's CDN.
-                  See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
-                </li>
-                <li>
-                  <strong style="color:var(--color-text);">Font Awesome CDN</strong> — loads icon assets.
-                  See <a href="https://fontawesome.com/privacy" target="_blank" rel="noopener noreferrer">Font Awesome's Privacy Policy</a>.
-                </li>
-              </ul>
-            </section>
-
-            <!-- 5. Cookies -->
-            <section class="privacy-section" id="cookies">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-cookie-bite"></i></span>
-                Cookies
-              </h2>
-              <p>
-                imageOmania does not set its own tracking or advertising cookies. However, third-party services embedded in the site (Google Fonts, Formspree, Unsplash, Lexica) may set cookies or store data in your browser according to their own policies.
-              </p>
-              <p>
-                You can manage or disable cookies through your browser settings at any time. Disabling third-party cookies will not break any core functionality of the site.
-              </p>
-            </section>
-
-            <!-- 6. Data storage & security -->
-            <section class="privacy-section" id="data-storage">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
-                Data Storage &amp; Security
-              </h2>
-              <p>
-                Contact form data is processed and stored by Formspree on secure, encrypted servers. We do not store a separate copy of your message on our own servers.
-              </p>
-              <p>
-                The imageOmania site is a static site hosted on GitHub Pages. No user data is stored in a database operated by us. Search queries made through the Unsplash and Lexica integrations are not logged by imageOmania.
-              </p>
-              <p>
-                While we take reasonable measures to protect information, no transmission over the internet is 100% secure. Please do not submit sensitive personal information through the contact form.
-              </p>
-            </section>
-
-            <!-- 7. Your rights -->
-            <section class="privacy-section" id="your-rights">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-user-shield"></i></span>
-                Your Rights
-              </h2>
-              <p>Depending on where you live, you may have the right to:</p>
-              <ul>
-                <li>Request access to any personal information we hold about you</li>
-                <li>Request correction or deletion of that information</li>
-                <li>Opt out of any newsletter or marketing emails at any time</li>
-                <li>Lodge a complaint with your local data protection authority</li>
-              </ul>
-              <p>
-                To exercise any of these rights, email us at
-                <a href="mailto:shailendramourya17@gmail.com">shailendramourya17@gmail.com</a>
-                and we'll respond within 30 days.
-              </p>
-            </section>
-
-            <!-- 8. Children's privacy -->
-            <section class="privacy-section" id="children">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-child"></i></span>
-                Children's Privacy
-              </h2>
-              <p>
-                imageOmania is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has submitted personal data through the site, please contact us and we will delete it promptly.
-              </p>
-            </section>
-
-            <!-- 9. Changes -->
-            <section class="privacy-section" id="changes">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-rotate"></i></span>
-                Changes to This Policy
-              </h2>
-              <p>
-                We may update this Privacy Policy from time to time. When we do, the "Last updated" date at the top of the page will change. Continued use of the site after changes are posted constitutes acceptance of the revised policy.
-              </p>
-              <p>
-                Significant changes will also be noted in the project's
-                <a href="https://github.com/shailum17/Image-O-Mania/commits/main" target="_blank" rel="noopener noreferrer">GitHub commit history</a>.
-              </p>
-            </section>
-
-            <!-- 10. Contact -->
-            <section class="privacy-section" id="contact">
-              <h2 class="privacy-section__title">
-                <span class="section-icon" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
-                Contact
-              </h2>
-              <p>If you have any questions about this Privacy Policy, reach out directly:</p>
-              <div class="privacy-contact-card">
-                <p><strong style="color:var(--color-text);">Shailendra Mourya</strong></p>
-                <p>
-                  <i class="fa-solid fa-envelope" aria-hidden="true" style="color:var(--color-accent); margin-right:0.4rem;"></i>
-                  <a href="mailto:shailendramourya17@gmail.com">shailendramourya17@gmail.com</a>
-                </p>
-                <p>
-                  <i class="fa-brands fa-github" aria-hidden="true" style="color:var(--color-accent); margin-right:0.4rem;"></i>
-                  <a href="https://github.com/shailum17/Image-O-Mania" target="_blank" rel="noopener noreferrer">github.com/shailum17/Image-O-Mania</a>
-                </p>
+              <div class="privacy-highlight">
+                <strong>Short version:</strong> We don't sell your data. We don't build profiles.
+                The only personal information we receive is what you voluntarily submit through
+                our contact or collaboration forms.
               </div>
-            </section>
+            </div>
 
-          </div><!-- /.privacy-content -->
-        </div><!-- /.privacy-body__inner -->
-      </div><!-- /.container -->
+            <div class="privacy-section" id="data-collected">
+              <p class="privacy-section__num">02</p>
+              <h2>Data we collect</h2>
+              <p>We collect the minimum amount of data necessary to operate the site:</p>
+              <ul>
+                <li>
+                  <strong>Contact form submissions</strong> — name, email address, subject,
+                  and message content when you voluntarily fill in the contact form.
+                </li>
+                <li>
+                  <strong>Collaboration form submissions</strong> — name, email address,
+                  portfolio URL, description, and category when you submit a designer
+                  collaboration request.
+                </li>
+                <li>
+                  <strong>Search queries</strong> — search terms you enter on the Search page
+                  are sent directly to the Unsplash and Lexica APIs. We do not store these
+                  queries ourselves.
+                </li>
+                <li>
+                  <strong>Usage data</strong> — standard server and CDN logs may record your
+                  IP address, browser type, and pages visited. This is handled by Vercel
+                  (our hosting provider) and is not under our direct control.
+                </li>
+              </ul>
+              <p>
+                We do <strong>not</strong> collect payment information, run advertising
+                trackers, or use third-party analytics such as Google Analytics.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="how-used">
+              <p class="privacy-section__num">03</p>
+              <h2>How we use it</h2>
+              <p>Information you provide is used solely to:</p>
+              <ul>
+                <li>Respond to your contact or collaboration enquiry</li>
+                <li>Review and potentially showcase your submitted design work</li>
+                <li>Send occasional updates if you opted in via the newsletter checkbox</li>
+              </ul>
+              <p>
+                We do not use your information for automated decision-making, profiling,
+                or any purpose beyond responding to your direct request.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="third-parties">
+              <p class="privacy-section__num">04</p>
+              <h2>Third-party services</h2>
+              <p>
+                This site integrates with the following third-party services. Each has
+                its own privacy policy which governs how they handle data.
+              </p>
+              <ul>
+                <li>
+                  <strong>Unsplash API</strong> — powers the photo search. Search queries
+                  are sent to Unsplash's servers. See
+                  <a href="https://unsplash.com/privacy" target="_blank" rel="noopener noreferrer">Unsplash Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong>Lexica API</strong> — powers the AI illustration search. See
+                  <a href="https://lexica.art/privacy" target="_blank" rel="noopener noreferrer">Lexica Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong>Formspree</strong> — processes form submissions (contact and
+                  collaboration forms). Your form data passes through Formspree's servers.
+                  See <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong>Vercel</strong> — hosts this website. Vercel may collect standard
+                  server logs. See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong>Google Fonts</strong> — serves the typefaces used on this site.
+                  Font requests are sent to Google's servers. See
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong>Font Awesome</strong> — serves icons via Cloudflare CDN. See
+                  <a href="https://fontawesome.com/privacy" target="_blank" rel="noopener noreferrer">Font Awesome Privacy Policy</a>.
+                </li>
+              </ul>
+            </div>
+
+            <div class="privacy-section" id="pinterest">
+              <p class="privacy-section__num">05</p>
+              <h2>Pinterest integration</h2>
+              <p>
+                imageOmania uses the Pinterest API to display pins from the owner's
+                personal Pinterest boards on the Designs page. This integration:
+              </p>
+              <ul>
+                <li>Reads pins only from the site owner's own Pinterest account</li>
+                <li>Does not access any visitor's Pinterest data</li>
+                <li>Does not post, like, or interact with Pinterest on behalf of visitors</li>
+                <li>Does not require visitors to have or connect a Pinterest account</li>
+              </ul>
+              <p>
+                Pin images and metadata fetched from Pinterest are displayed solely for
+                the purpose of showcasing the owner's creative work. See
+                <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener noreferrer">Pinterest's Privacy Policy</a>
+                for how Pinterest handles data.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="cookies">
+              <p class="privacy-section__num">06</p>
+              <h2>Cookies</h2>
+              <p>
+                This site does not set any first-party cookies. Third-party services
+                (Google Fonts, Cloudflare CDN, Vercel) may set their own cookies or
+                use local storage as part of their normal operation. These are outside
+                our control.
+              </p>
+              <p>
+                The site does not use advertising cookies, tracking pixels, or
+                retargeting scripts.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="your-rights">
+              <p class="privacy-section__num">07</p>
+              <h2>Your rights</h2>
+              <p>
+                If you have submitted data through one of our forms, you have the right to:
+              </p>
+              <ul>
+                <li>Request a copy of the data we hold about you</li>
+                <li>Request that we correct inaccurate information</li>
+                <li>Request that we delete your data</li>
+                <li>Withdraw consent for newsletter communications at any time</li>
+              </ul>
+              <p>
+                To exercise any of these rights, contact us at the address in the
+                <a href="#contact">Contact section</a> below. We will respond within
+                30 days.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="data-retention">
+              <p class="privacy-section__num">08</p>
+              <h2>Data retention</h2>
+              <p>
+                Form submissions are retained in Formspree's system for as long as
+                necessary to respond to your enquiry, and no longer than 12 months
+                unless you have opted in to newsletter communications. You can request
+                deletion at any time.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="children">
+              <p class="privacy-section__num">09</p>
+              <h2>Children's privacy</h2>
+              <p>
+                imageOmania is not directed at children under the age of 13. We do not
+                knowingly collect personal information from children. If you believe a
+                child has submitted information through this site, please contact us and
+                we will delete it promptly.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="changes">
+              <p class="privacy-section__num">10</p>
+              <h2>Changes to this policy</h2>
+              <p>
+                We may update this Privacy Policy from time to time. When we do, we will
+                update the "Last updated" date at the top of this page. Continued use of
+                the site after changes constitutes acceptance of the updated policy.
+              </p>
+              <p>
+                We will not make material changes that reduce your privacy rights without
+                providing reasonable notice.
+              </p>
+            </div>
+
+            <div class="privacy-section" id="contact">
+              <p class="privacy-section__num">11</p>
+              <h2>Contact</h2>
+              <p>
+                If you have questions about this Privacy Policy or how your data is
+                handled, please reach out:
+              </p>
+
+              <div class="privacy-contact-card">
+                <div class="privacy-contact-card__icon" aria-hidden="true">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <p class="privacy-contact-card__title">Shailendra Mourya</p>
+                  <p class="privacy-contact-card__detail">
+                    <a href="mailto:shailendramourya17@gmail.com">shailendramourya17@gmail.com</a>
+                    &nbsp;·&nbsp; We aim to respond within 24 hours.
+                  </p>
+                </div>
+              </div>
+
+              <p style="margin-top:1.5rem;">
+                You can also use the
+                <a href="index.html#contact">contact form on the homepage</a>
+                to reach us directly.
+              </p>
+            </div>
+
+          </article>
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer__grid">
@@ -363,8 +622,7 @@
           <ul role="list">
             <li><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash Photos</a></li>
             <li><a href="https://lexica.art" target="_blank" rel="noopener noreferrer">Lexica AI Art</a></li>
-            <li><a href="#" aria-label="License information (coming soon)">Licensing Info</a></li>
-            <li><a href="#" aria-label="Attribution guide (coming soon)">Attribution Guide</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -378,7 +636,7 @@
               </a>
             </li>
             <li>
-              <a href="https://github.com/shailum17/Image-O-Mania" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <i class="fa-brands fa-github" aria-hidden="true"></i>
                 GitHub
               </a>
@@ -396,10 +654,7 @@
 
       <div class="footer__bottom">
         <span>&copy; <span id="footer-year">2024</span> imageOmania. All rights reserved.</span>
-        <div style="display:flex; gap:1.25rem; flex-wrap:wrap;">
-          <a href="privacy.html" style="color:var(--color-text-muted); font-size:0.82rem; text-decoration:none;">Privacy Policy</a>
-          <span style="color:var(--color-text-muted); font-size:0.82rem;">Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
-        </div>
+        <span>Made with <span aria-hidden="true">&#9829;</span><span class="sr-only">love</span> by Shailendra Mourya</span>
       </div>
     </div>
   </footer>
@@ -408,34 +663,28 @@
     (function () {
       var el = document.getElementById('footer-year');
       if (el) el.textContent = new Date().getFullYear().toString();
-    })();
-  </script>
-  <!-- END FOOTER -->
 
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({ once: true, duration: 600, easing: 'ease-out-cubic' });
-      }
       // Mobile nav toggle
       var toggle = document.getElementById('nav-toggle');
       var mobileNav = document.getElementById('nav-mobile');
       if (toggle && mobileNav) {
         toggle.addEventListener('click', function () {
-          var open = mobileNav.classList.toggle('is-open');
-          toggle.setAttribute('aria-expanded', String(open));
+          var isOpen = mobileNav.classList.toggle('is-open');
+          toggle.setAttribute('aria-expanded', isOpen.toString());
         });
       }
-      // Page loader
+
+      // Hide page loader
       var loader = document.getElementById('page-loader');
       if (loader) {
         window.addEventListener('load', function () {
           loader.classList.add('hidden');
         });
+        setTimeout(function () {
+          loader.classList.add('hidden');
+        }, 600);
       }
-    });
+    })();
   </script>
 
 </body>

@@ -10,6 +10,7 @@ export default defineConfig({
         designs: 'designs.html',
         collaboration: 'collaboration.html',
         about: 'about.html',
+        privacy: 'privacy.html',
       },
     },
   },
