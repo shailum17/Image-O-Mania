@@ -18,6 +18,18 @@ export async function fetchDesignImages(bucket = 'designs', folder = '') {
     });
 }
 
+/** Derive a filter category from the filename prefix.
+ *  Files whose names start with "poster-" or "poster_" map to "poster",
+ *  files starting with "logo-" or "logo_" map to "logo",
+ *  everything else defaults to "illustration".
+ */
+function categoryFromName(name) {
+  const lower = name.toLowerCase();
+  if (/^poster[-_]/.test(lower)) return 'poster';
+  if (/^logo[-_]/.test(lower)) return 'logo';
+  return 'illustration';
+}
+
 export function renderDesignGallery(images) {
   const gallery = document.querySelector('.design-gallery');
   if (!gallery || !images?.length) return false;
@@ -25,7 +37,7 @@ export function renderDesignGallery(images) {
   images.forEach((img, i) => {
     const fig = document.createElement('figure');
     fig.className = 'design-card';
-    fig.setAttribute('data-category', 'illustration');
+    fig.setAttribute('data-category', categoryFromName(img.name));
     fig.innerHTML = `<img loading="lazy" src="${img.url}" alt="Design ${i + 1}"><figcaption><b>${img.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')}</b><br><small>Credit: shailendra mourya</small></figcaption>`;
     gallery.appendChild(fig);
   });

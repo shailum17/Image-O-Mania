@@ -41,6 +41,11 @@ Making the bucket public lets the browser fetch image URLs without authenticatio
 3. You can optionally organise images inside a sub-folder (e.g. `my_designs/`). If you do, update the second argument in `fetchDesignImages('designs', 'my_designs')` in `pages/my_designs.html`.
 4. Images will be listed alphabetically in the gallery, so name them consistently (e.g. `design1.jpg`, `design2.jpg`, …).
 
+> **Category naming convention:** The gallery filter buttons (Illustration / Poster / Logo) rely on filename prefixes:
+> - Files starting with `poster-` or `poster_` (e.g. `poster-summer.jpg`) → **Poster** filter
+> - Files starting with `logo-` or `logo_` (e.g. `logo-brand.svg`) → **Logo** filter
+> - All other files → **Illustration** filter (default)
+
 ---
 
 ## 5. Find your Project URL and anon key
