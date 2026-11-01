@@ -1,5 +1,5 @@
 // Uses Supabase JS CDN - no bundler needed
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
 
 export async function fetchDesignImages(bucket = 'designs', folder = '') {
   const config = window.SUPABASE_CONFIG;
@@ -38,7 +38,25 @@ export function renderDesignGallery(images) {
     const fig = document.createElement('figure');
     fig.className = 'design-card';
     fig.setAttribute('data-category', categoryFromName(img.name));
-    fig.innerHTML = `<img loading="lazy" src="${img.url}" alt="Design ${i + 1}"><figcaption><b>${img.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')}</b><br><small>Credit: shailendra mourya</small></figcaption>`;
+
+    // Use DOM API to set src/alt — avoids XSS from filenames containing HTML chars
+    const imgEl = document.createElement('img');
+    imgEl.loading = 'lazy';
+    imgEl.src = img.url;
+    imgEl.alt = 'Design ' + (i + 1);
+
+    const caption = document.createElement('figcaption');
+    const bold = document.createElement('b');
+    bold.textContent = img.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+    const br = document.createElement('br');
+    const small = document.createElement('small');
+    small.textContent = 'Credit: shailendra mourya';
+    caption.appendChild(bold);
+    caption.appendChild(br);
+    caption.appendChild(small);
+
+    fig.appendChild(imgEl);
+    fig.appendChild(caption);
     gallery.appendChild(fig);
   });
   return true;

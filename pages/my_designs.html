@@ -118,22 +118,25 @@
     }
 
     async function loadSupabaseImages() {
-      try {
-        const config = window.SUPABASE_CONFIG;
-        // Skip gracefully if config is still placeholder or missing
-        if (!config?.url || config.url === 'YOUR_SUPABASE_URL') return;
+      const config = window.SUPABASE_CONFIG;
+      // Skip gracefully if config is still placeholder or missing
+      if (!config?.url || config.url === 'YOUR_SUPABASE_URL') return;
 
+      let galleryMutated = false;
+      try {
         const images = await fetchDesignImages('designs', '');
         if (!images || images.length === 0) return; // keep static fallback cards
 
-        const rendered = renderDesignGallery(images);
-        if (rendered) {
-          // Re-init filters so the newly injected cards respond to filter buttons
-          initFilters();
-        }
+        galleryMutated = renderDesignGallery(images);
       } catch (err) {
         // Silent fallback — static cards remain visible
         console.warn('Supabase image load skipped:', err?.message);
+      } finally {
+        // Always re-init filters if gallery was cleared, so filter buttons are
+        // never left targeting detached nodes from the original static NodeList.
+        if (galleryMutated) {
+          initFilters();
+        }
       }
     }
 
