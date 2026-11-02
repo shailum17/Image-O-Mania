@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Image-O-Mania</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #7FFF00;
+      --accent-dark: #5ED400;
+      --bg: #0d0d0d;
+      --sidebar-bg: #111;
+      --card-bg: #1a1a1a;
+      --input-bg: #2a2a2a;
+      --border: #333;
+      --text: #eee;
+      --text-muted: #888;
+      --danger: #e53e3e;
+      --sidebar-w: 220px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ═══════════════════════════════════════
+       PASSWORD GATE
+    ═══════════════════════════════════════ */
+    #gate {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px 36px;
+      width: 100%; max-width: 380px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .login-card h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    .login-card p {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: -10px;
+    }
+
+    #gate-error {
+      background: rgba(229, 62, 62, 0.15);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════
+       FORM ELEMENTS (shared)
+    ═══════════════════════════════════════ */
+    input, textarea, select {
+      width: 100%;
+      background: var(--input-bg);
+      color: var(--eee, #eee);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+    }
+    select option { background: var(--input-bg); }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0; }
+    .field label { margin-bottom: 6px; }
+
+    /* ═══════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 20px;
+      border: none; border-radius: 6px;
+      font-size: 0.9375rem; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+    .btn-primary:disabled {
+      opacity: 0.5; cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: var(--input-bg);
+      color: #ccc;
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { color: var(--accent); border-color: var(--accent); }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+
+    .btn-sm { padding: 6px 12px; font-size: 0.8125rem; }
+
+    /* ═══════════════════════════════════════
+       DASHBOARD LAYOUT
+    ═══════════════════════════════════════ */
+    #dashboard {
+      display: none;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .layout {
+      display: flex;
+      height: 100%;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-logo {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    nav { padding: 12px 0; flex: 1; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .nav-item:hover { background: rgba(127,255,0,0.05); color: var(--text); }
+    .nav-item.active {
+      border-left-color: var(--accent);
+      background: rgba(127,255,0,0.08);
+      color: var(--accent);
+    }
+
+    .nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── Main area ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Header bar ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 28px;
+      height: 60px;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .header-logo {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .admin-badge {
+      background: rgba(127,255,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(127,255,0,0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .header-spacer { flex: 1; }
+
+    /* ── Content area ── */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px 28px;
+    }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .view-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    /* ═══════════════════════════════════════
+       VIEW 1: UPLOAD
+    ═══════════════════════════════════════ */
+    .upload-form {
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .file-drop-area {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      transition: border-color 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .file-drop-area:hover, .file-drop-area.has-file { border-color: var(--accent); }
+    .file-drop-area input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer;
+      width: 100%; height: 100%;
+    }
+    .file-drop-label {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      pointer-events: none;
+    }
+    .file-drop-label span { color: var(--accent); font-weight: 600; }
+
+    #upload-preview-wrap {
+      display: none;
+      margin-top: 14px;
+    }
+    #upload-preview {
+      max-height: 200px;
+      max-width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      display: block;
+    }
+    #preview-filename {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .upload-status {
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      display: none;
+    }
+    .upload-status.error {
+      background: rgba(229,62,62,0.12);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      display: block;
+    }
+    .upload-status.info {
+      background: rgba(127,255,0,0.08);
+      border: 1px solid rgba(127,255,0,0.3);
+      color: var(--accent);
+      display: block;
+    }
+
+    #upload-progress-wrap { display: none; }
+    #upload-progress {
+      width: 100%;
+      height: 6px;
+      accent-color: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* ═══════════════════════════════════════
+       VIEW 2: MANAGE DESIGNS
+    ═══════════════════════════════════════ */
+    .manage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    .design-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .design-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .design-card-thumb {
+      width: 100%; aspect-ratio: 1;
+      object-fit: cover;
+      background: #222;
+      display: block;
+    }
+
+    .design-card-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .design-card-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .category-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(127,255,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(127,255,0,0.25);
+      width: fit-content;
+    }
+
+    .design-card-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    /* ── Spinner ── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 48px 0;
+      color: var(--text-muted);
+    }
+    .spinner {
+      width: 28px; height: 28px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center;
+      padding: 64px 0;
+      color: var(--text-muted);
+    }
+    .empty-state p { font-size: 1rem; }
+
+    .fetch-error {
+      background: rgba(229,62,62,0.12);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* ═══════════════════════════════════════
+       VIEW 3: STATS
+    ═══════════════════════════════════════ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stats-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    /* Bar chart */
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      width: 100px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      background: var(--card-bg);
+      border-radius: 4px;
+      height: 14px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      transition: width 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .bar-count {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .recent-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      max-width: 480px;
+    }
+    .recent-card .field-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+    .recent-card .field-row:last-child { margin-bottom: 0; }
+    .recent-card .field-key {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .recent-card .field-val {
+      font-size: 0.9375rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      max-width: 320px;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { background: #1a472a; color: var(--accent); border: 1px solid rgba(127,255,0,0.35); }
+    #toast.error   { background: #4a1a1a; color: #ff8080; border: 1px solid rgba(229,62,62,0.4); }
+
+    /* ═══════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════ */
+    #modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      padding: 20px;
+    }
+    #modal-overlay.open { display: flex; }
+
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+    }
+    .modal-card h3 { font-size: 1.125rem; margin-bottom: 10px; color: var(--text); }
+    .modal-card p  { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* ═══════════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .layout { flex-direction: column; }
+
+      .sidebar {
+        width: 100%;
+        min-width: unset;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        flex-direction: row;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-shrink: 0;
+      }
+      .sidebar-logo { display: none; }
+      nav {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        width: 100%;
+        flex: 1;
+      }
+      .nav-item {
+        padding: 14px 18px;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        flex-shrink: 0;
+      }
+      .nav-item.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--accent);
+        background: rgba(127,255,0,0.07);
+      }
+
+      #dashboard { height: auto; overflow: auto; }
+      .main { overflow: visible; }
+      .content { overflow: visible; }
+
+      .designs-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       PASSWORD GATE
+  ══════════════════════════════════════ -->
+  <div id="gate" role="main" aria-label="Admin login">
+    <div class="login-card">
+      <h1>Image-O-Mania</h1>
+      <p>Admin access only</p>
+      <div id="gate-error" role="alert"></div>
+      <div class="field">
+        <label for="gate-password">Password</label>
+        <input
+          type="password"
+          id="gate-password"
+          placeholder="Enter admin password"
+          autocomplete="current-password"
+        />
+      </div>
+      <button class="btn btn-primary" id="gate-btn" type="button">Login</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       DASHBOARD
+  ══════════════════════════════════════ -->
+  <div id="dashboard" aria-label="Admin dashboard">
+    <div class="layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar" aria-label="Sidebar navigation">
+        <div class="sidebar-logo">
+          <span>Image-O-Mania</span>
+        </div>
+        <nav>
+          <div class="nav-item active" data-view="upload" role="button" tabindex="0" aria-current="page">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Upload
+          </div>
+          <div class="nav-item" data-view="manage" role="button" tabindex="0">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            Manage Designs
+          </div>
+          <div class="nav-item" data-view="stats" role="button" tabindex="0">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            Stats
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+      <div class="main">
+
+        <!-- Header -->
+        <header class="header">
+          <span class="header-logo">Image-O-Mania</span>
+          <span class="admin-badge">Admin Panel</span>
+          <div class="header-spacer"></div>
+          <button class="btn btn-secondary btn-sm" id="logout-btn" type="button">Logout</button>
+        </header>
+
+        <!-- Content -->
+        <main class="content">
+
+          <!-- ── VIEW: UPLOAD ── -->
+          <section class="view active" id="view-upload" aria-label="Upload design">
+            <h2 class="view-title">Upload Design</h2>
+            <form class="upload-form" id="upload-form" novalidate>
+
+              <!-- File picker -->
+              <div class="field">
+                <label>Image File <span style="color:var(--danger)">*</span></label>
+                <div class="file-drop-area" id="drop-area">
+                  <input
+                    type="file"
+                    id="file-input"
+                    accept="image/jpeg,image/png,image/svg+xml,image/gif,image/webp"
+                    required
+                    aria-label="Choose image file"
+                  />
+                  <div class="file-drop-label">
+                    <span>Click to choose</span> or drag &amp; drop<br/>
+                    <small>JPEG, PNG, SVG, GIF, WebP</small>
+                  </div>
+                </div>
+                <div id="upload-preview-wrap">
+                  <img id="upload-preview" src="" alt="Preview of selected image" />
+                  <div id="preview-filename"></div>
+                </div>
+              </div>
+
+              <!-- Title -->
+              <div class="field">
+                <label for="upload-title">Title <span style="color:var(--danger)">*</span></label>
+                <input type="text" id="upload-title" placeholder="e.g. Summer Vibes" required />
+              </div>
+
+              <!-- Category -->
+              <div class="field">
+                <label for="upload-category">Category</label>
+                <select id="upload-category">
+                  <option value="illustration">Illustration</option>
+                  <option value="poster">Poster</option>
+                  <option value="logo">Logo</option>
+                </select>
+              </div>
+
+              <!-- Credit -->
+              <div class="field">
+                <label for="upload-credit">Credit</label>
+                <input type="text" id="upload-credit" value="shailendra mourya" />
+              </div>
+
+              <!-- Description -->
+              <div class="field">
+                <label for="upload-description">Description <small style="color:var(--text-muted)">(optional)</small></label>
+                <textarea id="upload-description" rows="3" placeholder="Brief description of this design…" style="resize:vertical"></textarea>
+              </div>
+
+              <!-- Progress -->
+              <div id="upload-progress-wrap" aria-live="polite">
+                <progress id="upload-progress" value="0" max="100"></progress>
+              </div>
+
+              <!-- Status message -->
+              <div class="upload-status" id="upload-status" role="alert"></div>
+
+              <button class="btn btn-primary" id="upload-btn" type="submit">
+                Upload Design
+              </button>
+            </form>
+          </section>
+
+          <!-- ── VIEW: MANAGE DESIGNS ── -->
+          <section class="view" id="view-manage" aria-label="Manage designs">
+            <div class="manage-header">
+              <h2 class="view-title" style="margin-bottom:0">Manage Designs</h2>
+              <button class="btn btn-secondary btn-sm" id="refresh-btn" type="button">Refresh</button>
+            </div>
+            <div id="manage-content">
+              <!-- populated by JS -->
+            </div>
+          </section>
+
+          <!-- ── VIEW: STATS ── -->
+          <section class="view" id="view-stats" aria-label="Stats">
+            <h2 class="view-title">Stats</h2>
+            <div id="stats-content">
+              <!-- populated by JS -->
+            </div>
+          </section>
+
+        </main>
+      </div><!-- /.main -->
+    </div><!-- /.layout -->
+  </div><!-- /#dashboard -->
+
+  <!-- Toast -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Confirm Modal -->
+  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <h3 id="modal-title">Confirm Delete</h3>
+      <p id="modal-body"></p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary btn-sm" id="modal-cancel" type="button">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="modal-confirm" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════ -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+
+    // ── Supabase client ──────────────────────────────────────────
+    const SUPABASE_URL     = 'https://mksomjbsvpxbkikjacrz.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_6arxml-8yamM1RQyat8BlQ_YSKvz30j';
+    const BUCKET            = 'designs';
+    const ADMIN_PASSWORD    = 'imageomania2024';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ── DOM refs ─────────────────────────────────────────────────
+    const gate        = document.getElementById('gate');
+    const dashboard   = document.getElementById('dashboard');
+    const gateError   = document.getElementById('gate-error');
+    const gatePwd     = document.getElementById('gate-password');
+    const gateBtn     = document.getElementById('gate-btn');
+    const logoutBtn   = document.getElementById('logout-btn');
+    const navItems    = document.querySelectorAll('.nav-item');
+    const views       = document.querySelectorAll('.view');
+    const toastEl     = document.getElementById('toast');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle  = document.getElementById('modal-title');
+    const modalBody   = document.getElementById('modal-body');
+    const modalCancel = document.getElementById('modal-cancel');
+    const modalConfirm = document.getElementById('modal-confirm');
+
+    // ── Shared state ─────────────────────────────────────────────
+    let cachedFiles = null;       // cache for Manage / Stats
+    let toastTimer  = null;
+    let modalResolve = null;
+
+    // ═══════════════════════════════════════════════════════════
+    // UTILITIES
+    // ═══════════════════════════════════════════════════════════
+
+    /** Slugify a title: lowercase, non-alphanumeric → '-', collapse, trim. */
+    function slugify(str) {
+      return str
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    /** Derive category from filename prefix (matches supabase-images.js). */
+    function categoryFromName(name) {
+      const lower = name.toLowerCase();
+      if (/^poster[-_]/.test(lower)) return 'poster';
+      if (/^logo[-_]/.test(lower))   return 'logo';
+      return 'illustration';
+    }
+
+    /** Convert a raw filename into a human-readable title. */
+    function prettifyName(name) {
+      // strip extension
+      const base = name.replace(/\.[^.]+$/, '');
+      // replace dashes and underscores with spaces, then title-case each word
+      return base
+        .replace(/[-_]+/g, ' ')
+        .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    }
+
+    /** Show a toast. type: 'success' | 'error'. Auto-dismisses after 3 s. */
+    function showToast(message, type = 'success') {
+      if (toastTimer) clearTimeout(toastTimer);
+      toastEl.textContent = message;
+      toastEl.className = `show ${type}`;
+      toastTimer = setTimeout(() => {
+        toastEl.className = '';
+        toastEl.textContent = '';
+      }, 3000);
+    }
+
+    /**
+     * Open a confirm modal. Returns a Promise<boolean>.
+     * filename is set via textContent (no innerHTML).
+     */
+    function confirmModal(filename) {
+      return new Promise(resolve => {
+        modalResolve = resolve;
+        modalTitle.textContent = 'Confirm Delete';
+        // Build the message safely — no innerHTML with user data
+        modalBody.textContent = '';
+        const msg = document.createTextNode('Delete ');
+        const em  = document.createElement('strong');
+        em.textContent = filename;
+        const end = document.createTextNode('? This cannot be undone.');
+        modalBody.appendChild(msg);
+        modalBody.appendChild(em);
+        modalBody.appendChild(end);
+        modalOverlay.classList.add('open');
+      });
+    }
+
+    modalCancel.addEventListener('click', () => {
+      modalOverlay.classList.remove('open');
+      if (modalResolve) { modalResolve(false); modalResolve = null; }
+    });
+    modalConfirm.addEventListener('click', () => {
+      modalOverlay.classList.remove('open');
+      if (modalResolve) { modalResolve(true); modalResolve = null; }
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // AUTH
+    // ═══════════════════════════════════════════════════════════
+
+    function showDashboard() {
+      gate.style.display = 'none';
+      dashboard.style.display = 'block';
+    }
+
+    // Check session on load
+    if (sessionStorage.getItem('admin_auth') === 'true') {
+      showDashboard();
+    }
+
+    gateBtn.addEventListener('click', handleLogin);
+    gatePwd.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+
+    function handleLogin() {
+      const val = gatePwd.value;
+      if (val === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin_auth', 'true');
+        gateError.style.display = 'none';
+        showDashboard();
+      } else {
+        gateError.textContent = 'Incorrect password. Please try again.';
+        gateError.style.display = 'block';
+        gatePwd.value = '';
+        gatePwd.focus();
+      }
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('admin_auth');
+      location.reload();
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // NAVIGATION
+    // ═══════════════════════════════════════════════════════════
+
+    navItems.forEach(item => {
+      item.addEventListener('click',  () => switchView(item.dataset.view));
+      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') switchView(item.dataset.view); });
+    });
+
+    function switchView(viewName) {
+      navItems.forEach(n => {
+        n.classList.toggle('active', n.dataset.view === viewName);
+        n.setAttribute('aria-current', n.dataset.view === viewName ? 'page' : 'false');
+      });
+      views.forEach(v => v.classList.toggle('active', v.id === `view-${viewName}`));
+
+      if (viewName === 'manage') loadManage();
+      if (viewName === 'stats')  loadStats();
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // VIEW 1: UPLOAD
+    // ═══════════════════════════════════════════════════════════
+
+    const uploadForm      = document.getElementById('upload-form');
+    const fileInput       = document.getElementById('file-input');
+    const dropArea        = document.getElementById('drop-area');
+    const previewWrap     = document.getElementById('upload-preview-wrap');
+    const previewImg      = document.getElementById('upload-preview');
+    const previewFilename = document.getElementById('preview-filename');
+    const uploadTitle     = document.getElementById('upload-title');
+    const uploadCategory  = document.getElementById('upload-category');
+    const uploadCredit    = document.getElementById('upload-credit');
+    const uploadDesc      = document.getElementById('upload-description');
+    const uploadBtn       = document.getElementById('upload-btn');
+    const uploadStatus    = document.getElementById('upload-status');
+    const progressWrap    = document.getElementById('upload-progress-wrap');
+    const progressBar     = document.getElementById('upload-progress');
+
+    // Live preview when file is chosen
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        previewWrap.style.display = 'none';
+        dropArea.classList.remove('has-file');
+        return;
+      }
+      dropArea.classList.add('has-file');
+      const url = URL.createObjectURL(file);
+      previewImg.src = url;
+      previewImg.alt = 'Preview of ' + file.name;
+      previewFilename.textContent = file.name;
+      previewWrap.style.display = 'block';
+    });
+
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await handleUpload();
+    });
+
+    async function handleUpload() {
+      const file     = fileInput.files[0];
+      const title    = uploadTitle.value.trim();
+      const category = uploadCategory.value;
+
+      // Validate
+      if (!file) {
+        setUploadStatus('Please choose an image file.', 'error');
+        return;
+      }
+      if (!title) {
+        setUploadStatus('Title is required.', 'error');
+        uploadTitle.focus();
+        return;
+      }
+
+      // Build filename: {category}-{slug}-{timestamp}.{ext}
+      const slug     = slugify(title);
+      const ext      = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '');
+      const filename = `${category}-${slug}-${Date.now()}.${ext}`;
+
+      // Loading state
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Uploading…';
+      setUploadStatus('Uploading, please wait…', 'info');
+      progressWrap.style.display = 'block';
+      progressBar.value = 0;
+
+      // Simulate progress start (Supabase JS v2 doesn't expose real upload progress)
+      let fakeProgress = 0;
+      const progressInterval = setInterval(() => {
+        fakeProgress = Math.min(fakeProgress + 8, 85);
+        progressBar.value = fakeProgress;
+      }, 150);
+
+      try {
+        const { error } = await supabase.storage
+          .from(BUCKET)
+          .upload(filename, file, { cacheControl: '3600', upsert: false });
+
+        clearInterval(progressInterval);
+
+        if (error) {
+          progressBar.value = 0;
+          setUploadStatus(`Upload failed: ${error.message}`, 'error');
+          return;
+        }
+
+        progressBar.value = 100;
+
+        // Reset form
+        uploadForm.reset();
+        previewWrap.style.display = 'none';
+        previewImg.src = '';
+        dropArea.classList.remove('has-file');
+        uploadCredit.value = 'shailendra mourya';
+
+        setUploadStatus('', '');
+        cachedFiles = null; // invalidate cache
+
+        showToast(`${filename} uploaded successfully!`);
+
+      } catch (err) {
+        clearInterval(progressInterval);
+        progressBar.value = 0;
+        setUploadStatus(`Unexpected error: ${err.message}`, 'error');
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = 'Upload Design';
+        setTimeout(() => {
+          progressWrap.style.display = 'none';
+          progressBar.value = 0;
+        }, 1500);
+      }
+    }
+
+    function setUploadStatus(msg, type) {
+      uploadStatus.className = `upload-status${type ? ' ' + type : ''}`;
+      uploadStatus.textContent = msg;
+      uploadStatus.style.display = msg ? '' : 'none';
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // FETCH FILES (shared by Manage + Stats)
+    // ═══════════════════════════════════════════════════════════
+
+    async function fetchFiles(forceRefresh = false) {
+      if (cachedFiles && !forceRefresh) return { data: cachedFiles, error: null };
+      try {
+        const { data, error } = await supabase.storage
+          .from(BUCKET)
+          .list('', { limit: 200, sortBy: { column: 'created_at', order: 'desc' } });
+        if (error) return { data: null, error };
+        const files = (data || []).filter(f => f.name && !f.name.startsWith('.'));
+        cachedFiles = files;
+        return { data: files, error: null };
+      } catch (err) {
+        return { data: null, error: err };
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // VIEW 2: MANAGE DESIGNS
+    // ═══════════════════════════════════════════════════════════
+
+    const manageContent = document.getElementById('manage-content');
+    const refreshBtn    = document.getElementById('refresh-btn');
+    let   manageLoaded  = false;
+
+    refreshBtn.addEventListener('click', () => loadManage(true));
+
+    async function loadManage(forceRefresh = false) {
+      renderSpinner(manageContent);
+
+      const { data: files, error } = await fetchFiles(forceRefresh);
+
+      if (error) {
+        renderFetchError(manageContent, error.message || 'Failed to fetch files.');
+        return;
+      }
+
+      if (!files || files.length === 0) {
+        renderEmpty(manageContent, 'No designs uploaded yet.');
+        return;
+      }
+
+      buildDesignGrid(manageContent, files);
+      manageLoaded = true;
+    }
+
+    function buildDesignGrid(container, files) {
+      container.textContent = '';
+      const grid = document.createElement('div');
+      grid.className = 'designs-grid';
+
+      files.forEach(file => {
+        const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(file.name);
+        const publicUrl = urlData.publicUrl;
+
+        const card = document.createElement('div');
+        card.className = 'design-card';
+        card.setAttribute('data-filename', file.name);
+
+        // Thumbnail
+        const img = document.createElement('img');
+        img.className = 'design-card-thumb';
+        img.loading = 'lazy';
+        img.src = publicUrl;
+        img.alt = prettifyName(file.name); // textContent equivalent for alt
+        card.appendChild(img);
+
+        // Body
+        const body = document.createElement('div');
+        body.className = 'design-card-body';
+
+        // Name
+        const nameEl = document.createElement('div');
+        nameEl.className = 'design-card-name';
+        nameEl.textContent = prettifyName(file.name); // safe: textContent
+        body.appendChild(nameEl);
+
+        // Category badge
+        const cat      = categoryFromName(file.name);
+        const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+        const badge    = document.createElement('span');
+        badge.className = 'category-badge';
+        badge.textContent = catLabel; // safe: textContent
+        body.appendChild(badge);
+
+        // Actions
+        const actions = document.createElement('div');
+        actions.className = 'design-card-actions';
+
+        // Copy URL button
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'btn btn-secondary btn-sm';
+        copyBtn.type = 'button';
+        copyBtn.textContent = 'Copy URL';
+        copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(publicUrl);
+            showToast('URL copied to clipboard!');
+          } catch {
+            showToast('Could not copy URL.', 'error');
+          }
+        });
+        actions.appendChild(copyBtn);
+
+        // Delete button
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-sm';
+        delBtn.type = 'button';
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', () => handleDelete(file.name, card));
+        actions.appendChild(delBtn);
+
+        body.appendChild(actions);
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+
+      container.appendChild(grid);
+    }
+
+    async function handleDelete(filename, cardEl) {
+      const confirmed = await confirmModal(filename);
+      if (!confirmed) return;
+
+      try {
+        const { error } = await supabase.storage.from(BUCKET).remove([filename]);
+        if (error) {
+          showToast(`Delete failed: ${error.message}`, 'error');
+          return;
+        }
+        // Remove card from DOM
+        cardEl.remove();
+        cachedFiles = null; // invalidate cache
+        showToast(`${filename} deleted.`);
+      } catch (err) {
+        showToast(`Unexpected error: ${err.message}`, 'error');
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // VIEW 3: STATS
+    // ═══════════════════════════════════════════════════════════
+
+    const statsContent = document.getElementById('stats-content');
+
+    async function loadStats() {
+      renderSpinner(statsContent);
+
+      const { data: files, error } = await fetchFiles();
+
+      if (error) {
+        renderFetchError(statsContent, error.message || 'Failed to fetch files.');
+        return;
+      }
+
+      if (!files || files.length === 0) {
+        renderEmpty(statsContent, 'No designs uploaded yet — stats unavailable.');
+        return;
+      }
+
+      buildStats(statsContent, files);
+    }
+
+    function buildStats(container, files) {
+      container.textContent = '';
+
+      // Count categories
+      const counts = { illustration: 0, poster: 0, logo: 0, other: 0 };
+      files.forEach(f => {
+        const cat = categoryFromName(f.name);
+        if (cat in counts) counts[cat]++;
+        else counts.other++;
+      });
+
+      const total = files.length;
+
+      // ── Stat cards ──
+      const statsSection = document.createElement('div');
+
+      const statCardsTitle = document.createElement('p');
+      statCardsTitle.className = 'stats-section-title';
+      statCardsTitle.textContent = 'Overview';
+      statsSection.appendChild(statCardsTitle);
+
+      const grid = document.createElement('div');
+      grid.className = 'stats-grid';
+
+      const statDefs = [
+        { label: 'Total Designs',    value: total },
+        { label: 'Illustrations',    value: counts.illustration },
+        { label: 'Posters',          value: counts.poster },
+        { label: 'Logos',            value: counts.logo },
+      ];
+      if (counts.other > 0) statDefs.push({ label: 'Other', value: counts.other });
+
+      statDefs.forEach(({ label, value }) => {
+        const card = document.createElement('div');
+        card.className = 'stat-card';
+
+        const num = document.createElement('div');
+        num.className = 'stat-number';
+        num.textContent = String(value);
+
+        const lbl = document.createElement('div');
+        lbl.className = 'stat-label';
+        lbl.textContent = label;
+
+        card.appendChild(num);
+        card.appendChild(lbl);
+        grid.appendChild(card);
+      });
+
+      statsSection.appendChild(grid);
+      container.appendChild(statsSection);
+
+      // ── Bar chart ──
+      const chartSection = document.createElement('div');
+
+      const chartTitle = document.createElement('p');
+      chartTitle.className = 'stats-section-title';
+      chartTitle.textContent = 'Category Breakdown';
+      chartSection.appendChild(chartTitle);
+
+      const chart = document.createElement('div');
+      chart.className = 'bar-chart';
+      chart.setAttribute('role', 'img');
+      chart.setAttribute('aria-label', 'Category breakdown bar chart');
+
+      const barDefs = [
+        { label: 'Illustration', count: counts.illustration },
+        { label: 'Poster',       count: counts.poster },
+        { label: 'Logo',         count: counts.logo },
+      ];
+      if (counts.other > 0) barDefs.push({ label: 'Other', count: counts.other });
+
+      barDefs.forEach(({ label, count }) => {
+        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+
+        const row = document.createElement('div');
+        row.className = 'bar-row';
+
+        const lbl = document.createElement('div');
+        lbl.className = 'bar-label';
+        lbl.textContent = label;
+
+        const track = document.createElement('div');
+        track.className = 'bar-track';
+
+        const fill = document.createElement('div');
+        fill.className = 'bar-fill';
+        fill.style.width = pct + '%'; // inline percentage — no user data in this value
+
+        track.appendChild(fill);
+
+        const cnt = document.createElement('div');
+        cnt.className = 'bar-count';
+        cnt.textContent = String(count);
+
+        row.appendChild(lbl);
+        row.appendChild(track);
+        row.appendChild(cnt);
+        chart.appendChild(row);
+      });
+
+      chartSection.appendChild(chart);
+      container.appendChild(chartSection);
+
+      // ── Most recent ──
+      const recentSection = document.createElement('div');
+
+      const recentTitle = document.createElement('p');
+      recentTitle.className = 'stats-section-title';
+      recentTitle.textContent = 'Most Recently Uploaded';
+      recentSection.appendChild(recentTitle);
+
+      const recent = files[0]; // already sorted desc by created_at
+      if (recent) {
+        const card = document.createElement('div');
+        card.className = 'recent-card';
+
+        const nameRow = document.createElement('div');
+        nameRow.className = 'field-row';
+        const nameKey = document.createElement('div');
+        nameKey.className = 'field-key';
+        nameKey.textContent = 'Filename';
+        const nameVal = document.createElement('div');
+        nameVal.className = 'field-val';
+        nameVal.textContent = recent.name; // textContent — no innerHTML
+        nameRow.appendChild(nameKey);
+        nameRow.appendChild(nameVal);
+
+        const dateRow = document.createElement('div');
+        dateRow.className = 'field-row';
+        const dateKey = document.createElement('div');
+        dateKey.className = 'field-key';
+        dateKey.textContent = 'Uploaded';
+        const dateVal = document.createElement('div');
+        dateVal.className = 'field-val';
+        const rawDate = recent.created_at || recent.updated_at;
+        if (rawDate) {
+          dateVal.textContent = new Date(rawDate).toLocaleString(undefined, {
+            year: 'numeric', month: 'long', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
+        } else {
+          dateVal.textContent = 'Date unavailable';
+        }
+        dateRow.appendChild(dateKey);
+        dateRow.appendChild(dateVal);
+
+        card.appendChild(nameRow);
+        card.appendChild(dateRow);
+        recentSection.appendChild(card);
+      }
+
+      container.appendChild(recentSection);
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // SHARED RENDER HELPERS
+    // ═══════════════════════════════════════════════════════════
+
+    function renderSpinner(container) {
+      container.textContent = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'spinner-wrap';
+      const spinner = document.createElement('div');
+      spinner.className = 'spinner';
+      spinner.setAttribute('aria-label', 'Loading');
+      const txt = document.createElement('span');
+      txt.textContent = 'Loading…';
+      wrap.appendChild(spinner);
+      wrap.appendChild(txt);
+      container.appendChild(wrap);
+    }
+
+    function renderEmpty(container, message) {
+      container.textContent = '';
+      const div = document.createElement('div');
+      div.className = 'empty-state';
+      const p = document.createElement('p');
+      p.textContent = message;
+      div.appendChild(p);
+      container.appendChild(div);
+    }
+
+    function renderFetchError(container, message) {
+      container.textContent = '';
+      const div = document.createElement('div');
+      div.className = 'fetch-error';
+      div.textContent = 'Error: ' + message;
+      container.appendChild(div);
+    }
+  </script>
+
+</body>
+</html>
