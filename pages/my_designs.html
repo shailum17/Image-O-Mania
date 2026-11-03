@@ -83,68 +83,115 @@
   <script src="../scripts/script.js"></script>
   <script src="../scripts/creative_design.js"></script>
 
-  <!-- Supabase dynamic image loader — fill in real values to enable -->
-  <script type="module">
-    // TODO: Replace placeholder values with your real Supabase project credentials.
-    // See SUPABASE_SETUP.md for instructions.
-    window.SUPABASE_CONFIG = {
-      url: 'YOUR_SUPABASE_URL',       // e.g. https://xyzxyz.supabase.co
-      anonKey: 'YOUR_SUPABASE_ANON_KEY' // e.g. eyJhbGci...
-    };
+  <!-- Supabase dynamic image loader -->
+  <script>
+    // Non-module wrapper so this runs even without a dev server
+    (function() {
+      var SUPABASE_URL = 'https://mksomjbsvpxbkikjacrz.supabase.co';
+      var SUPABASE_KEY = 'sb_publishable_6arxml-8yamM1RQyat8BlQ_YSKvz30j';
 
-    import { fetchDesignImages, renderDesignGallery } from '../scripts/supabase-images.js';
+      function categoryFromName(name) {
+        var l = name.toLowerCase();
+        if (/^poster[-_]/.test(l)) return 'poster';
+        if (/^logo[-_]/.test(l))   return 'logo';
+        return 'illustration';
+      }
 
-    // Re-initialise category filter buttons against a fresh card NodeList.
-    // Mirrors the logic in creative_design.js so dynamic cards are included.
-    function initFilters() {
-      const buttons = document.querySelectorAll('.category-buttons button');
-      const cards = document.querySelectorAll('.design-gallery .design-card');
-      buttons.forEach(btn => {
-        // Remove any previously attached listener by cloning the node
-        const fresh = btn.cloneNode(true);
-        btn.parentNode.replaceChild(fresh, btn);
-      });
-      document.querySelectorAll('.category-buttons button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.category-buttons button').forEach(b => b.classList.remove('active'));
+      function titleFromName(name) {
+        var base  = name.replace(/\.[^.]+$/, '');
+        var parts = base.split('-');
+        var isTs  = /^\d{10,}$/.test(parts[parts.length - 1]);
+        var mid   = parts.slice(1, isTs ? -1 : undefined);
+        return (mid.length ? mid : parts)
+          .map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); })
+          .join(' ');
+      }
+
+      function initFilters() {
+        var container = document.querySelector('.category-buttons');
+        var gallery   = document.querySelector('.design-gallery');
+        if (!container || !gallery) return;
+        var fresh = container.cloneNode(true);
+        container.parentNode.replaceChild(fresh, container);
+        fresh.addEventListener('click', function(e) {
+          var btn = e.target.closest('button[data-category]');
+          if (!btn) return;
+          fresh.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
           btn.classList.add('active');
-          const category = btn.getAttribute('data-category');
-          document.querySelectorAll('.design-gallery .design-card').forEach(card => {
-            const match = category === 'all' || card.getAttribute('data-category') === category;
-            card.style.display = match ? 'inline-block' : 'none';
+          var cat = btn.getAttribute('data-category');
+          gallery.querySelectorAll('.design-card').forEach(function(card) {
+            card.style.display =
+              (cat === 'all' || card.getAttribute('data-category') === cat)
+                ? 'inline-block' : 'none';
           });
         });
-      });
-    }
-
-    async function loadSupabaseImages() {
-      const config = window.SUPABASE_CONFIG;
-      // Skip gracefully if config is still placeholder or missing
-      if (!config?.url || config.url === 'YOUR_SUPABASE_URL') return;
-
-      let galleryMutated = false;
-      try {
-        const images = await fetchDesignImages('designs', '');
-        if (!images || images.length === 0) return; // keep static fallback cards
-
-        galleryMutated = renderDesignGallery(images);
-      } catch (err) {
-        // Silent fallback — static cards remain visible
-        console.warn('Supabase image load skipped:', err?.message);
-      } finally {
-        // Always re-init filters if gallery was cleared, so filter buttons are
-        // never left targeting detached nodes from the original static NodeList.
-        if (galleryMutated) {
-          initFilters();
-        }
       }
-    }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadSupabaseImages);
-    } else {
-      loadSupabaseImages();
-    }
+      function renderGallery(supabase, files) {
+        var gallery = document.querySelector('.design-gallery');
+        if (!gallery) return;
+        gallery.innerHTML = '';
+        files.forEach(function(file, i) {
+          var urlData = supabase.storage.from('designs').getPublicUrl(file.name);
+          var fig = document.createElement('figure');
+          fig.className = 'design-card';
+          fig.setAttribute('data-category', categoryFromName(file.name));
+          var img = document.createElement('img');
+          img.loading = 'lazy';
+          img.src = urlData.data.publicUrl;
+          img.alt = 'Design ' + (i + 1);
+          var cap = document.createElement('figcaption');
+          var b = document.createElement('b');
+          b.textContent = titleFromName(file.name);
+          var br = document.createElement('br');
+          var small = document.createElement('small');
+          small.textContent = 'Credit: shailendra mourya';
+          cap.append(b, br, small);
+          fig.append(img, cap);
+          gallery.appendChild(fig);
+        });
+        initFilters();
+        console.log('[Supabase] gallery rendered with', files.length, 'images');
+      }
+
+      function loadDesigns() {
+        // Dynamically load Supabase from CDN then fetch
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+        s.onload = function() {
+          var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+          console.log('[Supabase] client created, fetching designs bucket...');
+          supabase.storage
+            .from('designs')
+            .list('', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } })
+            .then(function(result) {
+              console.log('[Supabase] data:', result.data);
+              console.log('[Supabase] error:', result.error);
+              if (result.error) {
+                console.error('[Supabase] fetch failed:', result.error.message);
+                return;
+              }
+              var files = (result.data || []).filter(function(f){
+                return f.name && !f.name.startsWith('.');
+              });
+              console.log('[Supabase] files found:', files.length, files.map(function(f){ return f.name; }));
+              if (files.length > 0) {
+                renderGallery(supabase, files);
+              }
+            });
+        };
+        s.onerror = function() {
+          console.error('[Supabase] failed to load SDK from CDN');
+        };
+        document.head.appendChild(s);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadDesigns);
+      } else {
+        loadDesigns();
+      }
+    })();
   </script>
 </body>
 </html>

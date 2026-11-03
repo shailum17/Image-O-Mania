@@ -108,8 +108,8 @@ You can then import this client in TypeScript modules that are processed by Vite
 
 ## 8. ⚠️ Never commit real credentials to git
 
-- The `.env` file contains only **placeholder** values and is safe to commit as-is.
-- If you replace the placeholders with real keys, add `.env` to `.gitignore` before committing.
+- The `.env` file already contains a live `VITE_UNSPLASH_KEY`. If you haven't already, add `.env` to `.gitignore` to avoid accidentally committing it. Check with `git check-ignore -v .env`.
+- The Supabase placeholder values added to `.env` are safe as-is, but once you replace them with real keys the entire file becomes sensitive.
 - Never put a real Supabase URL or anon key directly inside a committed HTML or JS file.
 - The `anon` key is technically public-safe (it respects RLS policies), but it is still best practice to keep it out of version control.
 
