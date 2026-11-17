@@ -59,22 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------------------------
     // 5. Category filter
     // -----------------------------------------------------------
-    const filterButtons = document.querySelectorAll('.filter-bar button');
-    const designCards = document.querySelectorAll('#design-gallery .design-card');
+    const filterButtons = document.querySelectorAll('.category-filters .filter-btn');
+    function applyFilter(selected) {
+        // Re-query cards each time so dynamically injected carousel cards are included
+        const allCards = document.querySelectorAll('#design-gallery .design-card');
+        allCards.forEach((card) => {
+            const match = selected === 'all' || card.dataset['category'] === selected;
+            card.style.display = match ? '' : 'none';
+        });
+    }
     filterButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
-            // Update active state
             filterButtons.forEach((b) => b.classList.remove('is-active'));
             btn.classList.add('is-active');
-            const selected = btn.dataset['category'] ?? 'all';
-            designCards.forEach((card) => {
-                const match = selected === 'all' || card.dataset['category'] === selected;
-                card.classList.toggle('hidden', !match);
-            });
+            applyFilter(btn.dataset['category'] ?? 'all');
         });
     });
     // -----------------------------------------------------------
-    // 6. Lightbox
+    // 6. Lightbox — skip carousel post cards (they handle their own navigation)
     // -----------------------------------------------------------
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
@@ -82,11 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const lbClose = document.getElementById('lb-close');
     const lbPrev = document.getElementById('lb-prev');
     const lbNext = document.getElementById('lb-next');
-    // Collect all cards into an indexed array at init time
-    const cards = Array.from(document.querySelectorAll('#design-gallery .design-card'));
+    // Only static (non-carousel) cards go into the lightbox index
+    // Carousel cards are excluded — they have their own swiper
+    function getStaticCards() {
+        return Array.from(document.querySelectorAll('#design-gallery .design-card:not(.design-card--carousel)'));
+    }
     let currentIndex = 0;
     let triggerCard = null;
-    function openLightbox(index) {
+    function openLightbox(index, cards) {
         if (!lightbox || !lbImg || !lbCaption)
             return;
         currentIndex = index;
@@ -113,55 +118,46 @@ document.addEventListener('DOMContentLoaded', () => {
         triggerCard = null;
     }
     function navigateLightbox(direction) {
-        // Only navigate through currently visible (not hidden) cards
-        const visible = cards.filter((c) => !c.classList.contains('hidden'));
-        const visibleIndex = visible.indexOf(cards[currentIndex]);
+        const cards = getStaticCards().filter((c) => c.style.display !== 'none');
+        const visibleIndex = cards.indexOf(getStaticCards()[currentIndex]);
         if (visibleIndex === -1)
             return;
-        const nextVisible = (visibleIndex + direction + visible.length) % visible.length;
-        const nextCard = visible[nextVisible];
-        currentIndex = cards.indexOf(nextCard);
-        openLightbox(currentIndex);
+        const next = (visibleIndex + direction + cards.length) % cards.length;
+        currentIndex = getStaticCards().indexOf(cards[next]);
+        openLightbox(currentIndex, getStaticCards());
     }
-    // Open on card click
-    cards.forEach((card, idx) => {
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `View design ${idx + 1} full size`);
-        card.addEventListener('click', () => {
-            triggerCard = card;
-            openLightbox(idx);
-        });
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                triggerCard = card;
-                openLightbox(idx);
-            }
-        });
+    // Attach lightbox to static cards — use event delegation so it works
+    // even after Supabase dynamically replaces cards
+    document.getElementById('design-gallery')?.addEventListener('click', (e) => {
+        const card = e.target.closest('.design-card');
+        if (!card)
+            return;
+        // Skip carousel cards — clicks inside them are handled by the swiper
+        if (card.classList.contains('design-card--carousel'))
+            return;
+        const staticCards = getStaticCards();
+        const idx = staticCards.indexOf(card);
+        if (idx === -1)
+            return;
+        triggerCard = card;
+        openLightbox(idx, staticCards);
     });
     // Close button
     lbClose?.addEventListener('click', closeLightbox);
-    // Prev / Next buttons
     lbPrev?.addEventListener('click', () => navigateLightbox(-1));
     lbNext?.addEventListener('click', () => navigateLightbox(1));
-    // Click outside image closes lightbox
     lightbox?.addEventListener('click', (e) => {
         if (e.target === lightbox)
             closeLightbox();
     });
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!lightbox || lightbox.hasAttribute('hidden'))
             return;
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape')
             closeLightbox();
-        }
-        else if (e.key === 'ArrowLeft') {
+        else if (e.key === 'ArrowLeft')
             navigateLightbox(-1);
-        }
-        else if (e.key === 'ArrowRight') {
+        else if (e.key === 'ArrowRight')
             navigateLightbox(1);
-        }
     });
 });

@@ -604,6 +604,122 @@
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
     /* ═══════════════════════════════════════
+       VIEW 4: CAROUSEL
+    ═══════════════════════════════════════ */
+
+    .carousel-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .carousel-layout { grid-template-columns: 1fr; }
+    }
+
+    .carousel-upload-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .carousel-slides-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .carousel-slide-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .carousel-slide-card.drag-over {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(127,255,0,0.2);
+    }
+
+    .drag-handle {
+      cursor: grab;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      padding: 2px;
+      user-select: none;
+      line-height: 1;
+    }
+    .drag-handle:active { cursor: grabbing; }
+
+    .carousel-slide-thumb {
+      width: 72px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 5px;
+      background: #222;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .carousel-slide-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .carousel-slide-caption {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .carousel-slide-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      background: rgba(127,255,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(127,255,0,0.25);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .carousel-panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .carousel-slides-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    /* ═══════════════════════════════════════
        MOBILE
     ═══════════════════════════════════════ */
     @media (max-width: 768px) {
@@ -646,6 +762,12 @@
       .content { overflow: visible; }
 
       .designs-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+      /* Carousel editor: stack columns on mobile */
+      #cp-editor > div[style*="grid-template-columns"] {
+        display: flex !important;
+        flex-direction: column !important;
+      }
     }
   </style>
 </head>
@@ -701,6 +823,12 @@
               <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
             </svg>
             Stats
+          </div>
+          <div class="nav-item" data-view="carousel" role="button" tabindex="0">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="10" rx="2"/><polyline points="7 7 7 4 17 4 17 7"/><polyline points="7 17 7 20 17 20 17 17"/>
+            </svg>
+            Carousel
           </div>
         </nav>
       </aside>
@@ -805,6 +933,102 @@
             <div id="stats-content">
               <!-- populated by JS -->
             </div>
+          </section>
+
+          <!-- ── VIEW: CAROUSEL ── -->
+          <section class="view" id="view-carousel" aria-label="Carousel post management">
+            <h2 class="view-title">Carousel Posts</h2>
+            <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:24px; max-width:60ch;">
+              A carousel post groups multiple images into a single design card. Visitors can swipe through all images in that card on the designs page.
+            </p>
+
+            <!-- Step 1: create or pick a post -->
+            <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom:28px;">
+              <div style="flex:1; min-width:260px;">
+                <p class="carousel-panel-title">Create New Carousel Post</p>
+                <form id="cp-new-form" style="display:flex; flex-direction:column; gap:14px;" novalidate>
+                  <div class="field">
+                    <label for="cp-title">Post Title <span style="color:var(--danger)">*</span></label>
+                    <input type="text" id="cp-title" placeholder="e.g. City Series 2024" required />
+                  </div>
+                  <div class="field">
+                    <label for="cp-category">Category</label>
+                    <select id="cp-category">
+                      <option value="illustration">Illustration</option>
+                      <option value="poster">Poster</option>
+                      <option value="logo">Logo</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="cp-description">Description <small style="color:var(--text-muted)">(optional)</small></label>
+                    <textarea id="cp-description" rows="2" placeholder="Brief description…" style="resize:vertical"></textarea>
+                  </div>
+                  <div class="upload-status" id="cp-new-status" role="alert" style="display:none;"></div>
+                  <button class="btn btn-primary" id="cp-new-btn" type="submit">Create Post</button>
+                </form>
+              </div>
+
+              <div style="flex:1; min-width:260px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+                  <p class="carousel-panel-title" style="margin-bottom:0;">Existing Posts</p>
+                  <button class="btn btn-secondary btn-sm" id="cp-posts-refresh" type="button">Refresh</button>
+                </div>
+                <div id="cp-posts-list">
+                  <!-- populated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: upload images to selected post (shown after a post is selected) -->
+            <div id="cp-editor" style="display:none; border-top:2px solid var(--accent); padding-top:24px; margin-top:8px;">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap;">
+                <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); background:rgba(127,255,0,0.1); border:1px solid rgba(127,255,0,0.3); padding:3px 10px; border-radius:20px;">Step 2</span>
+                <h3 id="cp-editor-title" style="font-size:1rem; font-weight:700; color:var(--accent);"></h3>
+                <span id="cp-editor-category" class="category-badge"></span>
+                <button class="btn btn-secondary btn-sm" id="cp-editor-close" type="button" style="margin-left:auto;">✕ Close</button>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+
+                <!-- Add images panel -->
+                <div>
+                  <p class="carousel-panel-title">Add Images to This Post</p>
+                  <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">Select one or more images. You can upload in multiple batches.</p>
+                  <form id="cp-img-form" style="display:flex; flex-direction:column; gap:14px;" novalidate>
+                    <div class="field">
+                      <div class="file-drop-area" id="cp-img-drop">
+                        <input type="file" id="cp-img-input" accept="image/jpeg,image/png,image/svg+xml,image/gif,image/webp" multiple aria-label="Choose images" />
+                        <div class="file-drop-label">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:6px;color:var(--accent)" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><br/>
+                          <span>Click to choose files</span> or drag &amp; drop<br/>
+                          <small style="color:var(--accent);font-weight:600;">Hold Ctrl / Cmd to select multiple images at once</small><br/>
+                          <small>JPEG · PNG · SVG · WebP</small>
+                        </div>
+                      </div>
+                      <div id="cp-img-preview-list" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;"></div>
+                      <div id="cp-img-count-label" style="font-size:0.8rem; color:var(--text-muted); display:none;"></div>
+                    </div>
+                    <div id="cp-img-progress-wrap" style="display:none;" aria-live="polite">
+                      <progress id="cp-img-progress" value="0" max="100" style="width:100%; height:6px; accent-color:var(--accent); border-radius:3px;"></progress>
+                      <div id="cp-img-progress-label" style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;"></div>
+                    </div>
+                    <div class="upload-status" id="cp-img-status" role="alert" style="display:none;"></div>
+                    <button class="btn btn-primary" id="cp-img-btn" type="submit">Upload Images</button>
+                  </form>
+                </div>
+
+                <!-- Images in this post -->
+                <div>
+                  <p class="carousel-panel-title">Images in This Post</p>
+                  <div id="cp-img-list">
+                    <!-- populated by JS -->
+                  </div>
+                  <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">Drag rows to reorder <strong style="color:var(--accent)">⠿</strong> · use ▲▼ buttons · click Delete to remove.</p>
+                </div>
+
+              </div>
+            </div>
+
           </section>
 
         </main>
@@ -987,6 +1211,7 @@
 
       if (viewName === 'manage') loadManage();
       if (viewName === 'stats')  loadStats();
+      if (viewName === 'carousel') cpLoadPosts();
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -1466,6 +1691,567 @@
       div.textContent = 'Error: ' + message;
       container.appendChild(div);
     }
+    // ═══════════════════════════════════════════════════════════
+    // VIEW 4: CAROUSEL POSTS
+    // Each "post" is a folder inside designs/carousel-posts/<postId>/
+    // Metadata for all posts is stored in designs/carousel-posts/meta.json
+    // ═══════════════════════════════════════════════════════════
+
+    const CP_BUCKET    = 'designs';
+    const CP_ROOT      = 'carousel-posts';
+    const CP_META_PATH = `${CP_ROOT}/meta.json`;
+
+    let cpMeta         = null;   // { [postId]: { title, category, description, images: ['file1','file2',...] } }
+    let cpActivePostId = null;   // currently open post in the editor
+
+    // ── DOM refs ─────────────────────────────────────────────────
+    const cpNewForm       = document.getElementById('cp-new-form');
+    const cpTitleInput    = document.getElementById('cp-title');
+    const cpCategoryInput = document.getElementById('cp-category');
+    const cpDescInput     = document.getElementById('cp-description');
+    const cpNewStatus     = document.getElementById('cp-new-status');
+    const cpNewBtn        = document.getElementById('cp-new-btn');
+    const cpPostsList     = document.getElementById('cp-posts-list');
+    const cpPostsRefresh  = document.getElementById('cp-posts-refresh');
+    const cpEditor        = document.getElementById('cp-editor');
+    const cpEditorTitle   = document.getElementById('cp-editor-title');
+    const cpEditorCat     = document.getElementById('cp-editor-category');
+    const cpEditorClose   = document.getElementById('cp-editor-close');
+    const cpImgForm       = document.getElementById('cp-img-form');
+    const cpImgDrop       = document.getElementById('cp-img-drop');
+    const cpImgInput      = document.getElementById('cp-img-input');
+    const cpImgPreviewList= document.getElementById('cp-img-preview-list');
+    const cpImgProgressWrap = document.getElementById('cp-img-progress-wrap');
+    const cpImgProgress   = document.getElementById('cp-img-progress');
+    const cpImgProgressLabel = document.getElementById('cp-img-progress-label');
+    const cpImgStatus     = document.getElementById('cp-img-status');
+    const cpImgBtn        = document.getElementById('cp-img-btn');
+    const cpImgList       = document.getElementById('cp-img-list');
+
+    // ── Meta helpers ─────────────────────────────────────────────
+    async function cpLoadMeta(force = false) {
+      if (cpMeta && !force) return cpMeta;
+      try {
+        const { data, error } = await supabase.storage.from(CP_BUCKET).download(CP_META_PATH);
+        if (error || !data) { cpMeta = {}; return cpMeta; }
+        cpMeta = JSON.parse(await data.text());
+      } catch { cpMeta = {}; }
+      return cpMeta;
+    }
+
+    async function cpSaveMeta() {
+      const blob = new Blob([JSON.stringify(cpMeta, null, 2)], { type: 'application/json' });
+      const { error } = await supabase.storage.from(CP_BUCKET)
+        .upload(CP_META_PATH, blob, { cacheControl: '1', upsert: true });
+      if (error) console.error('[CP] meta save failed:', error.message);
+    }
+
+    function cpGenerateId() {
+      return 'cp-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+    }
+
+    // ── Create new post ──────────────────────────────────────────
+    cpNewForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = cpTitleInput.value.trim();
+      if (!title) { cpSetStatus(cpNewStatus, 'Title is required.', 'error'); return; }
+
+      cpNewBtn.disabled = true;
+      cpNewBtn.textContent = 'Creating…';
+
+      const meta  = await cpLoadMeta();
+      const id    = cpGenerateId();
+      meta[id] = {
+        title,
+        category:    cpCategoryInput.value,
+        description: cpDescInput.value.trim(),
+        images:      [],
+        createdAt:   new Date().toISOString(),
+      };
+      cpMeta = meta; // update module ref BEFORE saving so cpSaveMeta writes the new post
+      await cpSaveMeta();
+
+      cpNewForm.reset();
+      cpSetStatus(cpNewStatus, '', '');
+      showToast(`Post "${title}" created! Now add images below ↓`);
+      cpLoadPosts(false); // render from in-memory cpMeta — no re-fetch needed
+      cpOpenEditor(id);
+
+      cpNewBtn.disabled = false;
+      cpNewBtn.textContent = 'Create Post';
+    });
+
+    // ── Load post list ───────────────────────────────────────────
+    cpPostsRefresh.addEventListener('click', () => cpLoadPosts(true));
+
+    // Render post list from current cpMeta (no re-fetch unless force=true)
+    async function cpLoadPosts(force = false) {
+      renderSpinner(cpPostsList);
+      const meta = force ? await cpLoadMeta(true) : (cpMeta || await cpLoadMeta());
+      const ids  = Object.keys(meta);
+
+      if (ids.length === 0) {
+        renderEmpty(cpPostsList, 'No carousel posts yet.');
+        return;
+      }
+
+      cpPostsList.textContent = '';
+      ids.slice().reverse().forEach(id => {
+        const post = meta[id];
+        const row  = document.createElement('div');
+        row.style.cssText = 'display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--card-bg); border:1px solid var(--border); border-radius:8px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;';
+        row.addEventListener('mouseenter', () => row.style.borderColor = 'var(--accent)');
+        row.addEventListener('mouseleave', () => row.style.borderColor = id === cpActivePostId ? 'var(--accent)' : 'var(--border)');
+        if (id === cpActivePostId) row.style.borderColor = 'var(--accent)';
+
+        // Thumbnail strip (first image if any)
+        if (post.images && post.images.length > 0) {
+          const { data: urlData } = supabase.storage.from(CP_BUCKET).getPublicUrl(`${CP_ROOT}/${id}/${post.images[0]}`);
+          const thumb = document.createElement('img');
+          thumb.src = urlData.publicUrl;
+          thumb.alt = '';
+          thumb.style.cssText = 'width:44px; height:44px; object-fit:cover; border-radius:5px; flex-shrink:0;';
+          row.appendChild(thumb);
+        } else {
+          const placeholder = document.createElement('div');
+          placeholder.style.cssText = 'width:44px; height:44px; background:#222; border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:1.1rem;';
+          placeholder.textContent = '🖼';
+          row.appendChild(placeholder);
+        }
+
+        const info = document.createElement('div');
+        info.style.cssText = 'flex:1; min-width:0;';
+
+        const titleEl = document.createElement('div');
+        titleEl.style.cssText = 'font-size:0.875rem; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;';
+        titleEl.textContent = post.title;
+        info.appendChild(titleEl);
+
+        const meta2 = document.createElement('div');
+        meta2.style.cssText = 'font-size:0.75rem; color:var(--text-muted);';
+        meta2.textContent = `${post.category} · ${post.images ? post.images.length : 0} image${(post.images?.length === 1) ? '' : 's'}`;
+        info.appendChild(meta2);
+        row.appendChild(info);
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-secondary btn-sm';
+        editBtn.type = 'button';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', (e) => { e.stopPropagation(); cpOpenEditor(id); });
+        row.appendChild(editBtn);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-sm';
+        delBtn.type = 'button';
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          await cpDeletePost(id, post.title);
+        });
+        row.appendChild(delBtn);
+
+        row.addEventListener('click', () => cpOpenEditor(id));
+        cpPostsList.appendChild(row);
+      });
+    }
+
+    // ── Open post editor ─────────────────────────────────────────
+    function cpOpenEditor(postId) {
+      cpActivePostId = postId;
+      const post = cpMeta[postId];
+      if (!post) return;
+
+      cpEditorTitle.textContent = post.title;
+      cpEditorCat.textContent   = post.category.charAt(0).toUpperCase() + post.category.slice(1);
+
+      // Reset upload form
+      cpImgForm.reset();
+      cpImgPreviewList.textContent = '';
+      cpImgDrop.classList.remove('has-file');
+      if (cpImgCountLabel) { cpImgCountLabel.style.display = 'none'; }
+      cpSetStatus(cpImgStatus, '', '');
+
+      cpEditor.style.display = 'block';
+
+      // Flash the border to draw attention, then scroll into view
+      cpEditor.style.boxShadow = '0 0 0 3px var(--accent)';
+      setTimeout(() => { cpEditor.style.boxShadow = ''; }, 800);
+      setTimeout(() => cpEditor.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+
+      cpRenderImageList(postId);
+    }
+
+    cpEditorClose.addEventListener('click', () => {
+      cpEditor.style.display = 'none';
+      cpActivePostId = null;
+    });
+
+    // ── Image previews on file select ────────────────────────────
+    const cpImgCountLabel = document.getElementById('cp-img-count-label');
+
+    // Shared: render preview grid + count label for a FileList/array
+    function cpShowPreviews(files) {
+      cpImgPreviewList.textContent = '';
+      cpImgCountLabel.style.display = 'none';
+      if (!files.length) { cpImgDrop.classList.remove('has-file'); return; }
+
+      cpImgDrop.classList.add('has-file');
+      cpImgCountLabel.style.display = '';
+      cpImgCountLabel.textContent = `${files.length} file${files.length !== 1 ? 's' : ''} selected`;
+
+      files.forEach(file => {
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px; width:72px;';
+
+        const url = URL.createObjectURL(file);
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = file.name;
+        img.style.cssText = 'width:72px; height:72px; object-fit:cover; border-radius:6px; border:1px solid var(--border);';
+        wrap.appendChild(img);
+
+        const name = document.createElement('div');
+        name.style.cssText = 'font-size:0.65rem; color:var(--text-muted); text-align:center; word-break:break-all; line-height:1.2; max-width:72px;';
+        name.textContent = file.name.length > 14 ? file.name.slice(0, 12) + '…' : file.name;
+        wrap.appendChild(name);
+
+        cpImgPreviewList.appendChild(wrap);
+      });
+    }
+
+    cpImgInput.addEventListener('change', () => {
+      cpShowPreviews([...cpImgInput.files]);
+    });
+
+    // ── Drag-and-drop onto the drop zone ─────────────────────────
+    cpImgDrop.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+      cpImgDrop.style.borderColor = 'var(--accent)';
+    });
+
+    cpImgDrop.addEventListener('dragleave', () => {
+      cpImgDrop.style.borderColor = '';
+    });
+
+    cpImgDrop.addEventListener('drop', (e) => {
+      e.preventDefault();
+      cpImgDrop.style.borderColor = '';
+
+      // Build a DataTransfer so we can assign to the file input
+      const dt    = e.dataTransfer;
+      const files = [...dt.files].filter(f => f.type.startsWith('image/'));
+      if (!files.length) return;
+
+      // Assign dropped files to the input via DataTransfer
+      const newDt = new DataTransfer();
+      files.forEach(f => newDt.items.add(f));
+      cpImgInput.files = newDt.files;
+
+      cpShowPreviews(files);
+    });
+
+    // ── Upload images to post ────────────────────────────────────
+    cpImgForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!cpActivePostId) return;
+      const files = [...cpImgInput.files];
+      if (files.length === 0) { cpSetStatus(cpImgStatus, 'Please choose at least one image.', 'error'); return; }
+
+      cpImgBtn.disabled = true;
+      cpImgBtn.textContent = 'Uploading…';
+      cpImgProgressWrap.style.display = 'block';
+      cpImgProgress.value = 0;
+      cpSetStatus(cpImgStatus, '', '');
+
+      // Use cpMeta directly — don't re-fetch (avoids overwriting with stale CDN cache)
+      if (!cpMeta[cpActivePostId]) {
+        cpSetStatus(cpImgStatus, 'Post not found in memory. Please refresh and try again.', 'error');
+        cpImgBtn.disabled = false;
+        cpImgBtn.textContent = 'Upload Images';
+        return;
+      }
+
+      let uploaded = 0;
+      const errors = [];
+
+      for (const file of files) {
+        const ext      = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '');
+        const filename = `img-${Date.now()}-${Math.random().toString(36).slice(2,6)}.${ext}`;
+        const path     = `${CP_ROOT}/${cpActivePostId}/${filename}`;
+
+        cpImgProgressLabel.textContent = `Uploading ${uploaded + 1} / ${files.length}: ${file.name}`;
+        console.log('[CP] uploading to path:', path, 'bucket:', CP_BUCKET);
+
+        const { data: uploadData, error } = await supabase.storage
+          .from(CP_BUCKET)
+          .upload(path, file, { cacheControl: '3600', upsert: false });
+
+        console.log('[CP] upload result — data:', uploadData, 'error:', error);
+
+        if (error) {
+          console.error('[CP] upload error for', file.name, ':', error.message, error);
+          errors.push(`${file.name}: ${error.message}`);
+        } else {
+          cpMeta[cpActivePostId].images = cpMeta[cpActivePostId].images || [];
+          cpMeta[cpActivePostId].images.push(filename);
+          uploaded++;
+        }
+
+        cpImgProgress.value = Math.round(((uploaded + errors.length) / files.length) * 100);
+      }
+
+      await cpSaveMeta();
+
+      cpImgForm.reset();
+      cpImgPreviewList.textContent = '';
+      cpImgDrop.classList.remove('has-file');
+      cpImgCountLabel.style.display = 'none';
+      cpImgProgressWrap.style.display = 'none';
+      cpImgProgress.value = 0;
+      cpImgProgressLabel.textContent = '';
+
+      if (errors.length > 0) {
+        cpSetStatus(cpImgStatus, `${uploaded} uploaded. ${errors.length} failed:\n${errors.join('\n')}`, 'error');
+      } else {
+        cpSetStatus(cpImgStatus, '', '');
+        showToast(`${uploaded} image${uploaded !== 1 ? 's' : ''} added!`);
+      }
+
+      cpImgBtn.disabled = false;
+      cpImgBtn.textContent = 'Upload Images';
+
+      cpRenderImageList(cpActivePostId);
+      cpLoadPosts(false); // use in-memory data, order is already correct
+    });
+
+    // ── Render image list inside editor ──────────────────────────
+    function cpRenderImageList(postId) {
+      // Always read from the live cpMeta reference
+      const post = cpMeta[postId];
+      if (!post) return;
+
+      cpImgList.textContent = '';
+
+      if (!post.images || post.images.length === 0) {
+        renderEmpty(cpImgList, 'No images yet. Upload some on the left.');
+        return;
+      }
+
+      const list = document.createElement('div');
+      list.id = 'cp-sortable-list';
+      list.style.cssText = 'display:flex; flex-direction:column; gap:10px;';
+
+      post.images.forEach((filename, idx) => {
+        const { data: urlData } = supabase.storage.from(CP_BUCKET).getPublicUrl(`${CP_ROOT}/${postId}/${filename}`);
+        const total = post.images.length;
+
+        const row = document.createElement('div');
+        row.className = 'carousel-slide-card';
+        row.dataset.filename = filename;
+        // cursor shows it's draggable
+        row.style.cursor = 'grab';
+
+        // Drag grip icon (left side)
+        const grip = document.createElement('span');
+        grip.style.cssText = 'color:var(--text-muted); flex-shrink:0; font-size:1rem; line-height:1; user-select:none;';
+        grip.textContent = '⠿';
+        grip.title = 'Drag to reorder';
+        row.appendChild(grip);
+
+        // Position badge
+        const badge = document.createElement('div');
+        badge.className = 'order-badge';
+        badge.textContent = String(idx + 1);
+        row.appendChild(badge);
+
+        // Thumbnail
+        const thumb = document.createElement('img');
+        thumb.className = 'carousel-slide-thumb';
+        thumb.loading = 'lazy';
+        thumb.src = urlData.publicUrl;
+        thumb.alt = 'Image ' + (idx + 1);
+        row.appendChild(thumb);
+
+        // Info labels
+        const info = document.createElement('div');
+        info.className = 'carousel-slide-info';
+        const lbl = document.createElement('div');
+        lbl.className = 'carousel-slide-caption';
+        lbl.textContent = `Image ${idx + 1}`;
+        info.appendChild(lbl);
+        const sublbl = document.createElement('div');
+        sublbl.className = 'carousel-slide-sub';
+        sublbl.textContent = filename;
+        info.appendChild(sublbl);
+        row.appendChild(info);
+
+        // ── Up / Down buttons ──────────────────────────────────
+        const moveWrap = document.createElement('div');
+        moveWrap.style.cssText = 'display:flex; flex-direction:column; gap:3px; flex-shrink:0;';
+
+        const upBtn = document.createElement('button');
+        upBtn.className = 'btn btn-secondary btn-sm';
+        upBtn.type = 'button';
+        upBtn.title = 'Move up';
+        upBtn.disabled = idx === 0;
+        upBtn.style.cssText = 'padding:3px 8px; font-size:0.75rem; line-height:1;';
+        upBtn.textContent = '▲';
+        upBtn.addEventListener('click', async () => {
+          if (idx === 0) return;
+          const imgs = cpMeta[postId].images;
+          [imgs[idx - 1], imgs[idx]] = [imgs[idx], imgs[idx - 1]];
+          await cpSaveMeta();
+          cpRenderImageList(postId);
+          cpLoadPosts(false);
+        });
+
+        const downBtn = document.createElement('button');
+        downBtn.className = 'btn btn-secondary btn-sm';
+        downBtn.type = 'button';
+        downBtn.title = 'Move down';
+        downBtn.disabled = idx === total - 1;
+        downBtn.style.cssText = 'padding:3px 8px; font-size:0.75rem; line-height:1;';
+        downBtn.textContent = '▼';
+        downBtn.addEventListener('click', async () => {
+          if (idx === total - 1) return;
+          const imgs = cpMeta[postId].images;
+          [imgs[idx], imgs[idx + 1]] = [imgs[idx + 1], imgs[idx]];
+          await cpSaveMeta();
+          cpRenderImageList(postId);
+          cpLoadPosts(false);
+        });
+
+        moveWrap.appendChild(upBtn);
+        moveWrap.appendChild(downBtn);
+        row.appendChild(moveWrap);
+
+        // Delete
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-sm';
+        delBtn.type = 'button';
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', () => cpDeleteImage(postId, filename, row));
+        row.appendChild(delBtn);
+
+        list.appendChild(row);
+      });
+
+      cpImgList.appendChild(list);
+
+      // ── Native drag-and-drop reorder ──────────────────────────
+      let dragSrc = null;
+
+      list.querySelectorAll('.carousel-slide-card').forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+          dragSrc = card;
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', card.dataset.filename);
+          setTimeout(() => { card.style.opacity = '0.4'; }, 0);
+        });
+
+        card.addEventListener('dragend', () => {
+          card.style.opacity = '1';
+          list.querySelectorAll('.carousel-slide-card').forEach(c => c.classList.remove('drag-over'));
+        });
+
+        card.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          if (card !== dragSrc) card.classList.add('drag-over');
+        });
+
+        card.addEventListener('dragleave', () => {
+          card.classList.remove('drag-over');
+        });
+
+        card.addEventListener('drop', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          card.classList.remove('drag-over');
+          if (!dragSrc || dragSrc === card) return;
+
+          // Re-order the images array
+          const imgs  = cpMeta[postId].images;
+          const fromI = imgs.indexOf(dragSrc.dataset.filename);
+          const toI   = imgs.indexOf(card.dataset.filename);
+          if (fromI === -1 || toI === -1) return;
+
+          imgs.splice(toI, 0, imgs.splice(fromI, 1)[0]);
+          await cpSaveMeta();
+
+          cpRenderImageList(postId);
+          cpLoadPosts(false);
+          showToast('Order saved!');
+        });
+
+        card.setAttribute('draggable', 'true');
+      });
+    }
+
+    // ── Delete an image from a post ──────────────────────────────
+    async function cpDeleteImage(postId, filename, rowEl) {
+      const confirmed = await confirmModal(filename);
+      if (!confirmed) return;
+
+      const path = `${CP_ROOT}/${postId}/${filename}`;
+      const { error } = await supabase.storage.from(CP_BUCKET).remove([path]);
+      if (error) { showToast('Delete failed: ' + error.message, 'error'); return; }
+
+      const meta = await cpLoadMeta();
+      meta[postId].images = (meta[postId].images || []).filter(f => f !== filename);
+      cpMeta = meta; // update BEFORE saving
+      await cpSaveMeta();
+
+      rowEl.remove();
+      // Renumber badges
+      const rows = cpImgList.querySelectorAll('.carousel-slide-card');
+      rows.forEach((r, i) => {
+        const b = r.querySelector('.order-badge');
+        if (b) b.textContent = String(i + 1);
+        const lbl = r.querySelector('.carousel-slide-caption');
+        if (lbl) lbl.textContent = `Image ${i + 1}`;
+      });
+
+      if (rows.length === 0) renderEmpty(cpImgList, 'No images yet. Upload some on the left.');
+      cpLoadPosts(false);
+      showToast('Image deleted.');
+    }
+
+    // ── Delete an entire post ────────────────────────────────────
+    async function cpDeletePost(postId, postTitle) {
+      const confirmed = await confirmModal(`post "${postTitle}" and all its images`);
+      if (!confirmed) return;
+
+      const meta = await cpLoadMeta();
+      const post = meta[postId];
+
+      // Delete all images in the post folder
+      if (post?.images?.length > 0) {
+        const paths = post.images.map(f => `${CP_ROOT}/${postId}/${f}`);
+        await supabase.storage.from(CP_BUCKET).remove(paths);
+      }
+
+      delete meta[postId];
+      cpMeta = meta; // update BEFORE saving
+      await cpSaveMeta();
+
+      if (cpActivePostId === postId) {
+        cpEditor.style.display = 'none';
+        cpActivePostId = null;
+      }
+
+      showToast(`Post "${postTitle}" deleted.`);
+      cpLoadPosts(false);
+    }
+
+    // ── Utility ──────────────────────────────────────────────────
+    function cpSetStatus(el, msg, type) {
+      el.className = `upload-status${type ? ' ' + type : ''}`;
+      el.textContent = msg;
+      el.style.display = msg ? '' : 'none';
+    }
+
   </script>
 
 </body>

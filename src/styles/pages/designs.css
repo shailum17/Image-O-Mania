@@ -282,3 +282,146 @@
   border-radius: var(--radius-pill);
   white-space: nowrap;
 }
+
+/* --------------------------------------------------------
+   Carousel post card — multi-image swipeable design card
+   -------------------------------------------------------- */
+
+/* The card itself needs a non-overflow:hidden ancestor for the controls */
+.design-card--carousel {
+  overflow: visible; /* allow prev/next buttons to peek out */
+  cursor: default;   /* card is not clicked as a whole — images are */
+}
+
+.design-card--carousel .design-card__img {
+  cursor: pointer;
+}
+
+/* The image scroller sits at the top of the card */
+.dc-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: #111;
+  /* height driven by images */
+}
+
+.dc-carousel__track {
+  position: relative;
+  /* height collapses to 0 without a visible child — the active slide gives it height */
+}
+
+.dc-carousel__slide {
+  display: none;
+}
+
+.dc-carousel__slide.is-active {
+  display: block;
+  animation: dc-fadein 0.3s ease;
+}
+
+@keyframes dc-fadein {
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* Prev / Next arrow buttons */
+.dc-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition), background var(--transition);
+  backdrop-filter: blur(4px);
+  padding: 0;
+}
+
+.dc-carousel:hover .dc-carousel__btn,
+.dc-carousel:focus-within .dc-carousel__btn {
+  opacity: 1;
+}
+
+.dc-carousel__btn:hover {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.dc-carousel__btn--prev { left:  8px; }
+.dc-carousel__btn--next { right: 8px; }
+
+/* "1 / 3" counter pill — top-right corner */
+.dc-carousel__counter {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+/* Dot row at bottom of scroller */
+.dc-carousel__dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 5;
+}
+
+.dc-carousel__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.dc-carousel__dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.35);
+}
+
+/* Caption area — now below the scroller, not absolute-positioned */
+.design-card--carousel figcaption {
+  position: static;   /* override absolute from base .design-card */
+  background: var(--color-card);
+  opacity: 1;         /* always visible for carousel cards */
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.design-card--carousel .design-card__title {
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.design-card__desc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
