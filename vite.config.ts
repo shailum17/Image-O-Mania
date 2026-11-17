@@ -5,12 +5,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: 'index.html',
-        search: 'search.html',
-        designs: 'designs.html',
-        collaboration: 'collaboration.html',
-        about: 'about.html',
-        privacy: 'privacy.html',
+        // Root
+        main:          'index.html',
+        // Pages subfolder — all real pages live here
+        search:        'pages/Search.html',
+        designs:       'pages/my_designs.html',
+        collaboration: 'pages/collaboration.html',
+        about:         'pages/about.html',
+        admin:         'pages/admin.html',
+        contact:       'pages/contact.html',
+        privacy:       'pages/privacy.html',
       },
     },
   },
