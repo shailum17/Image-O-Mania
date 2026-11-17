@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/search",        "destination": "/pages/Search.html" },
+    { "source": "/my-designs",    "destination": "/pages/my_designs.html" },
+    { "source": "/collaboration", "destination": "/pages/collaboration.html" },
+    { "source": "/about",         "destination": "/pages/about.html" },
+    { "source": "/admin",         "destination": "/pages/admin.html" },
+    { "source": "/contact",       "destination": "/pages/contact.html" },
+    { "source": "/privacy",       "destination": "/pages/privacy.html" }
+  ]
+}
