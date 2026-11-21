@@ -604,6 +604,94 @@
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 
     /* ═══════════════════════════════════════
+       VIEW 5: CATEGORIES
+    ═══════════════════════════════════════ */
+    .categories-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .categories-layout { grid-template-columns: 1fr; }
+    }
+
+    .cat-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 22px;
+    }
+    .cat-form h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .cat-list-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .cat-list-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .cat-list-panel-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      margin-bottom: 10px;
+      background: var(--bg);
+      transition: border-color .2s;
+    }
+    .cat-item:hover { border-color: rgba(127,255,0,0.4); }
+    .cat-item:last-child { margin-bottom: 0; }
+
+    .cat-item-name {
+      flex: 1;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .cat-item-slug {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+    .cat-item-builtin {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+    .cat-item-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════
        VIEW 4: CAROUSEL
     ═══════════════════════════════════════ */
 
@@ -830,6 +918,13 @@
             </svg>
             Carousel
           </div>
+          <div class="nav-item" data-view="categories" role="button" tabindex="0">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7h4l2-4h6l2 4h4"/><rect x="3" y="7" width="18" height="13" rx="2"/>
+              <line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/>
+            </svg>
+            Categories
+          </div>
         </nav>
       </aside>
 
@@ -884,9 +979,7 @@
               <div class="field">
                 <label for="upload-category">Category</label>
                 <select id="upload-category">
-                  <option value="illustration">Illustration</option>
-                  <option value="poster">Poster</option>
-                  <option value="logo">Logo</option>
+                  <!-- populated dynamically from categories.json -->
                 </select>
               </div>
 
@@ -954,9 +1047,7 @@
                   <div class="field">
                     <label for="cp-category">Category</label>
                     <select id="cp-category">
-                      <option value="illustration">Illustration</option>
-                      <option value="poster">Poster</option>
-                      <option value="logo">Logo</option>
+                      <!-- populated dynamically from categories.json -->
                     </select>
                   </div>
                   <div class="field">
@@ -1031,6 +1122,43 @@
 
           </section>
 
+          <!-- ── VIEW: CATEGORIES ── -->
+          <section class="view" id="view-categories" aria-label="Manage categories">
+            <h2 class="view-title">Categories</h2>
+            <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:24px; max-width:60ch;">
+              Create custom design categories. They appear in the Upload and Carousel dropdowns instantly. Built-in categories cannot be deleted.
+            </p>
+            <div class="categories-layout">
+
+              <!-- Create form -->
+              <div class="cat-form">
+                <h3>Add New Category</h3>
+                <div class="field">
+                  <label for="cat-name-input">Display Name <span style="color:var(--danger)">*</span></label>
+                  <input type="text" id="cat-name-input" placeholder="e.g. Typography" maxlength="40" autocomplete="off" />
+                </div>
+                <div class="field">
+                  <label for="cat-slug-preview">Slug (auto-generated)</label>
+                  <input type="text" id="cat-slug-preview" placeholder="typography" readonly style="opacity:.6; cursor:not-allowed;" />
+                </div>
+                <div class="upload-status" id="cat-status" role="alert" style="display:none;"></div>
+                <button class="btn btn-primary" id="cat-add-btn" type="button">Add Category</button>
+              </div>
+
+              <!-- List panel -->
+              <div class="cat-list-panel">
+                <div class="cat-list-panel-header">
+                  <h3>All Categories</h3>
+                  <button class="btn btn-secondary btn-sm" id="cat-refresh-btn" type="button">Refresh</button>
+                </div>
+                <div id="cat-list">
+                  <!-- populated by JS -->
+                </div>
+              </div>
+
+            </div>
+          </section>
+
         </main>
       </div><!-- /.main -->
     </div><!-- /.layout -->
@@ -1056,6 +1184,7 @@
   ══════════════════════════════════════ -->
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+    import { postToPinterest } from '../scripts/pinterest.js';
 
     // ── Supabase client ──────────────────────────────────────────
     const SUPABASE_URL     = 'https://mksomjbsvpxbkikjacrz.supabase.co';
@@ -1209,9 +1338,10 @@
       });
       views.forEach(v => v.classList.toggle('active', v.id === `view-${viewName}`));
 
-      if (viewName === 'manage') loadManage();
-      if (viewName === 'stats')  loadStats();
-      if (viewName === 'carousel') cpLoadPosts();
+      if (viewName === 'manage')     loadManage();
+      if (viewName === 'stats')      loadStats();
+      if (viewName === 'carousel')   cpLoadPosts();
+      if (viewName === 'categories') catRender();
     }
 
     // ═══════════════════════════════════════════════════════════
@@ -1315,6 +1445,22 @@
         cachedFiles = null; // invalidate cache
 
         showToast(`${filename} uploaded successfully!`);
+
+        // ── Post to Pinterest ────────────────────────────────────────────
+        const { data: { publicUrl } } = supabase.storage
+          .from(BUCKET)
+          .getPublicUrl(filename);
+
+        const description = uploadDesc.value.trim();
+        const pinResult   = await postToPinterest(publicUrl, title, description);
+
+        if (pinResult.ok) {
+          showToast(`📌 Also pinned to Pinterest!`, 'success');
+        } else if (pinResult.error !== 'credentials_not_set') {
+          // Don't block the user — just surface it as a subtle warning
+          showToast(`Upload OK · Pinterest: ${pinResult.error}`, 'error');
+        }
+        // ────────────────────────────────────────────────────────────────
 
       } catch (err) {
         clearInterval(progressInterval);
@@ -2251,6 +2397,199 @@
       el.textContent = msg;
       el.style.display = msg ? '' : 'none';
     }
+
+    // ═══════════════════════════════════════════════════════════
+    // VIEW 5: CATEGORIES
+    // Categories are stored in designs/categories.json as:
+    //   [ { slug: "illustration", label: "Illustration", builtin: true }, ... ]
+    // ═══════════════════════════════════════════════════════════
+
+    const CAT_PATH     = 'categories.json';
+    const BUILTIN_CATS = [
+      { slug: 'illustration', label: 'Illustration', builtin: true },
+      { slug: 'poster',       label: 'Poster',       builtin: true },
+      { slug: 'logo',         label: 'Logo',         builtin: true },
+    ];
+
+    let catData = null; // array of { slug, label, builtin? }
+
+    // ── DOM refs ─────────────────────────────────────────────────
+    const catNameInput   = document.getElementById('cat-name-input');
+    const catSlugPreview = document.getElementById('cat-slug-preview');
+    const catStatus      = document.getElementById('cat-status');
+    const catAddBtn      = document.getElementById('cat-add-btn');
+    const catList        = document.getElementById('cat-list');
+    const catRefreshBtn  = document.getElementById('cat-refresh-btn');
+
+    // Live slug preview while typing
+    catNameInput.addEventListener('input', () => {
+      catSlugPreview.value = slugify(catNameInput.value);
+    });
+
+    // ── Load / save ──────────────────────────────────────────────
+    async function catLoad(force = false) {
+      if (catData && !force) return catData;
+      try {
+        const { data, error } = await supabase.storage.from(BUCKET).download(CAT_PATH);
+        if (!error && data) {
+          const parsed = JSON.parse(await data.text());
+          // Merge: keep builtins at front, append custom ones
+          const custom = parsed.filter(c => !c.builtin);
+          catData = [...BUILTIN_CATS, ...custom];
+        } else {
+          catData = [...BUILTIN_CATS];
+        }
+      } catch {
+        catData = [...BUILTIN_CATS];
+      }
+      return catData;
+    }
+
+    async function catSave() {
+      const blob = new Blob([JSON.stringify(catData, null, 2)], { type: 'application/json' });
+      const { error } = await supabase.storage.from(BUCKET)
+        .upload(CAT_PATH, blob, { cacheControl: '1', upsert: true });
+      if (error) console.error('[Categories] save failed:', error.message);
+    }
+
+    // ── Populate a <select> element from catData ─────────────────
+    async function catPopulateSelect(selectEl, selectedSlug) {
+      const cats = await catLoad();
+      selectEl.textContent = ''; // clear existing options
+      cats.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.slug;
+        opt.textContent = c.label;
+        if (c.slug === selectedSlug) opt.selected = true;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    // ── Render category list ──────────────────────────────────────
+    async function catRender(force = false) {
+      renderSpinner(catList);
+      const cats = await catLoad(force);
+      catList.textContent = '';
+
+      if (cats.length === 0) {
+        renderEmpty(catList, 'No categories yet.');
+        return;
+      }
+
+      cats.forEach(cat => {
+        const item = document.createElement('div');
+        item.className = 'cat-item';
+        item.dataset.slug = cat.slug;
+
+        const nameEl = document.createElement('div');
+        nameEl.className = 'cat-item-name';
+        nameEl.textContent = cat.label;
+
+        const slugEl = document.createElement('div');
+        slugEl.className = 'cat-item-slug';
+        slugEl.textContent = cat.slug;
+
+        item.appendChild(nameEl);
+        item.appendChild(slugEl);
+
+        if (cat.builtin) {
+          const badge = document.createElement('span');
+          badge.className = 'cat-item-builtin';
+          badge.textContent = 'built-in';
+          item.appendChild(badge);
+        }
+
+        const actions = document.createElement('div');
+        actions.className = 'cat-item-actions';
+
+        if (!cat.builtin) {
+          // Delete button
+          const delBtn = document.createElement('button');
+          delBtn.className = 'btn btn-danger btn-sm';
+          delBtn.type = 'button';
+          delBtn.textContent = 'Delete';
+          delBtn.addEventListener('click', () => catDelete(cat.slug, cat.label));
+          actions.appendChild(delBtn);
+        }
+
+        item.appendChild(actions);
+        catList.appendChild(item);
+      });
+    }
+
+    // ── Add category ──────────────────────────────────────────────
+    catAddBtn.addEventListener('click', async () => {
+      const label = catNameInput.value.trim();
+      if (!label) {
+        catSetStatus('Category name is required.', 'error');
+        catNameInput.focus();
+        return;
+      }
+      const slug = slugify(label);
+      if (!slug) {
+        catSetStatus('Name must contain at least one letter or number.', 'error');
+        catNameInput.focus();
+        return;
+      }
+
+      await catLoad(); // ensure catData is populated
+      if (catData.some(c => c.slug === slug)) {
+        catSetStatus(`A category with slug "${slug}" already exists.`, 'error');
+        return;
+      }
+
+      catAddBtn.disabled = true;
+      catAddBtn.textContent = 'Adding…';
+
+      catData.push({ slug, label });
+      await catSave();
+      await refreshAllCategoryDropdowns();
+
+      catNameInput.value = '';
+      catSlugPreview.value = '';
+      catSetStatus('', '');
+      catRender();
+      showToast(`Category "${label}" added!`);
+
+      catAddBtn.disabled = false;
+      catAddBtn.textContent = 'Add Category';
+    });
+
+    catNameInput.addEventListener('keydown', e => { if (e.key === 'Enter') catAddBtn.click(); });
+
+    // ── Delete category ───────────────────────────────────────────
+    async function catDelete(slug, label) {
+      const confirmed = await confirmModal(`category "${label}"`);
+      if (!confirmed) return;
+      catData = catData.filter(c => c.slug !== slug);
+      await catSave();
+      await refreshAllCategoryDropdowns();
+      catRender();
+      showToast(`Category "${label}" deleted.`);
+    }
+
+    // ── Refresh all dropdowns across the admin panel ───────────────
+    async function refreshAllCategoryDropdowns() {
+      await catLoad(true); // force re-read from memory (already updated)
+      await catPopulateSelect(uploadCategory, uploadCategory.value);
+      await catPopulateSelect(cpCategoryInput, cpCategoryInput.value);
+    }
+
+    // ── Status helper ─────────────────────────────────────────────
+    function catSetStatus(msg, type) {
+      catStatus.className = `upload-status${type ? ' ' + type : ''}`;
+      catStatus.textContent = msg;
+      catStatus.style.display = msg ? '' : 'none';
+    }
+
+    catRefreshBtn.addEventListener('click', () => catRender(true));
+
+    // ── Init: populate dropdowns from stored categories on load ───
+    (async () => {
+      await catLoad();
+      await catPopulateSelect(uploadCategory);
+      await catPopulateSelect(cpCategoryInput);
+    })();
 
   </script>
 
